@@ -846,8 +846,34 @@ article {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   ROADMAP PAGE · interactive checklist with progress
+   ROADMAP PAGE · v5 HTML weekly-card style + interactive checkboxes
 ═══════════════════════════════════════════════════════════════ */
+
+/* Phase color tokens */
+.roadmap-page {
+  --p1-color: var(--terracotta);
+  --p2-color: var(--teal);
+  --p3-color: #2e8b57;
+  --p4-color: var(--amber);
+  --p5-color: #b53333;
+  --p6-color: #6b4f9f;
+  --cg-color: #a85a1a;
+  --algo-color: #5e5d59;
+}
+
+/* ─── INTRO + SUMMARY ─── */
+.rm-intro {
+  margin: 1.6rem 0 1.4rem;
+  padding: 14px 18px;
+  background: var(--light);
+  box-shadow: var(--shadow-card);
+  border-radius: 10px;
+  border-left: 3px solid var(--secondary);
+  font-size: 0.95rem;
+  color: var(--darkgray);
+  line-height: 1.7;
+}
+
 .roadmap-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -858,14 +884,19 @@ article {
   background: var(--light);
   box-shadow: var(--shadow-card);
   border-radius: 10px;
-  padding: 14px 16px;
+  padding: 14px 18px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.rm-stat:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 .rm-num {
   font-family: var(--codeFont);
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 600;
   color: var(--secondary);
   line-height: 1.1;
@@ -886,7 +917,7 @@ article {
   background: var(--lightgray);
   border-radius: 2px;
   overflow: hidden;
-  margin: 1.6rem 0 2.4rem;
+  margin: 1.6rem 0 3rem;
 }
 .rm-progress-fill {
   height: 100%;
@@ -896,93 +927,260 @@ article {
   transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Roadmap section structure */
-article .roadmap-page h2 {
-  font-family: var(--headerFont) !important;
-  font-size: 1.6rem !important;
-  margin-top: 3rem !important;
-  margin-bottom: 0.3em !important;
-  padding-bottom: 0;
-  border-bottom: none;
-  display: block;
-}
-article .roadmap-page > .rm-phase-meta,
-article .roadmap-page .rm-phase-meta {
-  font-family: var(--codeFont);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: var(--gray);
-  text-transform: uppercase;
-  margin: 0 0 1.4em !important;
-  padding-bottom: 1em;
-  border-bottom: 1px solid var(--lightgray);
-}
-article .roadmap-page h3 {
-  font-family: var(--codeFont) !important;
-  font-size: 0.78rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gray);
-  margin-top: 2.2em !important;
-  margin-bottom: 0.5em !important;
-  display: flex !important;
+/* ─── PHASE BANNER ─── */
+.rm-phase-banner {
+  background: var(--light);
+  box-shadow: var(--shadow-card);
+  border-radius: 12px;
+  padding: 16px 22px;
+  margin: 4rem 0 1.6rem;
+  display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.25s ease;
 }
-article .roadmap-page h3::before {
+.rm-phase-banner::before {
   content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--secondary);
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--phase-c, var(--secondary));
+}
+.rm-phase-banner:hover { box-shadow: var(--shadow-hover); }
+.rm-pb1 { --phase-c: var(--p1-color); }
+.rm-pb2 { --phase-c: var(--p2-color); }
+.rm-pb3 { --phase-c: var(--p3-color); }
+.rm-pb4 { --phase-c: var(--p4-color); }
+.rm-pb5 { --phase-c: var(--p5-color); }
+.rm-pb6 { --phase-c: var(--p6-color); }
+
+.rm-phase-num {
+  font-family: var(--codeFont);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  opacity: 0.5;
+  color: var(--phase-c);
   flex-shrink: 0;
 }
-/* Color-code by heading id (Quartz auto-slugs Chinese text into ids) */
-article .roadmap-page h3[id*="ai-工程"]::before { background: var(--terracotta); }
-article .roadmap-page h3[id*="图形学"]::before { background: var(--amber); }
-article .roadmap-page h3[id*="算法"]::before { background: #5e5d59; }
-article .roadmap-page h3[id*="方向"]::before { background: var(--teal); }
-
-/* Hide auto-generated anchor link icons in roadmap headings (clean look) */
-article .roadmap-page h2 > a[role="anchor"],
-article .roadmap-page h3 > a[role="anchor"] {
-  display: none !important;
+.rm-phase-title {
+  font-family: var(--headerFont);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--phase-c);
+}
+.rm-phase-sub {
+  font-size: 11.5px;
+  opacity: 0.75;
+  color: var(--phase-c);
+  margin-left: auto;
+  white-space: nowrap;
 }
 
-/* Roadmap checkboxes — clickable, no strikethrough */
-article .roadmap-page ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0.8em 0 1.6em;
+/* ─── MONTH CONTAINER ─── */
+.rm-month {
+  margin-top: 2rem;
 }
-article .roadmap-page li:has(> input[type="checkbox"]) {
+.rm-mhdr {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--lightgray);
+  margin: 2rem 0 1.4rem;
+  flex-wrap: wrap;
+}
+.rm-mtag {
+  font-family: var(--codeFont);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray);
+  background: color-mix(in srgb, var(--gray) 8%, transparent);
+  padding: 4px 9px;
+  border-radius: 4px;
+}
+.rm-mtitle {
+  font-family: var(--headerFont);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--dark);
+  letter-spacing: -0.005em;
+}
+.rm-mnote {
+  font-size: 11px;
+  color: var(--gray);
+  margin-left: auto;
+}
+
+/* ─── TRACK ─── */
+.rm-track {
+  margin: 1.8rem 0 1rem;
+  padding: 9px 14px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.rm-tk-tag {
+  font-family: var(--codeFont);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: white;
+}
+.rm-tk-text { font-weight: 500; }
+.rm-tk-note {
+  font-size: 10.5px;
+  opacity: 0.7;
+  margin-left: auto;
+  font-weight: 400;
+}
+.rm-t-ai {
+  background: color-mix(in srgb, var(--secondary) 6%, var(--light));
+  color: var(--secondary);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--secondary) 14%, transparent);
+}
+.rm-t-ai .rm-tk-tag { background: var(--secondary); }
+.rm-t-cg {
+  background: color-mix(in srgb, var(--cg-color) 6%, var(--light));
+  color: var(--cg-color);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cg-color) 14%, transparent);
+}
+.rm-t-cg .rm-tk-tag { background: var(--cg-color); }
+.rm-t-algo {
+  background: color-mix(in srgb, var(--algo-color) 7%, var(--light));
+  color: var(--algo-color);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--algo-color) 14%, transparent);
+}
+.rm-t-algo .rm-tk-tag { background: var(--algo-color); }
+
+/* ─── WEEK CARD ─── */
+.rm-week {
+  background: var(--light);
+  box-shadow: var(--shadow-card);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 0 0 10px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.rm-week::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--week-c, var(--lightgray));
+  opacity: 0.85;
+  transition: width 0.2s ease;
+}
+.rm-week:hover { box-shadow: var(--shadow-hover); }
+.rm-week:hover::before { width: 3px; }
+
+.rm-c1 { --week-c: var(--p1-color); }
+.rm-c2 { --week-c: var(--p2-color); }
+.rm-c3 { --week-c: var(--p3-color); }
+.rm-c4 { --week-c: var(--p4-color); }
+.rm-c5 { --week-c: var(--p5-color); }
+.rm-c6 { --week-c: var(--p6-color); }
+.rm-ccg { --week-c: var(--cg-color); }
+.rm-calgo { --week-c: var(--algo-color); }
+
+/* ─── WEEK HEADER ─── */
+.rm-w-hdr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.rm-w-label {
+  font-family: var(--codeFont);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gray);
+  background: color-mix(in srgb, var(--gray) 9%, transparent);
+  padding: 3px 9px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.rm-w-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ─── BADGE ─── */
+.rm-bdg {
+  font-family: var(--codeFont);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.rm-b1 { background: color-mix(in srgb, var(--p1-color) 9%, var(--light)); color: var(--p1-color); }
+.rm-b2 { background: color-mix(in srgb, var(--p2-color) 9%, var(--light)); color: var(--p2-color); }
+.rm-b3 { background: color-mix(in srgb, var(--p3-color) 9%, var(--light)); color: var(--p3-color); }
+.rm-b4 { background: color-mix(in srgb, var(--p4-color) 9%, var(--light)); color: var(--p4-color); }
+.rm-b5 { background: color-mix(in srgb, var(--p5-color) 9%, var(--light)); color: var(--p5-color); }
+.rm-b6 { background: color-mix(in srgb, var(--p6-color) 9%, var(--light)); color: var(--p6-color); }
+.rm-bcg { background: color-mix(in srgb, var(--cg-color) 9%, var(--light)); color: var(--cg-color); }
+.rm-balgo { background: color-mix(in srgb, var(--algo-color) 9%, var(--light)); color: var(--algo-color); }
+.rm-bpaper { background: color-mix(in srgb, var(--p5-color) 9%, var(--light)); color: var(--p5-color); }
+.rm-bcheck { background: color-mix(in srgb, var(--p3-color) 9%, var(--light)); color: var(--p3-color); }
+.rm-bvideo { background: color-mix(in srgb, #3898ec 9%, var(--light)); color: #2775c5; }
+.rm-bbook { background: color-mix(in srgb, #3898ec 9%, var(--light)); color: #2775c5; }
+
+/* ─── CHECKBOX TASKS (inside .rm-week) ─── */
+.rm-week ul {
   list-style: none;
-  padding: 6px 10px 6px 28px;
+  padding: 0;
+  margin: 0.4em 0 0;
+}
+.rm-week li:has(> input[type="checkbox"]),
+.roadmap-page li:has(> input[type="checkbox"]) {
+  list-style: none;
+  padding: 4px 8px 4px 26px;
   margin: 0;
-  border-radius: 6px;
+  border-radius: 5px;
   position: relative;
   line-height: 1.6;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: var(--darkgray) !important;
   text-decoration: none !important;
   transition: background 0.15s ease;
 }
-article .roadmap-page li:has(> input[type="checkbox"]):hover {
-  background: var(--lightgray);
+.rm-week li:has(> input[type="checkbox"]):hover,
+.roadmap-page li:has(> input[type="checkbox"]):hover {
+  background: color-mix(in srgb, var(--gray) 6%, transparent);
 }
-article .roadmap-page li:has(> input[type="checkbox"]:checked) {
+.rm-week li:has(> input[type="checkbox"]:checked),
+.roadmap-page li:has(> input[type="checkbox"]:checked) {
   text-decoration: line-through !important;
   text-decoration-color: color-mix(in srgb, var(--gray) 50%, transparent) !important;
   color: var(--gray) !important;
   opacity: 0.7;
 }
-article .roadmap-page li > input[type="checkbox"] {
+.roadmap-page li > input[type="checkbox"] {
   position: absolute !important;
   left: 4px !important;
-  top: 11px !important;
+  top: 9px !important;
   margin: 0 !important;
   appearance: none !important;
   width: 14px !important;
@@ -994,14 +1192,14 @@ article .roadmap-page li > input[type="checkbox"] {
   cursor: pointer !important;
   transition: box-shadow 0.15s ease, background 0.15s ease !important;
 }
-article .roadmap-page li > input[type="checkbox"]:hover {
+.roadmap-page li > input[type="checkbox"]:hover {
   box-shadow: inset 0 0 0 1.5px var(--secondary) !important;
 }
-article .roadmap-page li > input[type="checkbox"]:checked {
+.roadmap-page li > input[type="checkbox"]:checked {
   background: var(--secondary) !important;
   box-shadow: inset 0 0 0 1.5px var(--secondary) !important;
 }
-article .roadmap-page li > input[type="checkbox"]:checked::after {
+.roadmap-page li > input[type="checkbox"]:checked::after {
   content: "" !important;
   position: absolute !important;
   left: 4px !important;
@@ -1014,13 +1212,165 @@ article .roadmap-page li > input[type="checkbox"]:checked::after {
   display: block !important;
 }
 
-/* Phase color sash */
-.roadmap-page .phase-1 { --phase-c: var(--terracotta); }
-.roadmap-page .phase-2 { --phase-c: var(--teal); }
-.roadmap-page .phase-3 { --phase-c: #2e8b57; }
-.roadmap-page .phase-4 { --phase-c: var(--amber); }
-.roadmap-page .phase-5 { --phase-c: #b53333; }
-.roadmap-page .phase-6 { --phase-c: #6b4f9f; }
+/* ─── RESOURCE STRIP ─── */
+.rm-rs {
+  margin: 8px 0 0;
+  padding: 6px 11px;
+  background: color-mix(in srgb, var(--p4-color) 5%, var(--light));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p4-color) 16%, transparent);
+  border-radius: 6px;
+  font-family: var(--codeFont);
+  font-size: 10.5px;
+  color: var(--darkgray);
+  line-height: 1.5;
+  transition: box-shadow 0.15s ease;
+}
+.rm-rs:hover {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p4-color) 30%, transparent);
+}
+.rm-rs a {
+  color: var(--p4-color) !important;
+  border-bottom: 1px dashed color-mix(in srgb, var(--p4-color) 40%, transparent) !important;
+  font-weight: 500 !important;
+}
+.rm-rs a:hover {
+  border-bottom-color: var(--p4-color) !important;
+}
+
+/* ─── DELIVERABLE STRIP ─── */
+.rm-deliv {
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  background: color-mix(in srgb, var(--p3-color) 4%, var(--light));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p3-color) 18%, transparent);
+  border-radius: 6px;
+  font-size: 11px;
+  color: var(--darkgray);
+  line-height: 1.55;
+}
+.rm-deliv strong {
+  color: var(--p3-color);
+  font-weight: 600;
+  font-family: var(--codeFont);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-right: 6px;
+}
+
+/* ─── FUSION CALLOUT ─── */
+.rm-fusion {
+  margin: 1.8rem 0;
+  padding: 14px 18px;
+  background: color-mix(in srgb, var(--tertiary) 4%, var(--light));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tertiary) 22%, transparent);
+  border-radius: 10px;
+}
+.rm-fu-lbl {
+  font-family: var(--codeFont);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--tertiary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.rm-fu-lbl::before {
+  content: "◆ ";
+}
+.rm-fusion ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.rm-fusion li {
+  font-size: 11px;
+  color: var(--darkgray);
+  padding: 2px 0 2px 14px;
+  position: relative;
+  line-height: 1.65;
+}
+.rm-fusion li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--tertiary);
+  font-weight: 600;
+}
+
+/* ─── MILESTONE ─── */
+.rm-milestone {
+  margin: 1.8rem 0 2.8rem;
+  padding: 14px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--light);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.rm-milestone:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+.rm-ms-flag {
+  font-size: 17px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.rm-ms-title {
+  font-family: var(--headerFont);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 9px;
+  letter-spacing: -0.005em;
+}
+.rm-ms-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rm-ms-chips span {
+  font-size: 10.5px;
+  color: var(--darkgray);
+  background: var(--light);
+  box-shadow: inset 0 0 0 1px var(--lightgray);
+  border-radius: 5px;
+  padding: 3px 9px;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.rm-ms-chips span::before {
+  content: "✓ ";
+  opacity: 0.55;
+  color: var(--p3-color);
+  font-weight: 700;
+}
+.rm-ms-chips span:hover {
+  box-shadow: inset 0 0 0 1px var(--ring-warm);
+  transform: translateY(-1px);
+}
+.rm-ms1 { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p1-color) 22%, transparent); background: color-mix(in srgb, var(--p1-color) 4%, var(--light)); }
+.rm-ms2 { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p2-color) 22%, transparent); background: color-mix(in srgb, var(--p2-color) 4%, var(--light)); }
+.rm-ms3 { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p3-color) 22%, transparent); background: color-mix(in srgb, var(--p3-color) 4%, var(--light)); }
+.rm-ms4 { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p4-color) 22%, transparent); background: color-mix(in srgb, var(--p4-color) 4%, var(--light)); }
+.rm-ms5 { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p5-color) 22%, transparent); background: color-mix(in srgb, var(--p5-color) 4%, var(--light)); }
+.rm-ms6 { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--p6-color) 22%, transparent); background: color-mix(in srgb, var(--p6-color) 4%, var(--light)); }
+
+/* Hide the auto-generated h2 anchor link icons in roadmap headings */
+article .roadmap-page h1 > a[role="anchor"],
+article .roadmap-page h2 > a[role="anchor"],
+article .roadmap-page h3 > a[role="anchor"] {
+  display: none !important;
+}
+
+/* Hide stray empty paragraphs that the markdown parser may emit
+   between consecutive HTML blocks (this kills the bottom blank space) */
+.roadmap-page > p:empty,
+.rm-week > p:empty,
+.rm-month > p:empty {
+  display: none !important;
+}
 
 /* ═══════════════ MOBILE ═══════════════ */
 @media all and (max-width: 800px) {
