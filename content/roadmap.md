@@ -8,7 +8,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 <div class="rm-intro">
 <strong>三线并行 · 每天 5h · 9 个月 · 1260h 总投入</strong><br>
-主线 AI 工程，并线 GAMES101+202 + 左程云体系班，所有产出注入 BIM+GIS 项目 (项目)。
+主线 AI 工程，并线 GAMES101+202 + 左程云体系班，所有产出注入手上的 BIM+GIS 工程项目。
 </div>
 
 <div class="roadmap-summary">
