@@ -503,10 +503,11 @@ a.post-card h3 a[role="anchor"] {
   border: none !important;
   padding: 0 !important;
   cursor: pointer;
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
-  gap: 8px;
-  width: 100%;
+  gap: 6px !important;
+  width: auto !important;
+  justify-content: flex-start !important;
   color: var(--gray);
   transition: color 0.15s ease;
 }
@@ -714,6 +715,39 @@ li[data-collapsed="true"] svg.folder-icon {
 .toc > h2 {
   margin-bottom: 1rem !important;
 }
+/* ToC header button (目录 + chevron) — match explorer style */
+.toc-header,
+button.toc-header {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  width: auto !important;
+  color: var(--gray);
+  transition: color 0.15s ease;
+}
+.toc-header:hover { color: var(--dark); }
+.toc-header h3,
+.toc-header h2 {
+  margin: 0 !important;
+  font-family: var(--codeFont) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: inherit !important;
+  line-height: 1 !important;
+}
+.toc-header svg.fold {
+  margin-top: 0;
+  align-self: center;
+}
+.toc-header[aria-expanded="false"] svg.fold {
+  transform: rotate(-90deg);
+}
 .toc-content {
   font-size: 0.85rem;
   padding-top: 0.2rem;
@@ -777,10 +811,20 @@ li[data-collapsed="true"] svg.folder-icon {
 }
 
 /* ═══════════════ FOOTER ═══════════════ */
+/* Hide auto <hr> Quartz puts before footer (we use border-top instead) */
+.center > hr,
+article + hr {
+  display: none !important;
+}
+/* Hide empty page-footer wrapper that adds margin */
+.page-footer:empty {
+  display: none !important;
+  margin: 0 !important;
+}
 footer {
   border-top: 1px solid var(--lightgray) !important;
-  margin-top: 5rem !important;
-  padding-top: 2.4rem !important;
+  margin-top: 2.4rem !important;
+  padding-top: 1.8rem !important;
   color: var(--gray);
   font-size: 0.82rem;
 }
@@ -1177,36 +1221,31 @@ article {
   color: var(--gray) !important;
   opacity: 0.7;
 }
+/* Hide checkboxes entirely; rely on strikethrough/gray for done state */
 .roadmap-page li > input[type="checkbox"] {
-  position: absolute !important;
-  left: 4px !important;
-  top: 9px !important;
-  margin: 0 !important;
-  appearance: none !important;
-  width: 14px !important;
-  height: 14px !important;
-  background: transparent !important;
-  box-shadow: inset 0 0 0 1.5px var(--ring-deep) !important;
-  border: none !important;
-  border-radius: 4px !important;
-  cursor: default !important;
-  pointer-events: none !important;
+  display: none !important;
 }
-.roadmap-page li > input[type="checkbox"]:checked {
-  background: var(--secondary) !important;
-  box-shadow: inset 0 0 0 1.5px var(--secondary) !important;
+.rm-week li:has(> input[type="checkbox"]),
+.roadmap-page li:has(> input[type="checkbox"]) {
+  padding-left: 14px !important;
+  position: relative;
 }
-.roadmap-page li > input[type="checkbox"]:checked::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 4px !important;
-  top: 1px !important;
-  width: 4px !important;
-  height: 8px !important;
-  border: solid var(--light) !important;
-  border-width: 0 2px 2px 0 !important;
-  transform: rotate(45deg) !important;
-  display: block !important;
+.rm-week li:has(> input[type="checkbox"])::before,
+.roadmap-page li:has(> input[type="checkbox"])::before {
+  content: "·";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  color: var(--gray);
+  font-weight: 700;
+}
+.rm-week li:has(> input[type="checkbox"]:checked)::before,
+.roadmap-page li:has(> input[type="checkbox"]:checked)::before {
+  content: "✓";
+  color: var(--p3-color, var(--secondary));
+  font-size: 0.8em;
+  top: 2px;
+  font-weight: 600;
 }
 
 /* ─── RESOURCE STRIP ─── */
