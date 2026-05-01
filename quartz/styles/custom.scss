@@ -1189,11 +1189,8 @@ article {
   box-shadow: inset 0 0 0 1.5px var(--ring-deep) !important;
   border: none !important;
   border-radius: 4px !important;
-  cursor: pointer !important;
-  transition: box-shadow 0.15s ease, background 0.15s ease !important;
-}
-.roadmap-page li > input[type="checkbox"]:hover {
-  box-shadow: inset 0 0 0 1.5px var(--secondary) !important;
+  cursor: default !important;
+  pointer-events: none !important;
 }
 .roadmap-page li > input[type="checkbox"]:checked {
   background: var(--secondary) !important;
