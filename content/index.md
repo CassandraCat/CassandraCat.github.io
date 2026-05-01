@@ -34,6 +34,12 @@ hideMeta: true
 
 <div class="section-title">最近文章</div>
 
+<a href="roadmap" class="post-card">
+  <div class="post-meta">2026 · 05 · 01 · 持续更新</div>
+  <h3>路线图 · 2026.05—2027.01</h3>
+  <p>AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 · 1260 小时 · 实时进度跟踪</p>
+</a>
+
 <a href="posts/welcome" class="post-card">
   <div class="post-meta">2026 · 05 · 01</div>
   <h3>关于这个博客</h3>
