@@ -726,18 +726,27 @@ button.toc-header {
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
+  margin: 0 !important;
   cursor: pointer;
-  display: inline-flex !important;
+  display: flex !important;
+  flex-direction: row !important;
   align-items: center !important;
+  justify-content: flex-start !important;
   gap: 6px !important;
-  width: auto !important;
+  width: fit-content !important;
+  height: auto !important;
   color: var(--gray);
   transition: color 0.15s ease;
+  text-align: left !important;
 }
 .toc-header:hover { color: var(--dark); }
+.toc-header > h3,
+.toc-header > h2,
 .toc-header h3,
 .toc-header h2 {
   margin: 0 !important;
+  padding: 0 !important;
+  display: inline-block !important;
   font-family: var(--codeFont) !important;
   font-size: 0.7rem !important;
   font-weight: 700 !important;
@@ -745,19 +754,29 @@ button.toc-header {
   text-transform: uppercase !important;
   color: inherit !important;
   line-height: 1 !important;
+  flex-shrink: 0 !important;
 }
+.toc-header > svg.fold,
 .toc-header svg.fold,
+.title-button > svg.fold,
 .title-button svg.fold {
   display: block !important;
+  width: 9px !important;
+  height: 9px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
   align-self: center !important;
-  /* 中文字符无降部,视觉中心偏上;svg按几何中心对齐显得偏下,向上推 1px 补偿 */
-  transform: translateY(-1px) !important;
+  /* CJK 字符没有 descender,视觉中心比 line-box 几何中心高约 2px;向上补偿 */
+  transform: translateY(-2px) !important;
 }
+.toc-header[aria-expanded="false"] > svg.fold,
 .toc-header[aria-expanded="false"] svg.fold {
-  transform: translateY(-1px) rotate(-90deg) !important;
+  transform: translateY(-2px) rotate(-90deg) !important;
 }
+.title-button.explorer-toggle[aria-expanded="false"] > svg.fold,
 .title-button.explorer-toggle[aria-expanded="false"] svg.fold {
-  transform: translateY(-1px) rotate(-90deg) !important;
+  transform: translateY(-2px) rotate(-90deg) !important;
 }
 .toc-content {
   font-size: 0.85rem;
