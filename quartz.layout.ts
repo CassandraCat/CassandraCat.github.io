@@ -47,7 +47,15 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      title: "探索",
+      folderDefaultState: "open",
+      mapFn: (node) => {
+        if (node.isFolder && node.slugSegment === "posts") {
+          node.displayName = "随笔"
+        }
+      },
+    }),
   ],
   right: [
     Component.Graph(),
@@ -76,7 +84,15 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      title: "探索",
+      folderDefaultState: "open",
+      mapFn: (node) => {
+        if (node.isFolder && node.slugSegment === "posts") {
+          node.displayName = "随笔"
+        }
+      },
+    }),
   ],
   right: [],
 }
