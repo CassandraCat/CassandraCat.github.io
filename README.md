@@ -1,17 +1,25 @@
-# Quartz v4
+# CassandraCat
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+个人博客源码 · https://cassandracat.github.io/
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+基于 [Quartz v4](https://quartz.jzhao.xyz/) 搭建，部署在 GitHub Pages。
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+## 写作
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+- 文章放在 `content/posts/`，markdown + frontmatter
+- 首页是 `content/index.md`
+- 推到 `main` 分支会自动 build & deploy
 
-## Sponsors
+## 本地预览
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+```bash
+npm ci
+npx quartz build --serve
+# http://localhost:8080
+```
+
+## 风格定制
+
+- `quartz.config.ts` — 站点配置（标题、颜色、字体）
+- `quartz.layout.ts` — 布局
+- `quartz/styles/custom.scss` — 自定义 CSS（暖色羊皮纸 + ring-shadow + Noto Serif SC）
