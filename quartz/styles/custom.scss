@@ -1101,12 +1101,15 @@ article {
   color: var(--phase-c);
   flex-shrink: 0;
 }
+.rm-phase-banner .rm-phase-title,
+summary.rm-phase-banner .rm-phase-title,
 .rm-phase-title {
-  font-family: var(--headerFont);
-  font-size: 17px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--phase-c);
+  font-family: var(--headerFont) !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.012em !important;
+  color: var(--phase-c) !important;
+  line-height: 1.3 !important;
 }
 .rm-phase-sub {
   font-size: 11.5px;
