@@ -746,7 +746,9 @@ button.toc-header {
 .toc-header h2 {
   margin: 0 !important;
   padding: 0 !important;
-  display: inline-block !important;
+  /* 用 flex 把 h3 内部文字垂直居中 (CJK 字符在 line-box 内偏上,需要内部居中) */
+  display: flex !important;
+  align-items: center !important;
   font-family: var(--codeFont) !important;
   font-size: 0.7rem !important;
   font-weight: 700 !important;
@@ -754,9 +756,8 @@ button.toc-header {
   text-transform: uppercase !important;
   color: inherit !important;
   line-height: 1 !important;
+  height: auto !important;
   flex-shrink: 0 !important;
-  /* CJK 字符在 line-box 内偏上,把文字下推匹配 chevron 几何中心 */
-  transform: translateY(1px) !important;
 }
 .toc-header > svg.fold,
 .toc-header svg.fold,
@@ -778,10 +779,12 @@ button.toc-header {
 .title-button.explorer-toggle[aria-expanded="false"] svg.fold {
   transform: rotate(-90deg) !important;
 }
-/* explorer 的 h2 同样下推 */
+/* explorer 的 h2 同样用 flex 内部居中 */
 .title-button.explorer-toggle > h2,
 .title-button.explorer-toggle h2 {
-  transform: translateY(1px) !important;
+  display: flex !important;
+  align-items: center !important;
+  height: auto !important;
 }
 .toc-content {
   font-size: 0.85rem;
