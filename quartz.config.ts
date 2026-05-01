@@ -3,7 +3,7 @@ import * as Plugin from "./quartz/plugins"
 
 /**
  * Quartz 4 Configuration · CassandraCat
- * Warm parchment aesthetic, Claude-inspired (matching hy-bim-gis design language)
+ * Warm parchment aesthetic, Claude-inspired (matching personal project design language)
  */
 const config: QuartzConfig = {
   configuration: {

@@ -32,7 +32,7 @@ description: 为什么我在已经有 Obsidian 知识库的情况下，还是搭
 - **Quartz v4** 静态站生成器（Obsidian 原生兼容，wikilinks / callouts / Excalidraw 都能用）
 - **GitHub Pages** 部署，GitHub Actions 自动 build
 - **Noto Serif SC + Inter + JetBrains Mono** 字体三件套
-- 设计语言对齐我的 BIM+GIS 项目 `hy-bim-gis`：暖色羊皮纸 + ring-shadow + Claude 风格
+- 设计语言对齐我手上的 BIM+GIS 工程项目：暖色羊皮纸 + ring-shadow + Claude 风格
 
 ## 接下来
 
@@ -40,9 +40,9 @@ description: 为什么我在已经有 Obsidian 知识库的情况下，还是搭
 
 - **5—6 月** Spring AI 全栈对话 · GAMES101 光栅化与变换
 - **7—8 月** RAG 工程从朴素到 Advanced · GAMES101 几何与光线追踪
-- **9—10 月** Agent 工程 · GAMES202 实时阴影（直接重写 hy-bim-gis 的 ShadowController）
+- **9—10 月** Agent 工程 · GAMES202 实时阴影（直接重写引擎的 ShadowController）
 - **11 月** Production AI · GAMES202 GI / PBR
-- **12 月** Fine-tuning · GAMES202 LOD（重写 hy-bim-gis 的 lod 模块）
+- **12 月** Fine-tuning · GAMES202 LOD（重写引擎的 lod 模块）
 - **2027 年 1 月** 三维场景 AI 研发中台 · 综合产出
 
 每个阶段结束会有一篇综合性的文章在这里。

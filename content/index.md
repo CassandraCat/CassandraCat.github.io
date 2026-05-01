@@ -27,7 +27,7 @@ hideMeta: true
   </div>
   <div class="topic-card t-3d">
     <div class="topic-tag">三维引擎</div>
-    <h3>hy-bim-gis 这条线</h3>
+    <h3>引擎封装这条线</h3>
     <p>架构、性能优化、被 SuperMap3D / Cesium 源码反复打磨过的工程判断</p>
   </div>
 </div>

@@ -168,7 +168,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">5月领域融合 · BIM+GIS 锚点</div>
 
-- CG L3-L4 学的 MVP 矩阵 = 项目 的 `core/camera/` 模块底层
+- CG L3-L4 学的 MVP 矩阵 = 引擎的 `core/camera/` 模块底层
 - AI W4 第一个 BIM Demo · 场景初始化代码生成助手注入团队封装规范
 - 算法分治思维 = 后续 CG L12 (Mesh 简化) + Douglas-Peucker decimation 同源
 </div>
@@ -219,7 +219,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] 走样根本原因 · 频率 / 奈奎斯特
 - [ ] 反走样 · 滤波 / SSAA / MSAA
 - [ ] Z-Buffer 深度缓冲
-- [ ] **融合** · 项目 的 MSAA 配置 = 这一节理论
+- [ ] **融合** · 引擎的 MSAA 配置 = 这一节理论
 - [ ] 作业 2 · Z-Buffer + MSAA
 </div>
 
@@ -399,7 +399,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 - [ ] L12 · 网格细分 (Loop / Catmull-Clark)
 - [ ] 边坍缩 + 二次误差度量 QEM
-- [ ] **融合 ⭐** · 项目 的 Douglas-Peucker = 1D 简化思想
+- [ ] **融合 ⭐** · 引擎的 Douglas-Peucker = 1D 简化思想
 - [ ] 作业 4 完成 · 提高项 (de Casteljau 递归)
 
 <div class="rm-deliv"><strong>7月 CG 验收</strong> · L9-L12 视频+笔记 + 作业 3 + 作业 4 + 能解释 Douglas-Peucker 与网格简化的同源性</div>
@@ -449,7 +449,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">7月领域融合 · BIM+GIS 锚点</div>
 
-- CG L9 MIPMAP + 纹理压缩 = 项目 的 `scripts/build:ktx2` 转码管线理论基础
+- CG L9 MIPMAP + 纹理压缩 = 引擎的 `scripts/build:ktx2` 转码管线理论基础
 - CG L12 网格简化 = `algorithm/lineExtension.ts` Douglas-Peucker decimation 同源 (1D 版)
 - RAG W3 Pipeline 可在 8月对接 CG 知识库
 </div>
@@ -513,7 +513,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] AABB 包围盒
 - [ ] BVH 构建
 - [ ] KD-Tree / Octree 空间划分
-- [ ] **融合 ⭐** · 项目 LOD 选择器内部用空间划分思路
+- [ ] **融合 ⭐** · 引擎 LOD 选择器内部用空间划分思路
 - [ ] 作业 6 启动 · BVH
 </div>
 
@@ -802,7 +802,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] 第一遍 · 光源视角深度图
 - [ ] 第二遍 · 摄像机视角转换比较
 - [ ] Self-occlusion / Peter Panning / 锯齿
-- [ ] **融合 ⭐⭐⭐** · 项目 ShadowController = 这一节理论
+- [ ] **融合 ⭐⭐⭐** · 引擎 ShadowController = 这一节理论
 </div>
 
 <div class="rm-week rm-ccg">
@@ -818,7 +818,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 </div>
 
 <div class="rm-week rm-ccg">
-<div class="rm-w-hdr"><span class="rm-w-label">W4</span><span class="rm-bdg rm-bcheck">领域注入</span><span class="rm-w-title">⭐ 重写 项目 ShadowController · 理论补完</span></div>
+<div class="rm-w-hdr"><span class="rm-w-label">W4</span><span class="rm-bdg rm-bcheck">领域注入</span><span class="rm-w-title">⭐ 重写 引擎 ShadowController · 理论补完</span></div>
 
 - [ ] 用 GAMES202 L3-L4 理论重写 `core/lighting/ShadowController.ts`
 - [ ] 4 档预设 (off / low / medium / high) 加数学推导注释
@@ -870,7 +870,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">10月领域融合 · BIM+GIS 锚点 ⭐⭐⭐⭐⭐ 关键融合月</div>
 
-- CG GAMES202 L3-L4 = **直接重写 项目 的 `core/lighting/ShadowController.ts`** + PCSS 第 5 档
+- CG GAMES202 L3-L4 = **直接重写 引擎的 `core/lighting/ShadowController.ts`** + PCSS 第 5 档
 - AI W4 渲染诊断 Agent 团队 demo · CG W4 ShadowController 重构 · 同时落地是 2026 最关键工程产出
 - 论文 · 读《Cascaded Shadow Maps》(NVIDIA 2007) 原文，medium/high 视距分级来自这篇
 </div>
@@ -1122,7 +1122,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 </div>
 
 <div class="rm-week rm-ccg">
-<div class="rm-w-hdr"><span class="rm-w-label">W4</span><span class="rm-bdg rm-bcheck">领域注入 ⭐⭐⭐</span><span class="rm-w-title">L15-L16 LOD + 重写 项目 lod/</span></div>
+<div class="rm-w-hdr"><span class="rm-w-label">W4</span><span class="rm-bdg rm-bcheck">领域注入 ⭐⭐⭐</span><span class="rm-w-title">L15-L16 LOD + 重写 引擎 lod/</span></div>
 
 - [ ] L15 · MIP 纹理 LOD / 几何 LOD
 - [ ] L16 · 工业实践 (含 Nanite 简介)
@@ -1191,7 +1191,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <span class="rm-ms-flag">🏁</span>
 <div>
 <div class="rm-ms-title">12月底 · Phase 5 收官 · 第二关键融合月成果</div>
-<div class="rm-ms-chips"><span>LoRA 跑通</span><span>BIM 代码风格小模型</span><span>GAMES202 全 16 讲 + 4 作业</span><span>项目 lod/ 重构</span><span>LOD 工程化博客 6</span><span>LeetCode ≥160</span></div>
+<div class="rm-ms-chips"><span>LoRA 跑通</span><span>BIM 代码风格小模型</span><span>GAMES202 全 16 讲 + 4 作业</span><span>引擎 lod/ 重构</span><span>LOD 工程化博客 6</span><span>LeetCode ≥160</span></div>
 </div>
 </div>
 
@@ -1308,7 +1308,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <span class="rm-ms-flag">🏁</span>
 <div>
 <div class="rm-ms-title">2027 年初 · 三线全栈架构师 · 完整能力图谱</div>
-<div class="rm-ms-chips"><span>AI Backend</span><span>RAG 工程</span><span>Agent 工程</span><span>Production AI</span><span>Fine-tuning</span><span>GAMES101 全 22 讲</span><span>GAMES202 全 16 讲</span><span>算法体系班 100+ 节</span><span>项目 ShadowController + lod/ 重构</span><span>三维场景 AI 研发中台</span><span>5 AI + 3 CG 论文</span><span>技术博客 ≥6 篇</span><span>个人 Cookbook 7 章</span><span>LeetCode ≥200</span><span>2027 方向已定</span></div>
+<div class="rm-ms-chips"><span>AI Backend</span><span>RAG 工程</span><span>Agent 工程</span><span>Production AI</span><span>Fine-tuning</span><span>GAMES101 全 22 讲</span><span>GAMES202 全 16 讲</span><span>算法体系班 100+ 节</span><span>引擎 ShadowController + lod/ 重构</span><span>三维场景 AI 研发中台</span><span>5 AI + 3 CG 论文</span><span>技术博客 ≥6 篇</span><span>个人 Cookbook 7 章</span><span>LeetCode ≥200</span><span>2027 方向已定</span></div>
 </div>
 </div>
 
