@@ -356,50 +356,63 @@ hr {
   background: var(--lightgray);
 }
 
-.post-card {
-  display: block;
+/* Override base.scss .internal styling for post cards */
+article a.post-card,
+article a.post-card.internal,
+a.post-card,
+a.post-card.internal {
+  display: block !important;
   background: var(--light) !important;
-  box-shadow: var(--shadow-card);
-  border-radius: 12px;
-  padding: 18px 22px;
-  margin-bottom: 12px;
+  box-shadow: var(--shadow-card) !important;
+  border-radius: 12px !important;
+  padding: 20px 24px !important;
+  margin: 0 0 12px !important;
   text-decoration: none !important;
-  border: none !important;
-  color: inherit;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  border-bottom: none !important;
+  color: inherit !important;
+  font-weight: 400 !important;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, background 0.25s ease !important;
   position: relative;
+  line-height: 1.5 !important;
 }
-.post-card::before { display: none !important; }
-.post-card:hover {
-  box-shadow: var(--shadow-hover);
+a.post-card::before, a.post-card.internal::before { display: none !important; }
+a.post-card:hover,
+a.post-card.internal:hover {
+  box-shadow: var(--shadow-hover) !important;
   transform: translateY(-2px);
   background: var(--light) !important;
+  color: inherit !important;
 }
-.post-card .post-meta {
+a.post-card .post-meta {
   font-family: var(--codeFont);
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--gray);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   text-transform: uppercase;
 }
-.post-card h3 {
+a.post-card h3 {
   font-family: var(--headerFont) !important;
-  font-size: 1.18rem !important;
+  font-size: 1.2rem !important;
   font-weight: 500 !important;
   margin: 0 0 6px !important;
   color: var(--dark);
   letter-spacing: -0.008em;
+  line-height: 1.35;
 }
-.post-card p {
+a.post-card p {
   margin: 0 !important;
   color: var(--gray);
   font-size: 0.9rem;
   line-height: 1.6;
 }
-.post-card:hover h3 {
+a.post-card:hover h3 {
   color: var(--secondary);
+}
+/* Hide auto-generated anchor link icons inside post-card titles */
+a.post-card h3 a[role="anchor"] {
+  display: none !important;
 }
 
 /* ═══════════════ ARTICLE META (date / reading time) ═══════════════ */
@@ -541,38 +554,78 @@ hr {
 }
 
 /* Right sidebar — graph + ToC + backlinks */
-.graph-outer {
-  background: var(--light);
-  box-shadow: var(--shadow-card);
-  border-radius: 10px;
-  padding: 8px;
-  border: none !important;
+.graph {
+  margin-bottom: 1.4rem;
 }
+.graph > h2 {
+  margin-bottom: 0.6em !important;
+}
+.graph-outer {
+  background: var(--light) !important;
+  box-shadow: var(--shadow-card) !important;
+  border-radius: 10px !important;
+  padding: 6px !important;
+  border: none !important;
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+}
+.graph-outer .graph-container {
+  border-radius: 6px;
+}
+.global-graph-icon {
+  cursor: pointer;
+  color: var(--gray);
+  transition: color 0.15s ease;
+}
+.global-graph-icon:hover { color: var(--secondary); }
 
 /* ToC */
+.toc {
+  margin-top: 0.5rem;
+}
+.toc > h2 {
+  margin-bottom: 1rem !important;
+}
 .toc-content {
-  font-size: 0.84rem;
+  font-size: 0.85rem;
+  padding-top: 0.2rem;
 }
 .toc-content ul {
   padding-left: 0;
+  margin: 0 !important;
   list-style: none;
 }
 .toc-content li {
   border-left: 1px solid var(--lightgray);
-  padding-left: 14px;
-  line-height: 1.85;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  padding: 4px 0 4px 22px !important;
+  margin: 0;
+  line-height: 1.7;
+  transition: border-color 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
   list-style: none;
 }
 .toc-content li:hover {
   border-left-color: var(--secondary);
 }
+.toc-content li.in-view {
+  border-left-color: var(--secondary);
+}
+.toc-content li.in-view a {
+  color: var(--secondary) !important;
+  font-weight: 500;
+}
 .toc-content a {
   border-bottom: none !important;
+  background: transparent !important;
+  padding: 0 !important;
   color: var(--darkgray) !important;
 }
 .toc-content a:hover {
   color: var(--secondary) !important;
+}
+/* Dark mode: lighter toc border for visibility */
+:root[saved-theme="dark"] .toc-content li {
+  border-left-color: color-mix(in srgb, var(--gray) 35%, transparent);
 }
 
 /* Backlinks */
