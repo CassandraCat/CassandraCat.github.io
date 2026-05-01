@@ -524,13 +524,18 @@ a.post-card h3 a[role="anchor"] {
   color: inherit !important;
 }
 
-/* Refined chevron (.fold + .folder-icon) */
+/* Refined chevron (.fold + .folder-icon) — kill Quartz's margin */
 svg.fold,
-svg.folder-icon {
+svg.folder-icon,
+.title-button svg.fold,
+.toc-header svg.fold,
+.explorer svg.fold,
+.toc svg.fold {
   width: 9px !important;
   height: 9px !important;
   stroke-width: 2 !important;
   opacity: 0.55;
+  margin: 0 !important;
   transition: transform 0.2s ease, opacity 0.2s ease;
   flex-shrink: 0;
 }
