@@ -36,12 +36,12 @@ hideMeta: true
 
 <a href="roadmap" class="post-card">
   <div class="post-meta">2026 · 05 · 01 · 持续更新</div>
-  <h3>路线图 · 2026.05—2027.01</h3>
-  <p>AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 · 1260 小时 · 实时进度跟踪</p>
+  <div class="post-card-title">路线图 · 2026.05—2027.01</div>
+  <div class="post-card-desc">AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 · 1260 小时 · 实时进度跟踪</div>
 </a>
 
 <a href="posts/welcome" class="post-card">
   <div class="post-meta">2026 · 05 · 01</div>
-  <h3>关于这个博客</h3>
-  <p>为什么我在已经有 Obsidian LLM-Wiki 知识库的情况下，还是搭了这个站</p>
+  <div class="post-card-title">关于这个博客</div>
+  <div class="post-card-desc">为什么我在已经有 Obsidian LLM-Wiki 知识库的情况下，还是搭了这个站</div>
 </a>

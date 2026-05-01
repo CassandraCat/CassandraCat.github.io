@@ -392,6 +392,7 @@ a.post-card .post-meta {
   margin-bottom: 8px;
   text-transform: uppercase;
 }
+a.post-card .post-card-title,
 a.post-card h3 {
   font-family: var(--headerFont) !important;
   font-size: 1.2rem !important;
@@ -401,12 +402,14 @@ a.post-card h3 {
   letter-spacing: -0.008em;
   line-height: 1.35;
 }
+a.post-card .post-card-desc,
 a.post-card p {
   margin: 0 !important;
   color: var(--gray);
   font-size: 0.9rem;
   line-height: 1.6;
 }
+a.post-card:hover .post-card-title,
 a.post-card:hover h3 {
   color: var(--secondary);
 }
@@ -896,23 +899,24 @@ article {
 /* Roadmap section structure */
 article .roadmap-page h2 {
   font-family: var(--headerFont) !important;
-  font-size: 1.5rem !important;
+  font-size: 1.6rem !important;
   margin-top: 3rem !important;
-  margin-bottom: 0.4em !important;
-  padding-bottom: 0.5em;
-  border-bottom: 1px solid var(--lightgray);
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
+  margin-bottom: 0.3em !important;
+  padding-bottom: 0;
+  border-bottom: none;
+  display: block;
 }
-article .roadmap-page h2 .rm-phase-meta {
-  margin-left: auto;
+article .roadmap-page > .rm-phase-meta,
+article .roadmap-page .rm-phase-meta {
   font-family: var(--codeFont);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   color: var(--gray);
   text-transform: uppercase;
+  margin: 0 0 1.4em !important;
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--lightgray);
 }
 article .roadmap-page h3 {
   font-family: var(--codeFont) !important;

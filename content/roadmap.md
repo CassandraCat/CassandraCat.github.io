@@ -19,7 +19,9 @@ cssclasses:
 
 <div class="rm-progress-bar"><div class="rm-progress-fill" id="rm-fill"></div></div>
 
-## Phase 1 · AI Backend 基础 <span class="rm-phase-meta">5月—6月 · 跑通全栈AI对话</span>
+## Phase 1 · AI Backend 基础
+
+<div class="rm-phase-meta">5月—6月 · 跑通全栈AI对话</div>
 
 ### 5月 · AI 工程
 - [ ] JDK 17 + Spring Boot + Spring AI 环境
@@ -82,7 +84,9 @@ cssclasses:
 - [ ] 设计 RandomPool / 蓄水池抽样
 - [ ] 布隆过滤器原理
 
-## Phase 2 · RAG 工程 <span class="rm-phase-meta">7月—8月 · 朴素到 Advanced</span>
+## Phase 2 · RAG 工程
+
+<div class="rm-phase-meta">7月—8月 · 朴素到 Advanced</div>
 
 ### 7月 · AI 工程
 - [ ] Docker PostgreSQL + pgvector 跑通
@@ -144,7 +148,9 @@ cssclasses:
 - [ ] 区间 DP (回文子序列 / 戳气球)
 - [ ] LeetCode: 300 / 1143 / 72 / 416 / 877 / 5 / 312 / 10 / 44
 
-## Phase 3 · Agent 工程 <span class="rm-phase-meta">9月—10月 · 自主推理</span>
+## Phase 3 · Agent 工程
+
+<div class="rm-phase-meta">9月—10月 · 自主推理</div>
 
 ### 9月 · AI 工程
 - [ ] 精读 Attention is All You Need (Vaswani 2017)
@@ -208,7 +214,9 @@ cssclasses:
 - [ ] 单调栈进阶 (接雨水 / 最大矩形)
 - [ ] LeetCode: 208 / 28 / 5 / 307 / 3 / 76 / 42 / 84
 
-## Phase 4 · Production AI <span class="rm-phase-meta">11月 · 跑稳跑省跑快</span>
+## Phase 4 · Production AI
+
+<div class="rm-phase-meta">11月 · 跑稳跑省跑快</div>
 
 ### 11月 · AI 工程
 - [ ] SkyWalking 链路追踪接入
@@ -243,7 +251,9 @@ cssclasses:
 - [ ] 最大子矩阵
 - [ ] LeetCode: 739 / 303 / 304 / 312 / 221 / 85 / 363
 
-## Phase 5 · Fine-tuning <span class="rm-phase-meta">12月 · 第二关键融合月</span>
+## Phase 5 · Fine-tuning
+
+<div class="rm-phase-meta">12月 · 第二关键融合月</div>
 
 ### 12月 · AI 工程
 - [ ] Fine-tune vs RAG vs Prompt 决策框架
@@ -278,7 +288,9 @@ cssclasses:
 - [ ] 错题本归档
 - [ ] LeetCode: 1143 / 583 / 712 / 174 / 55 / 45 / 134 / 763
 
-## Phase 6 · 综合产出 <span class="rm-phase-meta">2027 · 1月 · 沉淀 + 2027 规划</span>
+## Phase 6 · 综合产出
+
+<div class="rm-phase-meta">2027 · 1月 · 沉淀 + 2027 规划</div>
 
 ### 1月 · AI 工程 ⭐
 - [ ] **三维场景 AI 研发中台旗舰项目**
