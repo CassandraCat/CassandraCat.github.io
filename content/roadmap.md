@@ -8,7 +8,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 <div class="rm-intro">
 <strong>三线并行 · 每天 5h · 9 个月 · 1260h 总投入</strong><br>
-主线 AI 工程，并线 GAMES101+202 + 左程云体系班，所有产出注入 BIM+GIS 项目 (hy-bim-gis)。
+主线 AI 工程，并线 GAMES101+202 + 左程云体系班，所有产出注入 BIM+GIS 项目 (项目)。
 </div>
 
 <div class="roadmap-summary">
@@ -19,11 +19,12 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 <div class="rm-progress-bar"><div class="rm-progress-fill" id="rm-fill"></div></div>
 
-<div class="rm-phase-banner rm-pb1">
+<details class="rm-phase rm-p1" open>
+<summary class="rm-phase-banner rm-pb1">
 <span class="rm-phase-num">PHASE 01</span>
 <span class="rm-phase-title">AI Backend 基础</span>
 <span class="rm-phase-sub">5月—6月 · 跑通全栈AI对话 · CG开荒 · 算法奠基</span>
-</div>
+</summary>
 
 <div class="rm-month">
 <div class="rm-mhdr"><span class="rm-mtag">5月</span><span class="rm-mtitle">Spring AI 第一关 · GAMES101 入门 · 算法奠基</span><span class="rm-mnote">AI 56h · CG 56h · Algo 28h</span></div>
@@ -48,7 +49,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] 理解 Flux&lt;String&gt; 响应式流 vs Promise 本质差异
 - [ ] 后端 SseEmitter + 前端 EventSource 接收
 - [ ] 三个坑: 连接超时 / 断开重连 / [DONE] 结束标志
-- [ ] 前端 Vue useStreamChat composable (复用到 hy-bim-gis)
+- [ ] 前端 Vue useStreamChat composable (复用到 项目)
 - [ ] 记录 TTFT 基线数据
 </div>
 
@@ -103,7 +104,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 - [ ] L4 Transformation Cont. · 罗德里格斯公式
 - [ ] View 变换 / 正交投影 / 透视投影
-- [ ] **融合** · hy-bim-gis camera 模块 setView() 内部就是 MVP
+- [ ] **融合** · 项目 camera 模块 setView() 内部就是 MVP
 - [ ] 虎书 Ch.7 Viewing
 </div>
 
@@ -167,7 +168,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">5月领域融合 · BIM+GIS 锚点</div>
 
-- CG L3-L4 学的 MVP 矩阵 = hy-bim-gis 的 `core/camera/` 模块底层
+- CG L3-L4 学的 MVP 矩阵 = 项目 的 `core/camera/` 模块底层
 - AI W4 第一个 BIM Demo · 场景初始化代码生成助手注入团队封装规范
 - 算法分治思维 = 后续 CG L12 (Mesh 简化) + Douglas-Peucker decimation 同源
 </div>
@@ -218,7 +219,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] 走样根本原因 · 频率 / 奈奎斯特
 - [ ] 反走样 · 滤波 / SSAA / MSAA
 - [ ] Z-Buffer 深度缓冲
-- [ ] **融合** · hy-bim-gis 的 MSAA 配置 = 这一节理论
+- [ ] **融合** · 项目 的 MSAA 配置 = 这一节理论
 - [ ] 作业 2 · Z-Buffer + MSAA
 </div>
 
@@ -289,9 +290,9 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">6月领域融合 · BIM+GIS 锚点</div>
 
-- CG L6 反走样 = hy-bim-gis SuperMap3D 默认 MSAA 配置的理论基础
+- CG L6 反走样 = 项目 SuperMap3D 默认 MSAA 配置的理论基础
 - CG L8 图形管线 = 你之前写 `tool/drawCallCounter.ts` 时一直在感知但没系统学过的链路
-- AI Phase 1 完整产出可对接 hy-bim-gis · BIM 代码助手 v0.2 给团队用
+- AI Phase 1 完整产出可对接 项目 · BIM 代码助手 v0.2 给团队用
 - 算法的单调栈/滑动窗口 = 后续 RAG Sliding Window History + Re-rank Top-K 同源
 </div>
 
@@ -305,11 +306,14 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 </div><!-- /rm-month 6月 -->
 
-<div class="rm-phase-banner rm-pb2">
+</details>
+
+<details class="rm-phase rm-p2" open>
+<summary class="rm-phase-banner rm-pb2">
 <span class="rm-phase-num">PHASE 02</span>
 <span class="rm-phase-title">RAG 工程</span>
 <span class="rm-phase-sub">7月—8月 · 朴素到 Advanced</span>
-</div>
+</summary>
 
 <div class="rm-month">
 <div class="rm-mhdr"><span class="rm-mtag">7月</span><span class="rm-mtitle">RAG Pipeline + GAMES101 几何与光线追踪入门 + 二叉树</span></div>
@@ -395,7 +399,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 - [ ] L12 · 网格细分 (Loop / Catmull-Clark)
 - [ ] 边坍缩 + 二次误差度量 QEM
-- [ ] **融合 ⭐** · hy-bim-gis 的 Douglas-Peucker = 1D 简化思想
+- [ ] **融合 ⭐** · 项目 的 Douglas-Peucker = 1D 简化思想
 - [ ] 作业 4 完成 · 提高项 (de Casteljau 递归)
 
 <div class="rm-deliv"><strong>7月 CG 验收</strong> · L9-L12 视频+笔记 + 作业 3 + 作业 4 + 能解释 Douglas-Peucker 与网格简化的同源性</div>
@@ -445,7 +449,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">7月领域融合 · BIM+GIS 锚点</div>
 
-- CG L9 MIPMAP + 纹理压缩 = hy-bim-gis 的 `scripts/build:ktx2` 转码管线理论基础
+- CG L9 MIPMAP + 纹理压缩 = 项目 的 `scripts/build:ktx2` 转码管线理论基础
 - CG L12 网格简化 = `algorithm/lineExtension.ts` Douglas-Peucker decimation 同源 (1D 版)
 - RAG W3 Pipeline 可在 8月对接 CG 知识库
 </div>
@@ -509,7 +513,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] AABB 包围盒
 - [ ] BVH 构建
 - [ ] KD-Tree / Octree 空间划分
-- [ ] **融合 ⭐** · hy-bim-gis LOD 选择器内部用空间划分思路
+- [ ] **融合 ⭐** · 项目 LOD 选择器内部用空间划分思路
 - [ ] 作业 6 启动 · BVH
 </div>
 
@@ -594,11 +598,14 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 </div>
 
-<div class="rm-phase-banner rm-pb3">
+</details>
+
+<details class="rm-phase rm-p3" open>
+<summary class="rm-phase-banner rm-pb3">
 <span class="rm-phase-num">PHASE 03</span>
 <span class="rm-phase-title">Agent 工程</span>
 <span class="rm-phase-sub">9月—10月 · 自主推理 · GAMES101 收官 → GAMES202 起步 · 图论DP</span>
-</div>
+</summary>
 
 <div class="rm-month">
 <div class="rm-mhdr"><span class="rm-mtag">9月</span><span class="rm-mtitle">Transformer + Tool Use + ReAct + GAMES101 收官 + 图论</span></div>
@@ -623,7 +630,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] Spring AI Function Calling · @Bean 注册
 - [ ] 3 个工具 · 搜索知识库 / 查 GIS 坐标 / 执行 BIM 查询
 - [ ] JSON Schema 工具描述
-- [ ] **融合 ⭐** · 给 Agent 接入 hy-bim-gis profiler.ts + drawCallCounter.ts
+- [ ] **融合 ⭐** · 给 Agent 接入 项目 profiler.ts + drawCallCounter.ts
 - [ ] 渲染性能诊断 Agent 雏形
 
 <div class="rm-rs">📖 <a href="https://docs.langchain4j.dev">LangChain4j</a></div>
@@ -795,7 +802,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] 第一遍 · 光源视角深度图
 - [ ] 第二遍 · 摄像机视角转换比较
 - [ ] Self-occlusion / Peter Panning / 锯齿
-- [ ] **融合 ⭐⭐⭐** · hy-bim-gis ShadowController = 这一节理论
+- [ ] **融合 ⭐⭐⭐** · 项目 ShadowController = 这一节理论
 </div>
 
 <div class="rm-week rm-ccg">
@@ -811,7 +818,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 </div>
 
 <div class="rm-week rm-ccg">
-<div class="rm-w-hdr"><span class="rm-w-label">W4</span><span class="rm-bdg rm-bcheck">领域注入</span><span class="rm-w-title">⭐ 重写 hy-bim-gis ShadowController · 理论补完</span></div>
+<div class="rm-w-hdr"><span class="rm-w-label">W4</span><span class="rm-bdg rm-bcheck">领域注入</span><span class="rm-w-title">⭐ 重写 项目 ShadowController · 理论补完</span></div>
 
 - [ ] 用 GAMES202 L3-L4 理论重写 `core/lighting/ShadowController.ts`
 - [ ] 4 档预设 (off / low / medium / high) 加数学推导注释
@@ -863,7 +870,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">10月领域融合 · BIM+GIS 锚点 ⭐⭐⭐⭐⭐ 关键融合月</div>
 
-- CG GAMES202 L3-L4 = **直接重写 hy-bim-gis 的 `core/lighting/ShadowController.ts`** + PCSS 第 5 档
+- CG GAMES202 L3-L4 = **直接重写 项目 的 `core/lighting/ShadowController.ts`** + PCSS 第 5 档
 - AI W4 渲染诊断 Agent 团队 demo · CG W4 ShadowController 重构 · 同时落地是 2026 最关键工程产出
 - 论文 · 读《Cascaded Shadow Maps》(NVIDIA 2007) 原文，medium/high 视距分级来自这篇
 </div>
@@ -878,11 +885,14 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 </div>
 
-<div class="rm-phase-banner rm-pb4">
+</details>
+
+<details class="rm-phase rm-p4" open>
+<summary class="rm-phase-banner rm-pb4">
 <span class="rm-phase-num">PHASE 04</span>
 <span class="rm-phase-title">Production AI</span>
 <span class="rm-phase-sub">11月 · 跑稳跑省跑快 · GAMES202 GI/PBR · 高级数据结构</span>
-</div>
+</summary>
 
 <div class="rm-month">
 <div class="rm-mhdr"><span class="rm-mtag">11月</span><span class="rm-mtitle">AI 系统生产化 · GAMES202 全局光照 + PBR · 单调结构</span></div>
@@ -895,7 +905,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] SkyWalking 链路追踪
 - [ ] LLM 埋点 (Token / 延迟 / 模型)
 - [ ] Grafana AI 成本仪表盘
-- [ ] **融合** · hy-bim-gis ai-profile.ts 接入 SkyWalking 统一监控
+- [ ] **融合** · 项目 ai-profile.ts 接入 SkyWalking 统一监控
 
 <div class="rm-rs">📖 <a href="https://skywalking.apache.org/docs">SkyWalking 文档</a></div>
 </div>
@@ -929,7 +939,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 - [ ] 审计日志 (合规存档)
 - [ ] AI 部署 10 项必检清单
 
-<div class="rm-deliv"><strong>Phase 4 验收</strong> · Grafana 成本仪表盘 (含 hy-bim-gis 集成) + 语义缓存实测降幅 + Eval ≥60 + 部署清单</div>
+<div class="rm-deliv"><strong>Phase 4 验收</strong> · Grafana 成本仪表盘 (含 项目 集成) + 语义缓存实测降幅 + Eval ≥60 + 部署清单</div>
 </div>
 
 <div class="rm-track rm-t-cg"><span class="rm-tk-tag">CG</span><span class="rm-tk-text">GAMES202 L5-L9 · 环境光照 + GI + PBR 1</span></div>
@@ -1016,7 +1026,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">11月领域融合 · BIM+GIS 锚点</div>
 
-- AI W1 hy-bim-gis ai-profile.ts 接入 SkyWalking 统一 AI 调用 + 渲染性能监控
+- AI W1 项目 ai-profile.ts 接入 SkyWalking 统一 AI 调用 + 渲染性能监控
 - CG L9 PBR 微表面 = BIM 材质库未来支持的物理材质标准 (金属度/粗糙度)
 - CG L8 SSR = GIS 地形水面反射的工业方案
 - 算法前缀和/差分 = LOD 距离区间统计、预热加载窗口工程模式
@@ -1032,11 +1042,14 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 </div>
 
-<div class="rm-phase-banner rm-pb5">
+</details>
+
+<details class="rm-phase rm-p5" open>
+<summary class="rm-phase-banner rm-pb5">
 <span class="rm-phase-num">PHASE 05</span>
 <span class="rm-phase-title">Fine-tuning</span>
 <span class="rm-phase-sub">12月 · 微调 · GAMES202 RTRT/LOD ⭐ · DP 高级</span>
-</div>
+</summary>
 
 <div class="rm-month">
 <div class="rm-mhdr"><span class="rm-mtag">12月 ⭐</span><span class="rm-mtitle">LoRA 微调 · GAMES202 RTRT + LOD ⭐⭐⭐ · 算法综合</span><span class="rm-mnote">第二关键融合月</span></div>
@@ -1060,7 +1073,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 - [ ] 数据格式 instruction/input/output 三元组
 - [ ] 质量控制 · 去重 / 过滤 / 平衡
-- [ ] **从 hy-bim-gis 团队代码库收集 ≥100 条** (Shader / 场景初始化 / 性能优化)
+- [ ] **从 项目 团队代码库收集 ≥100 条** (Shader / 场景初始化 / 性能优化)
 - [ ] 评估集构建 (训练集不重叠)
 - [ ] 精读 LIMA 论文
 
@@ -1072,7 +1085,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 - [ ] Unsloth + PEFT · Llama 3.1 8B LoRA (Google Colab)
 - [ ] 微调目标 · 团队 BIM/GIS 代码风格
-- [ ] 评估前后对比 (hy-bim-gis 风格代码补全)
+- [ ] 评估前后对比 (项目 风格代码补全)
 - [ ] 合并权重 → Ollama 本地部署
 - [ ] 总结 · 这次微调是否值，RAG 能否替代
 
@@ -1109,11 +1122,11 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 </div>
 
 <div class="rm-week rm-ccg">
-<div class="rm-w-hdr"><span class="rm-w-label">W4</span><span class="rm-bdg rm-bcheck">领域注入 ⭐⭐⭐</span><span class="rm-w-title">L15-L16 LOD + 重写 hy-bim-gis lod/</span></div>
+<div class="rm-w-hdr"><span class="rm-w-label">W4</span><span class="rm-bdg rm-bcheck">领域注入 ⭐⭐⭐</span><span class="rm-w-title">L15-L16 LOD + 重写 项目 lod/</span></div>
 
 - [ ] L15 · MIP 纹理 LOD / 几何 LOD
 - [ ] L16 · 工业实践 (含 Nanite 简介)
-- [ ] **重写 hy-bim-gis `core/lod/` 模块**
+- [ ] **重写 项目 `core/lod/` 模块**
 - [ ] SSE (Screen-Space Error) 数学推导补完
 - [ ] Hysteresis 滞回理论建模
 - [ ] Transition 过渡函数优化
@@ -1168,9 +1181,9 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fusion">
 <div class="rm-fu-lbl">12月领域融合 · BIM+GIS 锚点 ⭐⭐⭐⭐⭐ 第二关键融合月</div>
 
-- AI W3-W4 LoRA 微调 = 团队 BIM/GIS 代码风格小模型，训练数据来自 hy-bim-gis
-- CG W4 重写 hy-bim-gis `core/lod/` = SSE 数学推导 + Hysteresis 理论补完，工程产出第二里程碑
-- 10月 ShadowController + 12月 LOD 模块 = hy-bim-gis 两大核心子系统理论补完，闭环
+- AI W3-W4 LoRA 微调 = 团队 BIM/GIS 代码风格小模型，训练数据来自 项目
+- CG W4 重写 项目 `core/lod/` = SSE 数学推导 + Hysteresis 理论补完，工程产出第二里程碑
+- 10月 ShadowController + 12月 LOD 模块 = 项目 两大核心子系统理论补完，闭环
 - 论文 · Nanite Virtual Geometry (Unreal 5)，工业级 Geometry LOD 怎么做
 </div>
 
@@ -1178,17 +1191,20 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <span class="rm-ms-flag">🏁</span>
 <div>
 <div class="rm-ms-title">12月底 · Phase 5 收官 · 第二关键融合月成果</div>
-<div class="rm-ms-chips"><span>LoRA 跑通</span><span>BIM 代码风格小模型</span><span>GAMES202 全 16 讲 + 4 作业</span><span>hy-bim-gis lod/ 重构</span><span>LOD 工程化博客 6</span><span>LeetCode ≥160</span></div>
+<div class="rm-ms-chips"><span>LoRA 跑通</span><span>BIM 代码风格小模型</span><span>GAMES202 全 16 讲 + 4 作业</span><span>项目 lod/ 重构</span><span>LOD 工程化博客 6</span><span>LeetCode ≥160</span></div>
 </div>
 </div>
 
 </div>
 
-<div class="rm-phase-banner rm-pb6">
+</details>
+
+<details class="rm-phase rm-p6" open>
+<summary class="rm-phase-banner rm-pb6">
 <span class="rm-phase-num">PHASE 06</span>
 <span class="rm-phase-title">综合产出</span>
 <span class="rm-phase-sub">2027.01 · 三维场景 AI 研发中台 · 沉淀 + 2027 规划</span>
-</div>
+</summary>
 
 <div class="rm-month">
 <div class="rm-mhdr"><span class="rm-mtag">1月</span><span class="rm-mtitle">旗舰项目 · 引擎源码精读 · 算法综合</span><span class="rm-mnote">收官</span></div>
@@ -1232,7 +1248,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 
 - [ ] 读 Cesium3DTileset.js 源码
 - [ ] SSE 计算流程 / Tile 加载策略 / Cache 管理
-- [ ] 对比 hy-bim-gis 实现差异
+- [ ] 对比 项目 实现差异
 - [ ] 记录工业级实现的优雅之处
 
 <div class="rm-rs">📖 <a href="https://github.com/CesiumGS/cesium">Cesium 源码</a></div>
@@ -1249,9 +1265,9 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 </div>
 
 <div class="rm-week rm-ccg">
-<div class="rm-w-hdr"><span class="rm-w-label">W3-4</span><span class="rm-bdg rm-bcheck">综合</span><span class="rm-w-title">hy-bim-gis 综合实战 · 渲染管线全景图</span></div>
+<div class="rm-w-hdr"><span class="rm-w-label">W3-4</span><span class="rm-bdg rm-bcheck">综合</span><span class="rm-w-title">项目 综合实战 · 渲染管线全景图</span></div>
 
-- [ ] **画出 hy-bim-gis 完整渲染管线图** (放到 docs/)
+- [ ] **画出 项目 完整渲染管线图** (放到 docs/)
 - [ ] 升级 ai-gpu.ts 到 PBR 材质审查级别
 - [ ] CG 学习笔记成电子书 (Cookbook 第 6 章)
 
@@ -1283,7 +1299,7 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <div class="rm-fu-lbl">1月领域融合 · 旗舰项目集成</div>
 
 - 三维场景 AI 研发中台 = 整合 9 个月所有产出 (RAG 知识库 + Agent 诊断 + Vibe Coding 微调模型 + 链路追踪)
-- CG W3-4 hy-bim-gis 完整渲染管线图 = 你能跟任何人讲清楚每一行代码背后的理论
+- CG W3-4 项目 完整渲染管线图 = 你能跟任何人讲清楚每一行代码背后的理论
 - 个人 Cookbook 7 章 · RAG / 模型路由 / Agent / Fine-tune / 部署 / CG 工程化 / 算法
 - 2027 方向定义 · 基于 1月旗舰项目里最感兴趣的部分，选一个
 </div>
@@ -1292,11 +1308,13 @@ description: AI 工程 + 计算机图形学 + 算法 三线并行 · 9 个月 ·
 <span class="rm-ms-flag">🏁</span>
 <div>
 <div class="rm-ms-title">2027 年初 · 三线全栈架构师 · 完整能力图谱</div>
-<div class="rm-ms-chips"><span>AI Backend</span><span>RAG 工程</span><span>Agent 工程</span><span>Production AI</span><span>Fine-tuning</span><span>GAMES101 全 22 讲</span><span>GAMES202 全 16 讲</span><span>算法体系班 100+ 节</span><span>hy-bim-gis ShadowController + lod/ 重构</span><span>三维场景 AI 研发中台</span><span>5 AI + 3 CG 论文</span><span>技术博客 ≥6 篇</span><span>个人 Cookbook 7 章</span><span>LeetCode ≥200</span><span>2027 方向已定</span></div>
+<div class="rm-ms-chips"><span>AI Backend</span><span>RAG 工程</span><span>Agent 工程</span><span>Production AI</span><span>Fine-tuning</span><span>GAMES101 全 22 讲</span><span>GAMES202 全 16 讲</span><span>算法体系班 100+ 节</span><span>项目 ShadowController + lod/ 重构</span><span>三维场景 AI 研发中台</span><span>5 AI + 3 CG 论文</span><span>技术博客 ≥6 篇</span><span>个人 Cookbook 7 章</span><span>LeetCode ≥200</span><span>2027 方向已定</span></div>
 </div>
 </div>
 
 </div>
+
+</details>
 
 </div>
 

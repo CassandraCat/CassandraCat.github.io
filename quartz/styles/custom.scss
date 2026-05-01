@@ -1017,19 +1017,38 @@ article {
   transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ─── PHASE BANNER ─── */
+/* ─── PHASE: collapsible <details> wrapper ─── */
+.rm-phase {
+  margin: 4rem 0 0;
+}
+.rm-phase + .rm-phase {
+  margin-top: 1.4rem;
+}
+.rm-phase summary {
+  list-style: none;
+}
+.rm-phase summary::-webkit-details-marker {
+  display: none;
+}
+.rm-phase[open] > summary {
+  margin-bottom: 1.6rem;
+}
+
+/* ─── PHASE BANNER (now <summary>) ─── */
 .rm-phase-banner {
   background: var(--light);
   box-shadow: var(--shadow-card);
   border-radius: 12px;
   padding: 16px 22px;
-  margin: 4rem 0 1.6rem;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 14px;
   position: relative;
   overflow: hidden;
-  transition: box-shadow 0.25s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  cursor: pointer;
+  user-select: none;
 }
 .rm-phase-banner::before {
   content: "";
@@ -1038,7 +1057,34 @@ article {
   width: 3px;
   background: var(--phase-c, var(--secondary));
 }
-.rm-phase-banner:hover { box-shadow: var(--shadow-hover); }
+.rm-phase-banner:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+/* fold/unfold indicator */
+.rm-phase-banner::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--phase-c, var(--secondary));
+  border-bottom: 2px solid var(--phase-c, var(--secondary));
+  transform: rotate(45deg) translateY(-2px);
+  margin-left: 4px;
+  opacity: 0.65;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  flex-shrink: 0;
+}
+.rm-phase-banner:hover::after { opacity: 1; }
+.rm-phase:not([open]) > summary.rm-phase-banner::after {
+  transform: rotate(-45deg) translateY(2px);
+}
+/* closed phase: dim a bit so user knows there's content */
+.rm-phase:not([open]) > summary.rm-phase-banner {
+  opacity: 0.85;
+}
+.rm-phase:not([open]) > summary.rm-phase-banner:hover {
+  opacity: 1;
+}
 .rm-pb1 { --phase-c: var(--p1-color); }
 .rm-pb2 { --phase-c: var(--p2-color); }
 .rm-pb3 { --phase-c: var(--p3-color); }
