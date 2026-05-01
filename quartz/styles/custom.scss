@@ -755,6 +755,8 @@ button.toc-header {
   color: inherit !important;
   line-height: 1 !important;
   flex-shrink: 0 !important;
+  /* CJK 字符在 line-box 内偏上,把文字下推匹配 chevron 几何中心 */
+  transform: translateY(1px) !important;
 }
 .toc-header > svg.fold,
 .toc-header svg.fold,
@@ -767,16 +769,19 @@ button.toc-header {
   padding: 0 !important;
   flex-shrink: 0 !important;
   align-self: center !important;
-  /* CJK 字符没有 descender,视觉中心比 line-box 几何中心高约 2px;向上补偿 */
-  transform: translateY(-2px) !important;
 }
 .toc-header[aria-expanded="false"] > svg.fold,
 .toc-header[aria-expanded="false"] svg.fold {
-  transform: translateY(-2px) rotate(-90deg) !important;
+  transform: rotate(-90deg) !important;
 }
 .title-button.explorer-toggle[aria-expanded="false"] > svg.fold,
 .title-button.explorer-toggle[aria-expanded="false"] svg.fold {
-  transform: translateY(-2px) rotate(-90deg) !important;
+  transform: rotate(-90deg) !important;
+}
+/* explorer 的 h2 同样下推 */
+.title-button.explorer-toggle > h2,
+.title-button.explorer-toggle h2 {
+  transform: translateY(1px) !important;
 }
 .toc-content {
   font-size: 0.85rem;
