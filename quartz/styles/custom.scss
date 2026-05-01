@@ -740,13 +740,16 @@ button.toc-header {
   text-align: left !important;
 }
 .toc-header:hover { color: var(--dark); }
+/* specificity 必须打过 .right.sidebar h3 (0,2,1) 才行,所以加多类 */
+.right.sidebar .toc-header > h3,
+.right.sidebar .toc-header > h2,
+.right.sidebar .toc-header h3,
+.right.sidebar .toc-header h2,
 .toc-header > h3,
-.toc-header > h2,
-.toc-header h3,
-.toc-header h2 {
+.toc-header > h2 {
   margin: 0 !important;
   padding: 0 !important;
-  /* 用 flex 把 h3 内部文字垂直居中 (CJK 字符在 line-box 内偏上,需要内部居中) */
+  /* 用 flex 把 h3 内部文字垂直居中 */
   display: flex !important;
   align-items: center !important;
   font-family: var(--codeFont) !important;
@@ -779,12 +782,17 @@ button.toc-header {
 .title-button.explorer-toggle[aria-expanded="false"] svg.fold {
   transform: rotate(-90deg) !important;
 }
-/* explorer 的 h2 同样用 flex 内部居中 */
-.title-button.explorer-toggle > h2,
-.title-button.explorer-toggle h2 {
+/* explorer 的 h2 同样需要打过 .left.sidebar h2 specificity */
+.left.sidebar .title-button.explorer-toggle > h2,
+.left.sidebar .title-button.explorer-toggle h2,
+.left.sidebar .explorer .title-button h2,
+.title-button.explorer-toggle > h2 {
+  margin: 0 !important;
+  padding: 0 !important;
   display: flex !important;
   align-items: center !important;
   height: auto !important;
+  line-height: 1 !important;
 }
 .toc-content {
   font-size: 0.85rem;
