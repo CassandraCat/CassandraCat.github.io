@@ -62,8 +62,9 @@ export const defaultContentPageLayout: PageLayout = {
       title: "探索",
       folderDefaultState: "open",
       mapFn: (node) => {
-        if (node.isFolder && node.slugSegment === "posts") {
-          node.displayName = "随笔"
+        if (node.isFolder && node.slugSegment) {
+          // Uppercase all folder names: posts → POSTS, ai → AI, dev → DEV, etc.
+          node.displayName = node.slugSegment.toUpperCase()
         }
       },
     }),
@@ -99,8 +100,9 @@ export const defaultListPageLayout: PageLayout = {
       title: "探索",
       folderDefaultState: "open",
       mapFn: (node) => {
-        if (node.isFolder && node.slugSegment === "posts") {
-          node.displayName = "随笔"
+        if (node.isFolder && node.slugSegment) {
+          // Uppercase all folder names: posts → POSTS, ai → AI, dev → DEV, etc.
+          node.displayName = node.slugSegment.toUpperCase()
         }
       },
     }),

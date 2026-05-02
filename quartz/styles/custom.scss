@@ -753,7 +753,7 @@ li[data-collapsed="true"] svg.folder-icon {
 .folder-button {
   background: transparent !important;
   border: none !important;
-  padding: 4px 0 !important;
+  padding: 4px 0 4px 0 !important;
   cursor: pointer;
   color: var(--darkgray) !important;
   font-family: var(--bodyFont) !important;
@@ -765,6 +765,26 @@ li[data-collapsed="true"] svg.folder-icon {
   color: var(--secondary) !important;
 }
 .folder-outer { padding-left: 12px; }
+
+/* Tighten gap between folder chevron and title */
+.folder-container {
+  gap: 4px !important;
+}
+.folder-container > div {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+.folder-container svg.folder-icon {
+  margin: 0 !important;
+}
+
+/* Remove the vertical guide line between siblings */
+.folder-outer > ul,
+#explorer-content .folder-outer > ul {
+  border-left: none !important;
+  margin-left: 0 !important;
+  padding-left: 14px !important;
+}
 
 /* Right sidebar — graph + ToC + backlinks */
 .graph {
