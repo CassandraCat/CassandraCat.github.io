@@ -9,7 +9,7 @@ tags:
   - fsd
   - turbo
   - ci-cd
-description: "把一个堆了 28 个业务域的大前端，重构成"业务域可裂变成独立产品"的形态——这不是代码整洁问题，是产品化诉求。这篇讲三流模型 (SUPPLY/UPSTREAM/SPAWN)、五组分层、FSD 切片即产品边界、原子 symlink 部署、Turbo Remote Cache 的整套落地路径。"
+description: "把一个堆了 28 个业务域的大前端，重构成「业务域可裂变成独立产品」的形态——这不是代码整洁问题，是产品化诉求。这篇讲三流模型 (SUPPLY/UPSTREAM/SPAWN)、五组分层、FSD 切片即产品边界、原子 symlink 部署、Turbo Remote Cache 的整套落地路径。"
 ---
 
 > 我推动的一次大规模前端架构重构最后落到一句话上：**让"从一个大单仓抽离一个业务域成独立产品"，从手术变成一条命令**。
