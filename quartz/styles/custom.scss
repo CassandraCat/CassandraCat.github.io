@@ -418,6 +418,86 @@ a.post-card h3 a[role="anchor"] {
   display: none !important;
 }
 
+/* ═══════════════ RECENT NOTES (auto-generated post list) ═══════════════ */
+.recent-notes {
+  margin-top: 4rem;
+}
+.recent-notes > h3 {
+  font-family: var(--codeFont) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin: 0 0 1.4rem !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.recent-notes > h3::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--lightgray);
+}
+.recent-ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.recent-li {
+  background: var(--light);
+  box-shadow: var(--shadow-card);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 0 0 12px !important;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  list-style: none;
+}
+.recent-li:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+.recent-li .section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.recent-li .desc {
+  order: 2;
+}
+.recent-li .meta {
+  order: 1;
+  font-family: var(--codeFont);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  margin: 0 0 6px !important;
+  text-transform: uppercase;
+}
+.recent-li .desc h3 {
+  margin: 0 !important;
+  font-family: var(--headerFont) !important;
+  font-size: 1.18rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.008em;
+  line-height: 1.35;
+}
+.recent-li .desc h3 a {
+  color: var(--dark) !important;
+  border-bottom: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  transition: color 0.18s ease;
+}
+.recent-li:hover .desc h3 a {
+  color: var(--secondary) !important;
+}
+.recent-li .desc h3 a[role="anchor"] {
+  display: none !important;
+}
+
 /* ═══════════════ ARTICLE META (date / reading time) ═══════════════ */
 .content-meta {
   font-family: var(--codeFont) !important;

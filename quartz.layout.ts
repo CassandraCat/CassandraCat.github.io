@@ -34,6 +34,17 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (page) => !isIndex(page.fileData.slug ?? ""),
     }),
   ],
+  afterBody: [
+    Component.ConditionalRender({
+      component: Component.RecentNotes({
+        title: "最近文章",
+        limit: 10,
+        showTags: false,
+        filter: (page) => (page.slug ?? "").startsWith("posts/"),
+      }),
+      condition: (page) => isIndex(page.fileData.slug ?? ""),
+    }),
+  ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
