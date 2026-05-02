@@ -10,8 +10,6 @@ tags:
 description: "Quartz v4 选型理由 / 暖色羊皮纸视觉对齐 / GitHub Pages 部署踩的坑 / 跟 Obsidian 对接的 /publish skill 设计 / 4 个真踩过的工程坑"
 ---
 
-# 搭一个能跟 Obsidian 对接的 Quartz 博客
-
 > 「[关于这个博客](/posts/welcome)」那篇写了为什么要博客，这篇是配套的怎么搭——一个工程笔记 + 几个踩过的坑。
 
 ## 选型对比
