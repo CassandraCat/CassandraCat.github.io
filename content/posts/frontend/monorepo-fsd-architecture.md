@@ -30,6 +30,8 @@ description: "把一个堆了 28 个业务域的大前端，重构成「业务�
 
 做到这一点需要一个**三流架构**，不是两层塔也不是双向供给那么简单。三条流缺一不可：
 
+![应用级 monorepo 三流架构](/static/posts/frontend/monorepo-fsd-architecture/m01-three-flows.png)
+
 | 流名           | 方向                      | 承载                                    | 作用                                       |
 | ------------ | ----------------------- | ------------------------------------- | ---------------------------------------- |
 | **SUPPLY**   | 基建库 → app          | Changesets 发版 + pnpm catalog          | 所有产品消费同一份 `@org/*`，升级一处全仓受益               |
@@ -116,6 +118,8 @@ core/  →  domain/  →  ui/  →  engines/  →  plugins/
 
 基建库通过 [Changesets](https://github.com/changesets/changesets) 管理发版：
 
+![Changesets 发布链路](/static/posts/frontend/monorepo-fsd-architecture/m02-changesets-pipeline.png)
+
 ```
 开发者 changeset 描述变更
    ↓
@@ -162,6 +166,8 @@ catalog:
 
 ### 5.2 六层切片
 
+![FSD 六层切片](/static/posts/frontend/monorepo-fsd-architecture/m03-fsd-six-layers.png)
+
 ```
 app/        ← 应用启动、全局 Provider、路由装配
 pages/      ← 路由级页面 (组合 widgets + features)
@@ -189,6 +195,8 @@ shared/     ← 业务无关的共享基础件
 | `shared/` | `shared/api/client.ts`, `shared/ui/button/` | 业务无关的共享基础件 | 出现任何业务名词 |
 
 ### 5.4 FSD 与基建层的配合
+
+![FSD 与基建层的能力落点](/static/posts/frontend/monorepo-fsd-architecture/m04-fsd-with-base-platform.png)
 
 基建库提供"能力"，FSD 组织"业务"，应用把两者胶合。基建库的每一个 `@org/*` 包最终都会落到 FSD 的某一层（最常见是 `shared/` 和 `entities/`），应用层只写业务代码。
 
@@ -299,6 +307,8 @@ CI 场景下每个 pipeline 用的是临时 docker 容器，**没有 local cache
 
 ### 7.2 工作链路
 
+![Turbo Remote Cache 写入链路 + mc cron 清理](/static/posts/frontend/monorepo-fsd-architecture/m08-turbo-cache.png)
+
 ```
 turbo CLI ──PUT/GET──▶ ducktors proxy ──S3 API──▶ S3-兼容 bucket
    │                   (:13000)                    (e.g. RustFS / MinIO)
@@ -333,6 +343,8 @@ Remote Cache 只增不减，bucket 越大越占磁盘。链路上**没有任何�
 
 ## 八、CI/CD 四阶段
 
+![Pipeline 四阶段：unit-test → build → e2e-test → deploy](/static/posts/frontend/monorepo-fsd-architecture/m05-pipeline-four-stages.png)
+
 ```
 unit-test → build → e2e-test → deploy
 ```
@@ -340,13 +352,18 @@ unit-test → build → e2e-test → deploy
 每阶段的设计原则：
 
 - **unit-test 在 build 之前** — 不通过的代码不浪费 build 资源
-- **build 用 Turbo `--filter="...[ref]"`** — 只构建受影响 app（`...[ref]` 是上游传播：改 `@org/ui-layouts` 时找到所有消费它的 app 并加入构建。我早期写反过一次 `[ref]...`（下游传播），导致"改了 layouts 却零变更"）
+- **build 用 Turbo `--filter="...[ref]"`** — 只构建受影响 app（`...[ref]` 是上游传播：改 `@org/ui-layouts` 时找到所有消费它的 app 并加入构建。我早期写反过一次 `[ref]...`（下游传播），导致"改了 layouts 却零变更"）。`generate-ci.js` 按当前 commit 的变更集动态决定哪些 app 进入 build：
+
+  ![generate-ci.js 动态 Build 生成](/static/posts/frontend/monorepo-fsd-architecture/m07-generate-ci.png)
+
 - **e2e-test 在 build 之后** — 用真 build 产物跑真实 vite preview
 - **deploy 在 e2e 之后** — 任一 stage fail，后续 stage 全部不跑，**fail 的代码不会落盘到服务器**
 - **分支门禁** — 只让主干分支（develop / test / release）触发，feature 分支跳过
 - **审批门禁** — release 分支 deploy 走手动审批
 
-**runner 分层**：build 用 heavy runner（避免 `pnpm install` OOM），deploy 用 light runner（不需要重资源）。
+**runner 分层**：build 用 heavy runner（避免 `pnpm install` OOM），deploy 用 light runner（不需要重资源）。整套基础设施布局：
+
+![CI/CD 全景架构：runner / registry / cache / 部署目标](/static/posts/frontend/monorepo-fsd-architecture/m06-cicd-overview.png)
 
 ## 九、产品化操作：FSD 切片即产品边界
 
