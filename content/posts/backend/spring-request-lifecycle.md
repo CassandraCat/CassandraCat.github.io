@@ -22,6 +22,8 @@ description: "学 Spring AI 之前我先把 Spring Boot 的请求链路理透—
 
 任何 Spring Boot 应用都有**两个完全不同的时期**。这是理解一切的根。
 
+![启动期 vs 运行期：双时期模型](/static/posts/backend/spring-request-lifecycle/01-startup-vs-runtime.png)
+
 | 时期      | 触发          | 频率         | 主要做什么                                        |
 | ------- | ----------- | ---------- | -------------------------------------------- |
 | **启动期** | `main()` 开跑 | **一次性**    | 装配 Bean、读 yml、启动 Tomcat、注册 DispatcherServlet |
@@ -32,6 +34,8 @@ description: "学 Spring AI 之前我先把 Spring Boot 的请求链路理透—
 ## 二、技术栈分层
 
 Spring Boot 应用是一个 8 层蛋糕。业务代码坐在最顶层，每往下一层都是别人帮我做好的事。
+
+![Java 后端技术栈分层](/static/posts/backend/spring-request-lifecycle/02-tech-stack-layers.png)
 
 | 层 | 是什么 |
 |---|------|
@@ -55,6 +59,8 @@ Spring Boot 应用是一个 8 层蛋糕。业务代码坐在最顶层，每往�
 ## 三、启动期 9 步
 
 `main()` 跑起来到端口 listen，完整 9 步。**之后整个流程不再发生第二次**。
+
+![启动期 9 步流程](/static/posts/backend/spring-request-lifecycle/03-startup-9-steps.png)
 
 1. `SpringApplication.run()` 创建 Spring 上下文
 2. 读取 `application.yml` / `application.properties`
@@ -85,6 +91,8 @@ Spring Boot 应用是一个 8 层蛋糕。业务代码坐在最顶层，每往�
 ## 四、运行期：一次请求的 15 步 ⭐⭐⭐
 
 这是核心。把这张图刻进脑子，写任何功能都知道往哪儿插。
+
+![运行期 15 步请求旅程](/static/posts/backend/spring-request-lifecycle/04-runtime-15-steps.png)
 
 | # | 在哪 | 做什么 |
 |---|---|---|
@@ -156,6 +164,8 @@ CURRENT_USER.remove();   // ⚠️ 不清就内存泄漏（线程被池复用）
 ## 六、5 个扩展点：写功能时该插哪？
 
 写新功能**第一个该问的问题**是：这事我应该插在哪一层？
+
+![5 个扩展点地图](/static/posts/backend/spring-request-lifecycle/05-extension-points.png)
 
 | 扩展点 | 在哪触发 | 看得到 | 典型用途 |
 |---|---|---|---|
