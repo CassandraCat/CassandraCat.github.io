@@ -17,6 +17,8 @@ description: "新机器一键复刻：Homebrew + mise + stow 三件套。一个�
 
 ## 分层
 
+![macOS 开发环境架构总图：13 步一键复刻](/static/posts/dev/macos-dev-environment/overview.png)
+
 ### Homebrew（Brewfile）
 
 系统级的统一声明入口。所有通过 `brew bundle` 能装的东西都放这里：

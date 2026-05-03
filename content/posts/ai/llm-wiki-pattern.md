@@ -57,6 +57,8 @@ LLM-Wiki 的核心是把这个 maintenance burden 完全甩给 LLM：
 
 跑了一段 Karpathy 原版后，我加了两层：
 
+![CC + Obsidian + 飞书 + GitLab + 禅道 工作流 v2 全景](/static/posts/ai/llm-wiki-pattern/cc-workflow-overview.png)
+
 ```
 Sources (immutable)  ─┬─ ingest  ─→  Wiki (LLM-maintained)  ─┬─ promote ─→  Team (飞书)
                       │                                       ├─ query   ─→  你的问答
