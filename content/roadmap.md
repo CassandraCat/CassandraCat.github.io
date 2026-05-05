@@ -23,8 +23,8 @@ description: 双轨学习路径 · 8 个月 · 三个 GitHub 作品 · 主线 AI
 完整可视化路线图 (含双轨时间线, 8 月份卡片, 能力树, 时间分配条形图) 是单独的 HTML 文档:
 
 <p style="text-align: center; margin: 2rem 0;">
-<a href="/ai-roadmap.html" style="display: inline-block; padding: 14px 28px; background: #ff6b35; color: #0a0a0a; font-weight: 600; text-decoration: none; border-radius: 4px; letter-spacing: 0.04em;">
-→ 查看完整路线图 (HTML)
+<a href="/static/ai-roadmap.html" target="_blank" rel="noopener" style="display: inline-block; padding: 14px 28px; background: #ff6b35; color: #0a0a0a; font-weight: 600; text-decoration: none; border-radius: 4px; letter-spacing: 0.04em;">
+→ 查看完整路线图 (HTML, 新标签打开)
 </a>
 </p>
 
