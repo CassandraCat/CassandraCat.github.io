@@ -130,6 +130,35 @@
   .flow-tag[data-dir="02"] { color:var(--dir-02); }
   .flow-tag[data-dir="03"] { color:var(--dir-03); }
 
+  /* maturity status chip (跟方向归类并行 — 方向是终点, 状态是当前) */
+  .flow-status {
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:10px;
+    padding:2px 10px; letter-spacing:0.08em;
+    border-radius:999px;
+    margin-left:2px;
+  }
+  .flow-status::before {
+    content:''; width:6px; height:6px; border-radius:50%;
+    background:currentColor;
+    box-shadow:0 0 6px currentColor;
+  }
+  .flow-status[data-status="self"] {
+    color:var(--systems);
+    border:1px solid color-mix(in srgb, var(--systems) 55%, transparent);
+    background:color-mix(in srgb, var(--systems) 8%, transparent);
+  }
+  .flow-status[data-status="team"] {
+    color:var(--workflow);
+    border:1px solid color-mix(in srgb, var(--workflow) 55%, transparent);
+    background:color-mix(in srgb, var(--workflow) 8%, transparent);
+  }
+  .flow-status[data-status="plan"] {
+    color:var(--tools);
+    border:1px solid color-mix(in srgb, var(--tools) 55%, transparent);
+    background:color-mix(in srgb, var(--tools) 8%, transparent);
+  }
+
   .flow-uses { margin-left:auto; display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:9.5px; color:var(--text-faint); letter-spacing:0.1em; }
   .uses-label { text-transform:uppercase; color:var(--text-faint); }
   .uses-chips { display:flex; gap:4px; }
@@ -335,6 +364,7 @@
         <span class="flow-num">FLOW · 01</span>
         <span class="flow-title">bug 修复闭环</span>
         <span class="flow-tag" data-dir="03">团队 AI 提效</span>
+        <span class="flow-status" data-status="self">SELF · 自用中</span>
         <span class="flow-uses"><span class="uses-label">USES</span><span class="uses-chips"></span></span>
       </div>
       <div class="flow-canvas">
@@ -377,6 +407,7 @@
         <span class="flow-num">FLOW · 02</span>
         <span class="flow-title">新功能开发</span>
         <span class="flow-tag" data-dir="03">团队 AI 提效</span>
+        <span class="flow-status" data-status="self">SELF · 自用中</span>
         <span class="flow-uses"><span class="uses-label">USES</span><span class="uses-chips"></span></span>
       </div>
       <div class="flow-canvas">
@@ -415,6 +446,7 @@
         <span class="flow-num">FLOW · 07</span>
         <span class="flow-title">MR review 双向</span>
         <span class="flow-tag" data-dir="03">团队 AI 提效</span>
+        <span class="flow-status" data-status="self">SELF · 自用中</span>
         <span class="flow-uses"><span class="uses-label">USES</span><span class="uses-chips"></span></span>
       </div>
       <div class="flow-canvas">
@@ -455,6 +487,7 @@
         <span class="flow-num">FLOW · 03</span>
         <span class="flow-title">知识沉淀 (LLM-Wiki)</span>
         <span class="flow-tag" data-dir="02">内部 AI 工具</span>
+        <span class="flow-status" data-status="self">SELF · 自用中</span>
         <span class="flow-uses"><span class="uses-label">USES</span><span class="uses-chips"></span></span>
       </div>
       <div class="flow-canvas">
@@ -487,6 +520,7 @@
         <span class="flow-num">FLOW · 04</span>
         <span class="flow-title">博客发布</span>
         <span class="flow-tag" data-dir="02">内部 AI 工具</span>
+        <span class="flow-status" data-status="self">SELF · 自用中</span>
         <span class="flow-uses"><span class="uses-label">USES</span><span class="uses-chips"></span></span>
       </div>
       <div class="flow-canvas">
@@ -521,6 +555,7 @@
         <span class="flow-num">FLOW · 05</span>
         <span class="flow-title">会话生命周期</span>
         <span class="flow-tag" data-dir="02">内部 AI 工具</span>
+        <span class="flow-status" data-status="self">SELF · 自用中</span>
         <span class="flow-uses"><span class="uses-label">USES</span><span class="uses-chips"></span></span>
       </div>
       <div class="flow-canvas">
@@ -549,6 +584,7 @@
         <span class="flow-num">FLOW · 06</span>
         <span class="flow-title">任务工时回填</span>
         <span class="flow-tag" data-dir="02">内部 AI 工具</span>
+        <span class="flow-status" data-status="self">SELF · 自用中</span>
         <span class="flow-uses"><span class="uses-label">USES</span><span class="uses-chips"></span></span>
       </div>
       <div class="flow-canvas">
@@ -577,6 +613,7 @@
         <span class="flow-num">FLOW · 08</span>
         <span class="flow-title">学习打卡 /study</span>
         <span class="flow-tag" data-dir="02">内部 AI 工具</span>
+        <span class="flow-status" data-status="self">SELF · 自用中</span>
         <span class="flow-uses"><span class="uses-label">USES</span><span class="uses-chips"></span></span>
       </div>
       <div class="flow-canvas">
