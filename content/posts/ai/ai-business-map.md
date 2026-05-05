@@ -1,5 +1,5 @@
 ---
-title: "我的 AI 业务地图：三类方向 × Agent 六要素 × 75 个 Skill"
+title: "我的 AI 业务地图：三方向 × 8 条工作流 × 六要素"
 date: 2026-05-02
 lastmod: 2026-05-05
 tags:
@@ -7,26 +7,29 @@ tags:
   - career
   - reflection
   - agent
-description: "企业 AI 三类方向（基建 / 工具 / 提效）是抽象框架的顶；Agent 六要素（Intent / Workflow / Tools / State / Memory / Systems）是底；中间是我手上 ~75 个 Skill / 3 套 MCP / 4 套 Workflow。把它们串成一张交互地图。"
+description: "三方向（AI 基建 / 内部工具 / 团队提效）是分类标签；8 条工作流是真实链路；六要素（Intent / Workflow / Tools / State / Memory / Systems）是能力底座；横切 14 个 Superpowers 方法论。一张可交互大地图。"
 ---
 
 > 在公司里"做 AI"这件事，我观察下来大体是 [polebug 在 talk 里讲的三类方向](https://polebug.github.io/slides/ai-transition/)：**AI 基建 / 内部工具 / 团队提效**。三类决定了你每天面对什么问题、写什么代码、跟谁打交道。
 >
-> 但只看三类是不够的——往上看是抽象框架（"我在解决什么类别的问题"），往下还有 [Agent 的六大能力底座](/Posts/ai/llm-agent-skill-stack)（"这些方案靠什么基础能力做到"）。中间夹着的是真正落地的东西：Skill、MCP、Workflow。
+> 但只看三类是不够的——往上看是抽象框架（"我在解决什么类别的问题"），往下还有 [Agent 的六大能力底座](/Posts/ai/llm-agent-skill-stack)（"这些方案靠什么基础能力做到"）。中间夹着的不是一堆孤立工具列表，而是**真实工作流链路**——每条流串联多少个 skill / 调多少个 MCP / 触发哪些 superpowers 方法论。
 >
-> 我把这三层做成了一张可交互的地图，用穿透分析把每一层串起来。
+> 我把这三层做成了一张可交互的大地图，每条工作流是一条独立横向链路，节点之间用流动 dash 连起来。
 
 ## 👉 [打开交互地图 →](/static/posts/ai/ai-business-map/)
 
-地图分三层：
+地图四层结构：
 
-- **顶层 · 三类方向**　每类的"作用"和"关键能力"
-- **底层 · Agent 六要素**　Intent / Workflow / Tools / State / Memory / Systems，每个能力一句"作用"
-- **中间 · 全景目录**　我手上 ~75 个 Skill / 3 套 MCP / 4 套 Workflow，按 13 个域分组
-- **穿透分析**　挑 5 个高频实例（`/commit` `/mr review` `LLM-Wiki 流水线` `/bug 闭环` `/publish`），每个展开成 6 列，看抽象在它身上长成什么样
-- **总览矩阵**　12 个实例 × 6 个能力，一眼看出每条流水线的"骨骼"
+- **① 顶部 · 三方向**　每类的简短定位 + 包含哪几条 flow
+- **② 中间 · 8 条工作流**　每条是横向链路（节点 dot + dashed flowing path），不再是孤立卡片：
+  - **团队 AI 提效 (3 条)**　bug 修复闭环 / 新功能开发 / MR review 双向
+  - **内部 AI 工具 (5 条)**　知识沉淀 LLM-Wiki / 博客发布 / 会话生命周期 / 任务工时回填 / 学习打卡 `/study`
+- **③ 底部 · Agent 六要素**　Intent / Workflow / Tools / State / Memory / Systems，每条 flow 行末用 6-chip 标"用了哪些"
+- **★ 右侧横切 · Superpowers 方法论层**　sticky 垂直链路，14 个方法论 skill（brainstorming / writing-plans / TDD / verification / systematic-debugging / code-review …）横切所有 8 条业务 flow。每条 flow 上的关键节点用紫色 ticker 标 trigger 点
 
-地图里 hover 任一能力卡片，下面所有实例的同名列瞬间高亮——能直接看出"哪些实例用了 Memory，哪些没有"。
+每条 flow 用一个 signature 色染色（bug 修复=金 / 知识沉淀=紫 / 会话=蓝 / MR review=粉 / 学习=橙 …），signature 色就是该 flow 主用的六要素之一。
+
+Hover 任一**三方向 chip** / **六要素 chip** / **superpowers 节点**，不引用该项的 flow 整条 dim 0.16——一眼看出哪些流用了它、哪些没。Light / Dark 两套主题右上角切换。
 
 ## 我自己在哪
 
