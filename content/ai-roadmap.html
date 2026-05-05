@@ -1,0 +1,2400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 工程师养成 · 2026 学习路线图 · v6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@200;300;400;500;600;700;800&family=Noto+Sans+SC:wght@200;300;400;500;600;700&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* ─── Surfaces ─────────────────────────── */
+  --bg:           #0a0a0a;
+  --bg-deep:      #050505;
+  --elev-1:       #121211;
+  --elev-2:       #1a1a17;
+  --elev-3:       #232320;
+  --paper-noise:  rgba(255, 255, 255, 0.012);
+
+  /* ─── Lines (hairlines, no drop shadows) ── */
+  --line:           rgba(232, 230, 220, 0.07);
+  --line-strong:    rgba(232, 230, 220, 0.14);
+  --line-orange:    rgba(255, 107, 53, 0.18);
+  --line-orange-2:  rgba(255, 107, 53, 0.40);
+  --line-amber:     rgba(245, 158, 11, 0.22);
+  --line-cyan:      rgba(6, 182, 212, 0.22);
+
+  /* ─── Text ───────────────────────────── */
+  --text:    #e8e6dc;
+  --text-2:  #b8b6ab;
+  --text-3:  #7a7872;
+  --text-4:  #54524c;
+  --text-5:  #38362f;
+
+  /* ─── Brand & accents ────────────────── */
+  --accent:        #ff6b35;
+  --accent-deep:   #d94e1f;
+  --accent-soft:   rgba(255, 107, 53, 0.10);
+  --accent-glow:   rgba(255, 107, 53, 0.25);
+
+  /* ─── Track colors ───────────────────── */
+  --java:          #f59e0b;
+  --java-soft:     rgba(245, 158, 11, 0.10);
+  --java-glow:     rgba(245, 158, 11, 0.20);
+
+  --python:        #06b6d4;
+  --python-soft:   rgba(6, 182, 212, 0.10);
+  --python-glow:   rgba(6, 182, 212, 0.20);
+
+  --cg:            #a78bfa;
+  --algo:          #94a3b8;
+
+  /* ─── Spacing ────────────────────────── */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --s9: 96px; --s10: 128px; --s11: 192px;
+
+  /* ─── Motion ─────────────────────────── */
+  --ease:       cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft:  cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:   180ms;
+  --dur:        420ms;
+  --dur-slow:   720ms;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+*::selection { background: var(--accent-glow); color: var(--text); }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background:
+    radial-gradient(ellipse 1200px 800px at 20% -10%, rgba(255, 107, 53, 0.04), transparent 60%),
+    radial-gradient(ellipse 900px 600px at 90% 30%, rgba(245, 158, 11, 0.025), transparent 55%),
+    radial-gradient(ellipse 800px 600px at 10% 70%, rgba(6, 182, 212, 0.025), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Manrope', 'Noto Sans SC', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'ss01', 'cv11';
+  overflow-x: hidden;
+  text-wrap: pretty;
+}
+
+/* Subtle film grain across the whole page */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ─── Typography ──────────────────────────────────────────── */
+.serif {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
+  font-feature-settings: 'liga', 'dlig';
+}
+.mono {
+  font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace;
+  font-feature-settings: 'ss01', 'calt', 'zero';
+}
+
+/* ─── Layout shell ───────────────────────────────────────── */
+.shell { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 var(--s7); }
+@media (max-width: 768px) { .shell { padding: 0 var(--s5); } }
+
+/* ─── Section header (PART NN / TITLE) ───────────────────── */
+.part-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--s5);
+}
+.part-tag::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+}
+.part-tag .num { color: var(--accent); font-weight: 600; }
+.part-tag .slash { color: var(--text-4); }
+.part-tag .title { color: var(--text-2); letter-spacing: 0.18em; }
+
+.section-title {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  margin-bottom: var(--s5);
+}
+.section-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 300;
+}
+.section-lede {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--text-2);
+  max-width: 60ch;
+  line-height: 1.55;
+  margin-bottom: var(--s8);
+}
+
+/* ─── Section spacing ────────────────────────────────────── */
+section { padding: var(--s10) 0; position: relative; }
+section + section { border-top: 1px solid var(--line); }
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: var(--s10) 0;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--s5);
+  margin-bottom: var(--s9);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.hero-meta .hm-left { display: flex; gap: var(--s5); }
+.hero-meta .hm-left span { display: flex; align-items: center; gap: var(--s2); }
+.hero-meta .hm-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+.hero-prefix {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--s5);
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(64px, 11vw, 168px);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--s5);
+}
+.hero h1 .top-line { display: block; color: var(--text); }
+.hero h1 .bottom-line {
+  display: block;
+  color: var(--text-3);
+  font-style: italic;
+  font-weight: 300;
+}
+.hero h1 .accent { color: var(--accent); font-style: italic; font-weight: 500; }
+
+.hero-zh {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 48px);
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-top: var(--s5);
+  margin-bottom: var(--s7);
+}
+.hero-zh .pipe {
+  color: var(--text-4);
+  margin: 0 var(--s4);
+  font-weight: 200;
+}
+.hero-zh .accent {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.hero-tagline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3) var(--s5);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: var(--s9);
+}
+.hero-tagline .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+.hero-tagline .tag::before {
+  content: '/';
+  color: var(--accent);
+  font-weight: 600;
+}
+.hero-tagline .tag:first-child::before { display: none; }
+
+.hero-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.hero-stat-row .stat {
+  padding: var(--s5) var(--s5);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+.hero-stat-row .stat:last-child { border-right: none; }
+.hero-stat-row .stat .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.hero-stat-row .stat .value {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text);
+}
+.hero-stat-row .stat .value em {
+  font-style: italic;
+  color: var(--accent);
+}
+.hero-stat-row .stat .sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+}
+@media (max-width: 768px) {
+  .hero-stat-row { grid-template-columns: repeat(2, 1fr); }
+  .hero-stat-row .stat:nth-child(2) { border-right: none; }
+  .hero-stat-row .stat:nth-child(1),
+  .hero-stat-row .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DUAL-TRACK TIMELINE
+   ═══════════════════════════════════════════════════════════ */
+.timeline-wrap {
+  margin-top: var(--s7);
+  position: relative;
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: 200px repeat(8, 1fr);
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid var(--line);
+  background: var(--elev-1);
+  position: relative;
+}
+
+.tl-row {
+  display: contents;
+}
+
+.tl-rail-cell {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  min-height: 110px;
+  padding: var(--s4);
+}
+.tl-rail-cell:last-child { border-right: none; }
+.tl-row.last .tl-rail-cell { border-bottom: none; }
+
+/* Track A row (Java/amber) */
+.tl-track-a .tl-rail-cell {
+  background:
+    linear-gradient(180deg, rgba(245, 158, 11, 0.025), transparent 70%);
+}
+.tl-track-a .tl-label {
+  background: var(--bg);
+  border-right: 1px solid var(--line-amber);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--s5);
+  border-left: 3px solid var(--java);
+}
+.tl-track-a .tl-label .badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--java);
+  text-transform: uppercase;
+  margin-bottom: var(--s2);
+}
+.tl-track-a .tl-label h4 {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+.tl-track-a .tl-label .sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  margin-top: var(--s2);
+}
+
+/* Track B row (Python/cyan) */
+.tl-track-b .tl-rail-cell {
+  background:
+    linear-gradient(0deg, rgba(6, 182, 212, 0.025), transparent 70%);
+}
+.tl-track-b .tl-label {
+  background: var(--bg);
+  border-right: 1px solid var(--line-cyan);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--s5);
+  border-left: 3px solid var(--python);
+}
+.tl-track-b .tl-label .badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--python);
+  text-transform: uppercase;
+  margin-bottom: var(--s2);
+}
+.tl-track-b .tl-label h4 {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+.tl-track-b .tl-label .sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  margin-top: var(--s2);
+}
+
+/* Month header row */
+.tl-row.months { display: contents; }
+.tl-month-spacer {
+  background: var(--bg);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.tl-month {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-deep);
+  padding: var(--s4);
+  text-align: center;
+  position: relative;
+}
+.tl-month:last-child { border-right: none; }
+.tl-month .num {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--text);
+  display: block;
+}
+.tl-month .num em {
+  font-style: italic;
+  color: var(--text-3);
+}
+.tl-month .lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-top: var(--s2);
+  display: block;
+}
+.tl-month.current .num { color: var(--accent); }
+.tl-month.current .lbl { color: var(--accent); }
+.tl-month.current::after {
+  content: 'YOU·ARE·HERE';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  background: var(--bg);
+  padding: 2px 8px;
+  border: 1px solid var(--line-orange-2);
+}
+
+/* Milestone marker — 3-row grid keeps the dot on the center rail line */
+.ms {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  height: 100%;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.ms-version { align-self: end; padding-bottom: 6px; }
+.ms-text { align-self: start; padding-top: 6px; }
+.ms-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  align-self: center;
+}
+.ms-dot::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0.3;
+}
+.tl-track-a .ms-dot { background: var(--java); color: var(--java); box-shadow: 0 0 16px var(--java-glow); }
+.tl-track-b .ms-dot { background: var(--python); color: var(--python); box-shadow: 0 0 16px var(--python-glow); }
+
+.ms-version {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.tl-track-a .ms-version { color: var(--java); }
+.tl-track-b .ms-version { color: var(--python); }
+.ms-version.muted { color: var(--text-4); font-weight: 400; }
+
+.ms-text {
+  font-family: 'Noto Sans SC', 'Manrope', sans-serif;
+  font-size: 11px;
+  text-align: center;
+  color: var(--text-2);
+  line-height: 1.4;
+  margin-top: var(--s2);
+}
+.ms-text.muted { color: var(--text-4); }
+
+/* Connector line between dots */
+.tl-track-a .tl-rail-cell::before,
+.tl-track-b .tl-rail-cell::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, currentColor, currentColor);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.tl-track-a .tl-rail-cell::before { background: var(--java); }
+.tl-track-b .tl-rail-cell::before { background: var(--python); }
+.tl-track-a .tl-rail-cell.empty::before,
+.tl-track-b .tl-rail-cell.empty::before { opacity: 0.05; background: var(--text-3); }
+
+@media (max-width: 1100px) {
+  .timeline-wrap { overflow-x: auto; padding-bottom: var(--s5); margin: 0 calc(var(--s7) * -1); padding-left: var(--s7); padding-right: var(--s7); }
+  .timeline-grid { min-width: 1100px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANCHOR PROJECTS (Browser Agent + Obsidian RAG + AI Code Reader)
+   ═══════════════════════════════════════════════════════════ */
+.anchor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--line);
+  background: var(--elev-1);
+  margin-top: var(--s7);
+}
+@media (max-width: 900px) {
+  .anchor-grid { grid-template-columns: 1fr; }
+  .anchor-grid > .anchor:first-child { border-right: none !important; border-bottom: 1px solid var(--line); }
+}
+.anchor {
+  padding: var(--s8) var(--s7);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.anchor:first-child {
+  border-right: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse 600px 400px at 30% 0%, rgba(245, 158, 11, 0.04), transparent 70%);
+}
+.anchor:last-child {
+  background:
+    radial-gradient(ellipse 600px 400px at 70% 0%, rgba(6, 182, 212, 0.04), transparent 70%);
+}
+
+.anchor-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: var(--s4);
+}
+.anchor:first-child .anchor-tag { color: var(--java); }
+.anchor:last-child .anchor-tag { color: var(--python); }
+.anchor-tag::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: currentColor;
+}
+
+.anchor h3 {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: var(--s2);
+}
+.anchor h3 em { font-style: italic; }
+.anchor:first-child h3 em { color: var(--java); }
+.anchor:last-child h3 em { color: var(--python); }
+
+.anchor .subtitle {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--text-2);
+  margin-bottom: var(--s5);
+}
+
+.anchor .stack-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-bottom: var(--s5);
+}
+.stack-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 4px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  color: var(--text-2);
+  background: var(--elev-2);
+  letter-spacing: 0.02em;
+}
+.stack-tag.primary { color: var(--text); border-color: currentColor; }
+.anchor:first-child .stack-tag.primary { color: var(--java); border-color: var(--line-amber); background: var(--java-soft); }
+.anchor:last-child .stack-tag.primary { color: var(--python); border-color: var(--line-cyan); background: var(--python-soft); }
+
+.anchor .desc {
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: var(--s7);
+}
+
+.anchor-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s4);
+  padding-top: var(--s5);
+  border-top: 1px solid var(--line);
+}
+.anchor-stats .stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+}
+.anchor-stats .stat .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.anchor-stats .stat .value {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--text);
+}
+.anchor:first-child .anchor-stats .stat .value em { color: var(--java); }
+.anchor:last-child .anchor-stats .stat .value em { color: var(--python); }
+.anchor-stats .stat .sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CAPABILITY TREE (8 块能力)
+   ═══════════════════════════════════════════════════════════ */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  background: var(--elev-1);
+  margin-top: var(--s7);
+}
+@media (max-width: 900px) {
+  .cap-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .cap-grid { grid-template-columns: 1fr; }
+}
+
+.cap {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: var(--s6);
+  position: relative;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  transition: background var(--dur) var(--ease);
+}
+.cap:nth-child(4n) { border-right: none; }
+.cap:nth-last-child(-n+4) { border-bottom: none; }
+@media (max-width: 900px) {
+  .cap { border-right: 1px solid var(--line) !important; }
+  .cap:nth-child(2n) { border-right: none !important; }
+  .cap:nth-last-child(-n+2) { border-bottom: none; }
+  .cap:nth-last-child(-n+4):not(:nth-last-child(-n+2)) { border-bottom: 1px solid var(--line); }
+}
+@media (max-width: 540px) {
+  .cap { border-right: none !important; }
+  .cap { border-bottom: 1px solid var(--line) !important; }
+  .cap:last-child { border-bottom: none !important; }
+}
+.cap:hover { background: var(--elev-2); }
+
+.cap .cap-num {
+  position: absolute;
+  top: var(--s5);
+  right: var(--s5);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 56px;
+  font-weight: 300;
+  color: var(--text-5);
+  line-height: 0.9;
+}
+.cap .cap-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--s4);
+}
+.cap.done .cap-tag { color: var(--java); }
+.cap.done .cap-tag::after { content: ' · DONE'; color: var(--java); opacity: 0.5; }
+.cap h4 {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  margin-bottom: var(--s2);
+  line-height: 1.2;
+}
+.cap .desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+  margin-bottom: var(--s5);
+}
+.cap .months {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-top: var(--s4);
+  border-top: 1px dashed var(--line);
+}
+.cap .months .m {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 3px 7px;
+  background: var(--elev-2);
+  border: 1px solid var(--line);
+  color: var(--text-3);
+  border-radius: 2px;
+}
+.cap .months .m.active {
+  border-color: var(--line-orange-2);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.cap .months .m.done {
+  color: var(--java);
+  border-color: var(--line-amber);
+  background: var(--java-soft);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIME ALLOCATION CHART
+   ═══════════════════════════════════════════════════════════ */
+.alloc-chart {
+  margin-top: var(--s7);
+  border: 1px solid var(--line);
+  background: var(--elev-1);
+  padding: var(--s7);
+}
+.alloc-legend {
+  display: flex;
+  gap: var(--s5);
+  flex-wrap: wrap;
+  margin-bottom: var(--s7);
+  padding-bottom: var(--s5);
+  border-bottom: 1px solid var(--line);
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--text-2);
+  text-transform: uppercase;
+}
+.legend-swatch {
+  width: 14px; height: 14px;
+  border-radius: 1px;
+}
+.legend-swatch.java { background: var(--java); }
+.legend-swatch.python { background: var(--python); }
+.legend-swatch.cg { background: var(--cg); }
+.legend-swatch.algo { background: var(--algo); }
+
+.alloc-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+.alloc-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  gap: var(--s4);
+  align-items: center;
+}
+.alloc-row .month-lbl {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text);
+}
+.alloc-row .month-lbl .small {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-3);
+  margin-left: 2px;
+}
+.alloc-bar {
+  display: flex;
+  height: 28px;
+  border: 1px solid var(--line);
+  background: var(--bg-deep);
+  overflow: hidden;
+}
+.alloc-bar .seg {
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--bg-deep);
+  border-right: 1px solid var(--bg-deep);
+}
+.alloc-bar .seg:last-child { border-right: none; }
+.alloc-bar .seg.java { background: var(--java); }
+.alloc-bar .seg.python { background: var(--python); }
+.alloc-bar .seg.cg { background: var(--cg); }
+.alloc-bar .seg.algo { background: var(--algo); }
+.alloc-bar .seg.empty { background: var(--elev-3); border-right: 1px solid var(--bg-deep); }
+
+.alloc-row .total-h {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-2);
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+.alloc-row .total-h em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MONTHLY BREAKDOWN CARDS
+   ═══════════════════════════════════════════════════════════ */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: var(--s7);
+}
+@media (max-width: 768px) {
+  .month-grid { grid-template-columns: 1fr; }
+}
+
+.month-card {
+  background: var(--elev-1);
+  padding: var(--s7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+  position: relative;
+}
+.month-card.now {
+  background: linear-gradient(180deg, rgba(255, 107, 53, 0.04), var(--elev-1));
+}
+.month-card.now::before {
+  content: 'CURRENT';
+  position: absolute;
+  top: var(--s4);
+  right: var(--s4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  padding: 2px 8px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.mc-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+.mc-head .mc-num {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 56px;
+  line-height: 0.9;
+  font-weight: 400;
+  color: var(--text);
+}
+.mc-head .mc-num em {
+  font-style: italic;
+  color: var(--accent);
+}
+.mc-head .mc-meta {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+.mc-head .mc-meta .h {
+  font-size: 18px;
+  color: var(--text);
+  font-weight: 500;
+  display: block;
+}
+
+.mc-title {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.mc-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+.mc-track {
+  display: block;
+  padding: var(--s4) 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 13px;
+  line-height: 1.55;
+  position: relative;
+}
+.mc-track:last-child { border-bottom: none; }
+.mc-track .lbl {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: var(--s3);
+  padding: 3px 9px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  background: var(--elev-2);
+}
+.mc-track.java .lbl { color: var(--java); }
+.mc-track.python .lbl { color: var(--python); }
+.mc-track.cg .lbl { color: var(--cg); }
+.mc-track.algo .lbl { color: var(--algo); }
+.mc-track .body {
+  color: var(--text-2);
+}
+.mc-track .body strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.mc-track.paused .body { color: var(--text-4); font-style: italic; }
+
+/* Weekly task list inside a track */
+.mc-track .weeks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.mc-track .weeks li {
+  position: relative;
+  padding-left: 38px;
+  line-height: 1.6;
+}
+.mc-track .weeks li .w {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+.mc-track.java .weeks li .w { color: var(--java); }
+.mc-track.python .weeks li .w { color: var(--python); }
+.mc-track.cg .weeks li .w { color: var(--cg); }
+.mc-track.algo .weeks li .w { color: var(--algo); }
+.mc-track .weeks li strong { color: var(--text); font-weight: 500; }
+.mc-track.paused .weeks { color: var(--text-4); font-style: italic; }
+
+.mc-milestones {
+  border-top: 1px solid var(--line);
+  padding-top: var(--s4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+.mc-milestones .m-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--s2);
+}
+.mc-milestones .ms-line {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.45;
+  padding-left: var(--s4);
+  position: relative;
+}
+.mc-milestones .ms-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONSTRAINTS
+   ═══════════════════════════════════════════════════════════ */
+.constraints {
+  margin-top: var(--s7);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--line);
+  background: var(--elev-1);
+}
+@media (max-width: 768px) {
+  .constraints { grid-template-columns: 1fr; }
+  .constraints > div:first-child { border-right: none !important; border-bottom: 1px solid var(--line); }
+}
+.constraints > div {
+  padding: var(--s7);
+}
+.constraints > div:first-child { border-right: 1px solid var(--line); }
+
+.constraints h4 {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  margin-bottom: var(--s5);
+}
+.constraints h4 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.constraint-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+.constraint-list li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: var(--s3);
+  align-items: baseline;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+  padding: var(--s2) 0;
+  border-bottom: 1px dashed var(--line);
+}
+.constraint-list li:last-child { border-bottom: none; }
+.constraint-list li::before {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-4);
+  font-feature-settings: 'lnum';
+}
+.constraint-list.do li::before { content: '+'; color: var(--java); }
+.constraint-list.dont li::before { content: '×'; color: var(--accent); }
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+footer {
+  margin-top: var(--s10);
+  padding: var(--s8) 0 var(--s9);
+  border-top: 1px solid var(--line);
+  background: var(--bg-deep);
+}
+.footer-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--s5);
+  margin-bottom: var(--s7);
+}
+@media (max-width: 768px) {
+  .footer-row { grid-template-columns: 1fr 1fr; }
+}
+.footer-col h5 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: var(--s3);
+  font-weight: 500;
+}
+.footer-col p, .footer-col li {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.7;
+  list-style: none;
+}
+.footer-col em {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-style: italic;
+  color: var(--text);
+}
+.footer-col code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--elev-2);
+  padding: 1px 4px;
+  border-radius: 2px;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.colophon {
+  border-top: 1px solid var(--line);
+  padding-top: var(--s5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-4);
+}
+@media (max-width: 768px) {
+  .colophon { flex-direction: column; gap: var(--s3); align-items: flex-start; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ENTRANCE ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.rise { animation: rise var(--dur-slow) var(--ease) both; }
+
+.hero .part-tag, .hero h1, .hero .hero-zh, .hero .hero-tagline, .hero .hero-stat-row, .hero-meta {
+  opacity: 0;
+  animation: rise var(--dur-slow) var(--ease) both;
+}
+.hero-meta { animation-delay: 0ms; }
+.hero .part-tag { animation-delay: 80ms; }
+.hero h1 .top-line { display: inline-block; animation: rise var(--dur-slow) var(--ease) both; animation-delay: 200ms; }
+.hero h1 .bottom-line { display: inline-block; animation: rise var(--dur-slow) var(--ease) both; animation-delay: 360ms; }
+.hero .hero-zh { animation-delay: 460ms; }
+.hero .hero-tagline { animation-delay: 580ms; }
+.hero .hero-stat-row { animation-delay: 700ms; }
+.hero h1 { opacity: 1; }
+
+/* Reveal-on-scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: 80ms; }
+.reveal.delay-2 { transition-delay: 160ms; }
+.reveal.delay-3 { transition-delay: 240ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="shell">
+    <div class="hero-meta">
+      <div class="hm-left">
+        <span><span class="hm-dot"></span>2026.05 — 2026.12</span>
+        <span>VOLUME · VI</span>
+      </div>
+      <div>张桃 · CassandraCat</div>
+    </div>
+
+    <div class="hero-prefix">PART · 00 / OVERTURE</div>
+    <h1>
+      <span class="top-line">THE MAKING</span>
+      <span class="bottom-line">OF AN <span class="accent">AI ENGINEER</span></span>
+    </h1>
+
+    <div class="hero-zh">
+      <span class="accent">AI 工程师</span> 养成
+    </div>
+
+    <div class="hero-tagline">
+      <span class="tag">8 个月叙事</span>
+      <span class="tag">双轨并行</span>
+      <span class="tag">三个作品 GitHub 见</span>
+      <span class="tag">从前端走到 AI</span>
+    </div>
+
+    <div class="hero-stat-row">
+      <div class="stat">
+        <span class="label">主线 · MAIN</span>
+        <span class="value"><em>56</em><span style="font-size: 16px; color: var(--text-3); font-style: italic;"> h/月</span></span>
+        <span class="sub">Java · Spring AI · Browser Agent</span>
+      </div>
+      <div class="stat">
+        <span class="label">副线 · SIDE</span>
+        <span class="value"><em>20</em><span style="font-size: 16px; color: var(--text-3); font-style: italic;"> h/月</span></span>
+        <span class="sub">Python · Obsidian RAG → AI Code Reader</span>
+      </div>
+      <div class="stat">
+        <span class="label">能力树 · CAPABILITY</span>
+        <span class="value"><em>8</em><span style="font-size: 16px; color: var(--text-3); font-style: italic;"> 块</span></span>
+        <span class="sub">基础 → 进阶, 12 月底覆盖完</span>
+      </div>
+      <div class="stat">
+        <span class="label">总时数 · TOTAL</span>
+        <span class="value"><em>1,032</em><span style="font-size: 16px; color: var(--text-3); font-style: italic;"> h</span></span>
+        <span class="sub">8 月 · 三/四线并行</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 01 — DUAL TRACK TIMELINE
+     ═══════════════════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <div class="part-tag reveal">
+      <span class="num">01</span><span class="slash">/</span><span class="title">Dual Track Timeline</span>
+    </div>
+    <h2 class="section-title reveal">两条轨道, <em>八个月</em>, 一张地图</h2>
+    <p class="section-lede reveal delay-1">
+      上半轨是 Java 主线 — Browser Agent 随月份从「Tool 试水」走到「v2.0 多 Agent · GitHub 开源」。
+      下半轨是 Python 副线 — Obsidian RAG (8-10 月) 串行做到 AI Code Reader (11-12 月)。
+      两条轨道独立跑, 在 8 块 AI 能力上汇合。
+    </p>
+
+    <div class="timeline-wrap reveal delay-2">
+      <div class="timeline-grid">
+
+        <!-- Row: Track A (Java/Spring AI · Browser Agent) -->
+        <div class="tl-row tl-track-a">
+          <div class="tl-rail-cell tl-label">
+            <span class="badge">Track A · Java</span>
+            <h4>AI Browser Agent</h4>
+            <span class="sub">Spring AI · Playwright Java · CDP</span>
+          </div>
+          <!-- May -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">SPRING AI</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">第一关跑通<br/>+ 5 扩展点实战</div>
+            </div>
+          </div>
+          <!-- Jun -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">FOUNDATION</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">Tool calling + RAG<br/>Browser Tool 试水</div>
+            </div>
+          </div>
+          <!-- Jul -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">v0.1</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">ReAct 循环<br/>简单 web 任务</div>
+            </div>
+          </div>
+          <!-- Aug -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">v0.5</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">多步骤 + 表单<br/>截图反馈</div>
+            </div>
+          </div>
+          <!-- Sep -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">v1.0 ↑</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">公司业务流落地<br/>+ LangSmith 评估</div>
+            </div>
+          </div>
+          <!-- Oct -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">v1.5 · VISION</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">多模态<br/>LLM 看截图</div>
+            </div>
+          </div>
+          <!-- Nov -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">v2.0 · MULTI-AGENT</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">Planner+Executor<br/>+Verifier 协同</div>
+            </div>
+          </div>
+          <!-- Dec -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">OPEN SOURCE ★</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">GitHub 开源<br/>Java 阵营首发</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Month header row -->
+        <div class="tl-row months">
+          <div class="tl-month-spacer"></div>
+          <div class="tl-month current">
+            <span class="num">05<em>·</em></span>
+            <span class="lbl">May</span>
+          </div>
+          <div class="tl-month">
+            <span class="num">06<em>·</em></span>
+            <span class="lbl">Jun</span>
+          </div>
+          <div class="tl-month">
+            <span class="num">07<em>·</em></span>
+            <span class="lbl">Jul</span>
+          </div>
+          <div class="tl-month">
+            <span class="num">08<em>·</em></span>
+            <span class="lbl">Aug</span>
+          </div>
+          <div class="tl-month">
+            <span class="num">09<em>·</em></span>
+            <span class="lbl">Sep</span>
+          </div>
+          <div class="tl-month">
+            <span class="num">10<em>·</em></span>
+            <span class="lbl">Oct</span>
+          </div>
+          <div class="tl-month">
+            <span class="num">11<em>·</em></span>
+            <span class="lbl">Nov</span>
+          </div>
+          <div class="tl-month">
+            <span class="num">12<em>·</em></span>
+            <span class="lbl">Dec</span>
+          </div>
+        </div>
+
+        <!-- Row: Track B (Python/LangChain · Obsidian RAG → AI Code Reader) -->
+        <div class="tl-row tl-track-b last">
+          <div class="tl-rail-cell tl-label">
+            <span class="badge">Track B · Python</span>
+            <h4>Obsidian RAG → AI Code Reader</h4>
+            <span class="sub">FastAPI · LangChain · Next.js</span>
+          </div>
+          <!-- May -->
+          <div class="tl-rail-cell empty">
+            <div class="ms">
+              <div class="ms-version muted">— 未启动 —</div>
+              <div class="ms-dot" style="background: var(--text-5); box-shadow: none;"></div>
+              <div class="ms-text muted">副线 6 月起步</div>
+            </div>
+          </div>
+          <!-- Jun -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">入门</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">LangChain 基础<br/>+ Next.js 入门</div>
+            </div>
+          </div>
+          <!-- Jul -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">综合练习</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">全栈 hello world<br/>项目 1 架构设计</div>
+            </div>
+          </div>
+          <!-- Aug -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">RAG 1 · v0.1 ↑</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">Obsidian RAG 公开<br/>Wiki 个人助手</div>
+            </div>
+          </div>
+          <!-- Sep -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">RAG 1 · v0.2</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">多 embedding<br/>+ 链接图谱</div>
+            </div>
+          </div>
+          <!-- Oct -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">RAG 1 · v0.5</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">LangGraph 多 Agent<br/>项目 1 收尾</div>
+            </div>
+          </div>
+          <!-- Nov -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">CODE READER · v0.1</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">AI Code Reader<br/>repo → 代码地图</div>
+            </div>
+          </div>
+          <!-- Dec -->
+          <div class="tl-rail-cell">
+            <div class="ms">
+              <div class="ms-version">v1.0 ★</div>
+              <div class="ms-dot"></div>
+              <div class="ms-text">AI Code Reader<br/>双语 + LangSmith</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 02 — TWO ANCHORS
+     ═══════════════════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <div class="part-tag reveal">
+      <span class="num">02</span><span class="slash">/</span><span class="title">Two Anchor Projects</span>
+    </div>
+    <h2 class="section-title reveal">三个<em>锚项目</em></h2>
+    <p class="section-lede reveal delay-1">
+      项目是岸, 月份是浪。主线一个长跑, 副线两个串行,
+      8 个月后, 三个 GitHub 仓库摆在那里 = 能力证明。
+    </p>
+
+    <div class="anchor-grid reveal delay-2">
+
+      <!-- Anchor A: AI Browser Agent -->
+      <div class="anchor">
+        <div class="anchor-tag">Track A · 主线 · 长跑</div>
+        <h3>AI Browser <em>Agent</em></h3>
+        <p class="subtitle">Java 阵营首个完整 Browser Agent 实现 · 开源 + 公司业务自动化</p>
+
+        <div class="stack-row">
+          <span class="stack-tag primary">Java 25</span>
+          <span class="stack-tag primary">Spring Boot 4</span>
+          <span class="stack-tag primary">Spring AI 2.x</span>
+          <span class="stack-tag primary">Playwright Java</span>
+          <span class="stack-tag">Chrome DevTools</span>
+          <span class="stack-tag">Redis</span>
+          <span class="stack-tag">LangSmith Java</span>
+        </div>
+
+        <p class="desc">
+          当下 AI 圈最热方向 (Manus / Browser Use / Operator), Java 阵营空白。
+          Spring AI 控制 Chrome → 自然语言 → 自主完成跨系统业务流。
+          落地公司自动化 (回归测试 / 数据录入), 同时 GitHub 开源给 Java 社区。
+          学满 8 块能力: Tool / RAG / Agent / 多 Agent / 多模态 / 评估 / 生产 / 进阶。
+        </p>
+
+        <div class="anchor-stats">
+          <div class="stat">
+            <span class="label">月时</span>
+            <span class="value"><em>56</em>h</span>
+            <span class="sub">2h × 28 工作日</span>
+          </div>
+          <div class="stat">
+            <span class="label">里程碑</span>
+            <span class="value"><em>7</em></span>
+            <span class="sub">v0.1 → v2.0 → 开源</span>
+          </div>
+          <div class="stat">
+            <span class="label">最终</span>
+            <span class="value"><em>OSS</em></span>
+            <span class="sub">12 月 GitHub 公开</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Anchor B: 副线两个项目串行 -->
+      <div class="anchor">
+        <div class="anchor-tag">Track B · 副线 · 串行</div>
+        <h3>Obsidian RAG → AI Code <em>Reader</em></h3>
+        <p class="subtitle">两个 Python 全栈作品串行做 · GitHub 开源</p>
+
+        <div class="stack-row">
+          <span class="stack-tag primary">Python 3.12</span>
+          <span class="stack-tag primary">FastAPI</span>
+          <span class="stack-tag primary">LangChain</span>
+          <span class="stack-tag primary">Next.js 14</span>
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">TypeScript</span>
+          <span class="stack-tag">ChromaDB</span>
+          <span class="stack-tag">tree-sitter</span>
+        </div>
+
+        <p class="desc">
+          <strong>项目 1 (8-10 月)</strong> Obsidian RAG · 你 Wiki 现成数据 → AI 知识助手, 1.5 个月出 v0.1。<br/>
+          <strong>项目 2 (11-12 月)</strong> AI Code Reader · 输入 GitHub repo URL → AI 自动生成代码地图 + 模块依赖 + 流程图。<br/>
+          串行做, 不并行 — 学习专注度优先, 累积两份完整全栈 AI 作品。
+        </p>
+
+        <div class="anchor-stats">
+          <div class="stat">
+            <span class="label">月时</span>
+            <span class="value"><em>20</em>h</span>
+            <span class="sub">5h/周, 11 月起 8h/周</span>
+          </div>
+          <div class="stat">
+            <span class="label">作品数</span>
+            <span class="value"><em>2</em></span>
+            <span class="sub">RAG + Code Reader</span>
+          </div>
+          <div class="stat">
+            <span class="label">部署</span>
+            <span class="value"><em>OSS</em></span>
+            <span class="sub">Vercel + Railway + GitHub</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 03 — CAPABILITY TREE
+     ═══════════════════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <div class="part-tag reveal">
+      <span class="num">03</span><span class="slash">/</span><span class="title">Capability Tree</span>
+    </div>
+    <h2 class="section-title reveal">AI 应用工程师 <em>八块能力</em></h2>
+    <p class="section-lede reveal delay-1">
+      不是 ML 算法, 不是模型训练。是把 LLM 接入产品的 8 块工程能力。
+      每块标注涉及月份, 项目里程碑会用到这些能力。
+    </p>
+
+    <div class="cap-grid reveal delay-2">
+
+      <div class="cap done">
+        <span class="cap-num">01</span>
+        <span class="cap-tag">Foundation</span>
+        <h4>基础</h4>
+        <p class="desc">LLM 调用 / Prompt 工程 / Token 与成本管理 / 多模型切换</p>
+        <div class="months">
+          <span class="m done">5月</span><span class="m">6月</span><span class="m">7月</span><span class="m">8月</span>
+          <span class="m">9月</span><span class="m">10月</span><span class="m">11月</span><span class="m">12月</span>
+        </div>
+      </div>
+
+      <div class="cap done">
+        <span class="cap-num">02</span>
+        <span class="cap-tag">Dialogue</span>
+        <h4>对话</h4>
+        <p class="desc">SSE 流式输出 / Memory / Context 滑动窗口 / 多轮对话</p>
+        <div class="months">
+          <span class="m done">5月</span><span class="m">6月</span><span class="m">7月</span><span class="m">8月</span>
+          <span class="m">9月</span><span class="m">10月</span><span class="m">11月</span><span class="m">12月</span>
+        </div>
+      </div>
+
+      <div class="cap">
+        <span class="cap-num">03</span>
+        <span class="cap-tag">Tools</span>
+        <h4>工具</h4>
+        <p class="desc">Function calling / Tool use / Spring AI @Tool / 工具链编排</p>
+        <div class="months">
+          <span class="m">5月</span><span class="m active">6月</span><span class="m active">7月</span><span class="m">8月</span>
+          <span class="m">9月</span><span class="m">10月</span><span class="m">11月</span><span class="m">12月</span>
+        </div>
+      </div>
+
+      <div class="cap">
+        <span class="cap-num">04</span>
+        <span class="cap-tag">Retrieval</span>
+        <h4>检索</h4>
+        <p class="desc">Embedding / Vector DB / RAG 基础到进阶 / 检索质量评估</p>
+        <div class="months">
+          <span class="m">5月</span><span class="m active">6月</span><span class="m active">7月</span><span class="m active">8月</span>
+          <span class="m">9月</span><span class="m">10月</span><span class="m">11月</span><span class="m">12月</span>
+        </div>
+      </div>
+
+      <div class="cap">
+        <span class="cap-num">05</span>
+        <span class="cap-tag">Agent</span>
+        <h4>Agent</h4>
+        <p class="desc">单 Agent (Tool 编排) / 多 Agent / LangGraph supervisor / 路由</p>
+        <div class="months">
+          <span class="m">5月</span><span class="m">6月</span><span class="m active">7月</span><span class="m">8月</span>
+          <span class="m">9月</span><span class="m active">10月</span><span class="m active">11月</span><span class="m">12月</span>
+        </div>
+      </div>
+
+      <div class="cap">
+        <span class="cap-num">06</span>
+        <span class="cap-tag">Evaluation</span>
+        <h4>评估</h4>
+        <p class="desc">LangSmith / 自定义 evaluator / A/B 测试 / 数据集 trace</p>
+        <div class="months">
+          <span class="m">5月</span><span class="m">6月</span><span class="m">7月</span><span class="m">8月</span>
+          <span class="m active">9月</span><span class="m">10月</span><span class="m">11月</span><span class="m active">12月</span>
+        </div>
+      </div>
+
+      <div class="cap">
+        <span class="cap-num">07</span>
+        <span class="cap-tag">Production</span>
+        <h4>生产</h4>
+        <p class="desc">监控 / 成本控制 / 延迟优化 / 错误处理 / 安全</p>
+        <div class="months">
+          <span class="m">5月</span><span class="m">6月</span><span class="m">7月</span><span class="m active">8月</span>
+          <span class="m active">9月</span><span class="m">10月</span><span class="m active">11月</span><span class="m">12月</span>
+        </div>
+      </div>
+
+      <div class="cap">
+        <span class="cap-num">08</span>
+        <span class="cap-tag">Advanced</span>
+        <h4>进阶</h4>
+        <p class="desc">多模态 / RAG 系统优化 / Agent 编排 / 不做 Fine-tune</p>
+        <div class="months">
+          <span class="m">5月</span><span class="m">6月</span><span class="m">7月</span><span class="m">8月</span>
+          <span class="m">9月</span><span class="m active">10月</span><span class="m active">11月</span><span class="m">12月</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 04 — TIME ALLOCATION
+     ═══════════════════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <div class="part-tag reveal">
+      <span class="num">04</span><span class="slash">/</span><span class="title">Time Allocation</span>
+    </div>
+    <h2 class="section-title reveal">时间, 是<em>路线图的肌肉</em></h2>
+    <p class="section-lede reveal delay-1">
+      四条线在月份里此消彼长。CG (图形学) 是兴趣, 6 月起降级,
+      11 月暂停; AI 主副线相对稳定, 副线 11 月冲刺 v1.0; Algo 全程不变。
+    </p>
+
+    <div class="alloc-chart reveal delay-2">
+      <div class="alloc-legend">
+        <div class="legend-item"><span class="legend-swatch java"></span>Java · Spring AI 主线</div>
+        <div class="legend-item"><span class="legend-swatch python"></span>Python · LangChain 副线</div>
+        <div class="legend-item"><span class="legend-swatch cg"></span>CG · GAMES101</div>
+        <div class="legend-item"><span class="legend-swatch algo"></span>Algo · 左程云</div>
+      </div>
+
+      <div class="alloc-rows">
+        <!-- May: Java 56h + CG 56h + Algo 28h = 140 (no Python yet) -->
+        <div class="alloc-row">
+          <span class="month-lbl">5<span class="small">月</span></span>
+          <div class="alloc-bar">
+            <div class="seg java" style="width: 40%;">56h</div>
+            <div class="seg cg" style="width: 40%;">56h</div>
+            <div class="seg algo" style="width: 20%;">28h</div>
+          </div>
+          <span class="total-h"><em>140</em>h</span>
+        </div>
+        <!-- Jun: Java 56h + Python 20h + CG 28h + Algo 28h = 132 -->
+        <div class="alloc-row">
+          <span class="month-lbl">6<span class="small">月</span></span>
+          <div class="alloc-bar">
+            <div class="seg java" style="width: 42.4%;">56h</div>
+            <div class="seg python" style="width: 15.2%;">20h</div>
+            <div class="seg cg" style="width: 21.2%;">28h</div>
+            <div class="seg algo" style="width: 21.2%;">28h</div>
+          </div>
+          <span class="total-h"><em>132</em>h</span>
+        </div>
+        <!-- Jul: same proportions -->
+        <div class="alloc-row">
+          <span class="month-lbl">7<span class="small">月</span></span>
+          <div class="alloc-bar">
+            <div class="seg java" style="width: 42.4%;">56h</div>
+            <div class="seg python" style="width: 15.2%;">20h</div>
+            <div class="seg cg" style="width: 21.2%;">28h</div>
+            <div class="seg algo" style="width: 21.2%;">28h</div>
+          </div>
+          <span class="total-h"><em>132</em>h</span>
+        </div>
+        <!-- Aug -->
+        <div class="alloc-row">
+          <span class="month-lbl">8<span class="small">月</span></span>
+          <div class="alloc-bar">
+            <div class="seg java" style="width: 42.4%;">56h</div>
+            <div class="seg python" style="width: 15.2%;">20h</div>
+            <div class="seg cg" style="width: 21.2%;">28h</div>
+            <div class="seg algo" style="width: 21.2%;">28h</div>
+          </div>
+          <span class="total-h"><em>132</em>h</span>
+        </div>
+        <!-- Sep -->
+        <div class="alloc-row">
+          <span class="month-lbl">9<span class="small">月</span></span>
+          <div class="alloc-bar">
+            <div class="seg java" style="width: 42.4%;">56h</div>
+            <div class="seg python" style="width: 15.2%;">20h</div>
+            <div class="seg cg" style="width: 21.2%;">28h</div>
+            <div class="seg algo" style="width: 21.2%;">28h</div>
+          </div>
+          <span class="total-h"><em>132</em>h</span>
+        </div>
+        <!-- Oct: CG 14h, others same -->
+        <div class="alloc-row">
+          <span class="month-lbl">10<span class="small">月</span></span>
+          <div class="alloc-bar">
+            <div class="seg java" style="width: 47.5%;">56h</div>
+            <div class="seg python" style="width: 17%;">20h</div>
+            <div class="seg cg" style="width: 11.9%;">14h</div>
+            <div class="seg algo" style="width: 23.7%;">28h</div>
+          </div>
+          <span class="total-h"><em>118</em>h</span>
+        </div>
+        <!-- Nov: CG 0, Python 32h, Java 56h, Algo 28h = 116 -->
+        <div class="alloc-row">
+          <span class="month-lbl">11<span class="small">月</span></span>
+          <div class="alloc-bar">
+            <div class="seg java" style="width: 48.3%;">56h</div>
+            <div class="seg python" style="width: 27.6%;">32h</div>
+            <div class="seg empty" style="width: 0%;"></div>
+            <div class="seg algo" style="width: 24.1%;">28h</div>
+          </div>
+          <span class="total-h"><em>116</em>h</span>
+        </div>
+        <!-- Dec -->
+        <div class="alloc-row">
+          <span class="month-lbl">12<span class="small">月</span></span>
+          <div class="alloc-bar">
+            <div class="seg java" style="width: 48.3%;">56h</div>
+            <div class="seg python" style="width: 27.6%;">32h</div>
+            <div class="seg empty" style="width: 0%;"></div>
+            <div class="seg algo" style="width: 24.1%;">28h</div>
+          </div>
+          <span class="total-h"><em>116</em>h</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 05 — MONTHLY BREAKDOWN
+     ═══════════════════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <div class="part-tag reveal">
+      <span class="num">05</span><span class="slash">/</span><span class="title">Monthly Breakdown</span>
+    </div>
+    <h2 class="section-title reveal">逐月<em>进度</em></h2>
+    <p class="section-lede reveal delay-1">
+      每月把 4 条线 (Java 主 / Python 副 / CG / Algo) 落到具体任务,
+      末尾的 milestone 就是月底要交的"东西"。
+    </p>
+
+    <div class="month-grid reveal delay-2">
+
+      <!-- May -->
+      <article class="month-card now">
+        <div class="mc-head">
+          <div class="mc-num">05<em>·</em></div>
+          <div class="mc-meta">
+            <span class="h">140 h</span>
+            <span>5 月 · 起步</span>
+          </div>
+        </div>
+        <div class="mc-title">Spring AI 第一关 · GAMES101 入门 · 算法奠基</div>
+        <div class="mc-tracks">
+          <div class="mc-track java">
+            <span class="lbl">Java · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> JDK + IntelliJ + Spring Initializr 项目骨架 · <strong>第一个 ChatClient</strong> 跑通 /api/chat · ChatClient vs WebClient · System/User/Assistant 三角色 · Token 计费</li>
+              <li><span class="w">W2</span> Flux&lt;String&gt; 流式 + 后端 SseEmitter + 前端 EventSource · <strong>SSE 三个坑</strong> (超时/重连/[DONE]) · 前端 Vue useStreamChat · <strong>记 TTFT 基线</strong></li>
+              <li><span class="w">W3</span> Spring Interceptor JWT 校验 · <strong>对话历史存 Redis</strong> (userId:sessionId, TTL=24h) · 滑动窗口 10 轮 · System Prompt 多角色 · Session 隔离</li>
+              <li><span class="w">W4</span> Prompt Engineering for Developers (5h) · Zero/Few-shot/CoT/ReAct 4 策略对比 · System Prompt 库 · <strong>Browser Agent Prompt 模板</strong> 3-5 个</li>
+            </ul>
+          </div>
+          <div class="mc-track python paused">
+            <span class="lbl">Python · 0h</span>
+            <ul class="weeks"><li><span class="w">—</span> 副线 6 月启动</li></ul>
+          </div>
+          <div class="mc-track cg">
+            <span class="lbl">CG · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>L1 概览 + L2 线性代数</strong> · 叉积/点积几何意义 · 虎书 Ch.2 · 作业 0 (旋转一个点)</li>
+              <li><span class="w">W2</span> <strong>L3 2D 变换</strong> · 缩放/旋转/切变 · 齐次坐标 · 变换复合顺序 · 虎书 Ch.6</li>
+              <li><span class="w">W3</span> <strong>L4 3D 变换 + MVP</strong> · 罗德里格斯 · 视图/正交/透视 · 虎书 Ch.7</li>
+              <li><span class="w">W4</span> <strong>作业 1</strong> 实现 get_model/view/projection_matrix · 提高: 任意轴旋转 · L1-L4 cheatsheet</li>
+            </ul>
+          </div>
+          <div class="mc-track algo">
+            <span class="lbl">Algo · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> 左程云 <strong>001-006</strong> · 导论 + 二进制位运算 + 选/冒/插排序 + 对数器 + 二分搜索</li>
+              <li><span class="w">W2</span> <strong>007-012</strong> · 时间复杂度 + 数据结构介绍 + 链表入门题</li>
+              <li><span class="w">W3</span> <strong>013-018</strong> · 栈/队列 + 双端队列 + 二叉树三种遍历</li>
+              <li><span class="w">W4</span> <strong>019-024</strong> · 笔试输入输出 + master 公式 + 归并 + 随机快排</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-milestones">
+          <span class="m-lbl">milestones</span>
+          <div class="ms-line">Spring AI 完整跑通 (流式 + JWT + Redis + Prompt 库)</div>
+          <div class="ms-line">GAMES101 L1-L4 视频 + 笔记 + 作业 0/1 完成</div>
+          <div class="ms-line">左程云 001-024 学完 + LeetCode ≥ 15 题</div>
+        </div>
+      </article>
+
+      <!-- Jun -->
+      <article class="month-card">
+        <div class="mc-head">
+          <div class="mc-num">06<em>·</em></div>
+          <div class="mc-meta">
+            <span class="h">132 h</span>
+            <span>6 月 · 双轨启动</span>
+          </div>
+        </div>
+        <div class="mc-title">Browser Agent 打地基 · Python / Next.js 入门</div>
+        <div class="mc-tracks">
+          <div class="mc-track java">
+            <span class="lbl">Java · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> Spring AI <strong>@Tool 注解 / FunctionCallback</strong> · Anthropic Cookbook tool_use 实战 2-3 example · LLM 选工具流程: 定义→注册→选择→执行→回传</li>
+              <li><span class="w">W2</span> <strong>Playwright Java 试水</strong> — 启动 headless Chrome · 封装 Browser Tool 第一组 (navigate / click / type / screenshot / getDom) · ChatClient + Browser Tool 端到端 demo</li>
+              <li><span class="w">W3</span> Spring AI RAG · <strong>DocumentRetriever + Embedding</strong> (text-embedding-3-small / 智谱 / BGE) + Vector Store (Chroma/Redis Stack/pgvector) · QuestionAnswerAdvisor 跑通</li>
+              <li><span class="w">W4</span> <strong>操作记忆 RAG</strong> — 成功流程 + 失败案例库切块入 Chroma · 下次类似任务可检索复用 · 评估复用率/准确率</li>
+            </ul>
+          </div>
+          <div class="mc-track python">
+            <span class="lbl">Python · 20h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> uv/mise 配 Python 3.12 · LangChain 基础 ChatModel/PromptTemplate/Chain · Spring AI 概念对照 (Advisor≈Runnable) · <strong>第一个 LangChain ChatBot CLI</strong></li>
+              <li><span class="w">W2</span> ConversationBufferMemory / SummaryMemory / VectorStoreRetrieverMemory · @tool 装饰器 · <strong>ReAct Agent</strong> 自主循环</li>
+              <li><span class="w">W3</span> ChromaDB 本地向量库 · 完整 RAG 链 Load→Split→Embed→Store→Retrieve→Generate · 跟 Spring AI 实现对比</li>
+              <li><span class="w">W4</span> Next.js 14 App Router (路由/SSR/API routes) · shadcn/ui + Tailwind · <strong>Hello World 全栈</strong>: Next.js → FastAPI → LangChain · 部署 Vercel + Railway</li>
+            </ul>
+          </div>
+          <div class="mc-track cg">
+            <span class="lbl">CG · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>L5 光栅化</strong> · 三角形 → 像素 · 采样</li>
+              <li><span class="w">W2</span> <strong>L6 反走样</strong> · MSAA / SSAA · 频域分析</li>
+              <li><span class="w">W3</span> <strong>L7 着色 1</strong> · Blinn-Phong · 光源模型</li>
+              <li><span class="w">W4</span> <strong>L8 着色 2</strong> · 纹理映射 · <strong>作业 2</strong> Triangle Rasterization</li>
+            </ul>
+          </div>
+          <div class="mc-track algo">
+            <span class="lbl">Algo · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>025-029</strong> 哈希表 + 比较器 + 排序总结</li>
+              <li><span class="w">W2</span> <strong>030-035</strong> 异或骚操作 + 二叉树递归套路</li>
+              <li><span class="w">W3</span> <strong>036-041</strong> 二叉树非递归 + 层序</li>
+              <li><span class="w">W4</span> <strong>042-048</strong> 链表 + 链表+哈希混合</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-milestones">
+          <span class="m-lbl">milestones</span>
+          <div class="ms-line">Browser Agent 第一组 Tool 跑通 (LLM → Chrome 自动操作)</div>
+          <div class="ms-line">Spring AI RAG 调通, 操作记忆 + 失败案例库可检索</div>
+          <div class="ms-line">Python LangChain 基础 RAG 跑通</div>
+          <div class="ms-line">Next.js + FastAPI 全栈 hello world 部署 Vercel</div>
+        </div>
+      </article>
+
+      <!-- Jul -->
+      <article class="month-card">
+        <div class="mc-head">
+          <div class="mc-num">07<em>·</em></div>
+          <div class="mc-meta">
+            <span class="h">132 h</span>
+            <span>7 月 · v0.1 端到端</span>
+          </div>
+        </div>
+        <div class="mc-title">Browser Agent v0.1 · Python 全栈练习</div>
+        <div class="mc-tracks">
+          <div class="mc-track java">
+            <span class="lbl">Java · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> Spring AI <strong>Advisor 链编排</strong> · 多 Advisor 串联 (Logging + Memory + RAG)</li>
+              <li><span class="w">W2</span> <strong>ReAct Agent 循环</strong>: 观察(getDom/截图) → 思考(LLM) → 行动(Tool) → 反馈, 自主跑多步任务</li>
+              <li><span class="w">W3</span> <strong>Browser Agent v0.1 端到端</strong>: 自然语言 → 自主完成简单 web 任务 (打开网页/搜索/提取信息)</li>
+              <li><span class="w">W4</span> 录制 <strong>Demo Video</strong> (3-5 分钟) + 单元测试 + 性能基线 (任务成功率 / 步骤数)</li>
+            </ul>
+          </div>
+          <div class="mc-track python">
+            <span class="lbl">Python · 20h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> LangChain Memory 进阶 + Chain 编排 (<strong>LCEL</strong>)</li>
+              <li><span class="w">W2</span> Python 全栈 hello world 完整化 (Next.js + FastAPI + LangChain 真实交互)</li>
+              <li><span class="w">W3</span> ChromaDB 持久化 + 多 collection 管理</li>
+              <li><span class="w">W4</span> <strong>副线项目 1 (Obsidian RAG) 架构设计</strong> (8 月动工前预习)</li>
+            </ul>
+          </div>
+          <div class="mc-track cg">
+            <span class="lbl">CG · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1-2</span> <strong>L9-L10 几何 1-2</strong> · 隐式/显式表面 · 贝塞尔/B-Spline 曲线</li>
+              <li><span class="w">W3-4</span> <strong>L11-L12 几何 3-4</strong> · 网格简化 · 细分曲面</li>
+            </ul>
+          </div>
+          <div class="mc-track algo">
+            <span class="lbl">Algo · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>049-054</strong> 二叉树深度题</li>
+              <li><span class="w">W2</span> <strong>055-060</strong> 二叉树高频题</li>
+              <li><span class="w">W3</span> <strong>061-066</strong> 二叉树题型套路</li>
+              <li><span class="w">W4</span> <strong>067-072</strong> 链表与二叉树综合</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-milestones">
+          <span class="m-lbl">milestones</span>
+          <div class="ms-line">Browser Agent v0.1 端到端 (LLM 自主完成简单 web 任务) + Demo Video</div>
+          <div class="ms-line">副线项目 1 (Obsidian RAG) 架构设计完成, 8 月动工</div>
+        </div>
+      </article>
+
+      <!-- Aug -->
+      <article class="month-card">
+        <div class="mc-head">
+          <div class="mc-num">08<em>·</em></div>
+          <div class="mc-meta">
+            <span class="h">132 h</span>
+            <span>8 月 · 公开化</span>
+          </div>
+        </div>
+        <div class="mc-title">Browser Agent v0.5 · Obsidian RAG v0.1 公开</div>
+        <div class="mc-tracks">
+          <div class="mc-track java">
+            <span class="lbl">Java · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> 复杂 Tool 集 (<strong>waitForSelector / 复杂选择器 / 多页面 tab 管理</strong>)</li>
+              <li><span class="w">W2</span> <strong>表单填写 + 复杂交互</strong> (下拉/弹窗/iframe/认证)</li>
+              <li><span class="w">W3</span> <strong>截图反馈机制</strong> — 操作后截图 → LLM 看 → 判断成功 or 重试</li>
+              <li><span class="w">W4</span> 跨页面跳转 + <strong>状态持久化 (Redis)</strong> · Browser Agent v0.5 内部 demo</li>
+            </ul>
+          </div>
+          <div class="mc-track python">
+            <span class="lbl">Python · 20h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> Obsidian Vault 数据加载 (md 解析 + <strong>链接图谱</strong>)</li>
+              <li><span class="w">W2</span> RAG 全套 (chunk + embed + Chroma) + 简单 chat UI (Next.js + shadcn/ui)</li>
+              <li><span class="w">W3</span> Demo Video 录制 + <strong>README 中英双语</strong></li>
+              <li><span class="w">W4</span> <strong>GitHub 公开</strong> + Vercel 部署 + 朋友圈/小红书/V2EX 找第一批用户</li>
+            </ul>
+          </div>
+          <div class="mc-track cg">
+            <span class="lbl">CG · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1-2</span> <strong>L13-L14 光线追踪基础</strong> · Whitted-style RT · 加速结构 (BVH/KD-tree)</li>
+              <li><span class="w">W3-4</span> <strong>L15-L16 辐射度量学 + 渲染方程</strong> · 蒙特卡洛积分</li>
+            </ul>
+          </div>
+          <div class="mc-track algo">
+            <span class="lbl">Algo · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>073-078</strong> 链表进阶题</li>
+              <li><span class="w">W2</span> <strong>079-084</strong> 滑动窗口</li>
+              <li><span class="w">W3</span> <strong>085-090</strong> 单调栈</li>
+              <li><span class="w">W4</span> <strong>091-096</strong> 单调栈高频</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-milestones">
+          <span class="m-lbl">milestones</span>
+          <div class="ms-line">Browser Agent v0.5 (多步骤 + 表单 + 截图反馈)</div>
+          <div class="ms-line">Obsidian RAG v0.1 GitHub 公开, README + Demo 完整</div>
+          <div class="ms-line">Obsidian RAG 收到第一批用户反馈</div>
+        </div>
+      </article>
+
+      <!-- Sep -->
+      <article class="month-card">
+        <div class="mc-head">
+          <div class="mc-num">09<em>·</em></div>
+          <div class="mc-meta">
+            <span class="h">132 h</span>
+            <span>9 月 · v1.0 落地</span>
+          </div>
+        </div>
+        <div class="mc-title">Browser Agent v1.0 公司业务流落地 · Obsidian RAG v0.2</div>
+        <div class="mc-tracks">
+          <div class="mc-track java">
+            <span class="lbl">Java · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>错误恢复机制</strong> (重试 / 回退 / 降级 / 异常分类)</li>
+              <li><span class="w">W2</span> Spring AI 评估接入 <strong>LangSmith Java SDK</strong> · 任务成功率/步骤数/失败回滚率 metrics</li>
+              <li><span class="w">W3</span> Browser Agent 落地<strong>一个公司业务自动化场景</strong> (跑回归/数据录入/跨系统操作)</li>
+              <li><span class="w">W4</span> Browser Agent <strong>v1.0 发布</strong> + 1 篇深度博客「在 Java 阵营做 Browser Agent」</li>
+            </ul>
+          </div>
+          <div class="mc-track python">
+            <span class="lbl">Python · 20h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> 整理 Obsidian RAG 用户反馈 · 列 v0.2 feature 优先级</li>
+              <li><span class="w">W2</span> 添加 <strong>多 embedding 对比</strong> (OpenAI / 智谱 / 本地 BGE)</li>
+              <li><span class="w">W3</span> 添加 <strong>Wiki 链接图谱可视化 + 跨笔记问答</strong></li>
+              <li><span class="w">W4</span> Obsidian RAG <strong>v0.2 发布</strong> + 1 篇博客 (Obsidian RAG 实战)</li>
+            </ul>
+          </div>
+          <div class="mc-track cg">
+            <span class="lbl">CG · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1-2</span> <strong>L17-L18 光追进阶</strong> · 路径追踪 · 重要性采样</li>
+              <li><span class="w">W3-4</span> <strong>L19-L20 材质</strong> · BRDF · 微表面模型</li>
+            </ul>
+          </div>
+          <div class="mc-track algo">
+            <span class="lbl">Algo · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>097-102</strong> 单调队列</li>
+              <li><span class="w">W2</span> <strong>103-108</strong> 单调队列高频</li>
+              <li><span class="w">W3</span> <strong>109-114</strong> 字典树 (Trie)</li>
+              <li><span class="w">W4</span> <strong>115-120</strong> 字典树高频</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-milestones">
+          <span class="m-lbl">milestones</span>
+          <div class="ms-line">Browser Agent v1.0 (错误恢复 + 公司业务流落地 + LangSmith)</div>
+          <div class="ms-line">Obsidian RAG v0.2 (多 embedding + 链接图谱 + 跨笔记问答)</div>
+          <div class="ms-line">2 篇深度技术博客 (Java Browser Agent + Obsidian RAG)</div>
+        </div>
+      </article>
+
+      <!-- Oct -->
+      <article class="month-card">
+        <div class="mc-head">
+          <div class="mc-num">10<em>·</em></div>
+          <div class="mc-meta">
+            <span class="h">118 h</span>
+            <span>10 月 · 多模态 + 多 Agent</span>
+          </div>
+        </div>
+        <div class="mc-title">Browser Agent v1.5 多模态 · Obsidian RAG v0.5 收尾</div>
+        <div class="mc-tracks">
+          <div class="mc-track java">
+            <span class="lbl">Java · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> Spring AI <strong>多模态调用</strong> (Vision API: GPT-4o / Claude / 智谱 GLM-4V)</li>
+              <li><span class="w">W2</span> Browser Agent 加 <strong>视觉理解</strong>: 操作后截图 → LLM 看 → 判断状态/找下一步元素</li>
+              <li><span class="w">W3</span> 复杂页面适配 (动态加载 / 长滚动 / 弹窗) — <strong>多模态 vs DOM 双通道决策</strong></li>
+              <li><span class="w">W4</span> Browser Agent <strong>v1.5 发布</strong> + 任务成功率优化报告</li>
+            </ul>
+          </div>
+          <div class="mc-track python">
+            <span class="lbl">Python · 20h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> LangGraph 官方文档 + DeepLearning.AI 课 · 建立直觉</li>
+              <li><span class="w">W2</span> LangGraph 实战: <strong>supervisor / 路由 / 状态机</strong></li>
+              <li><span class="w">W3</span> Obsidian RAG <strong>v0.5 加多 Agent</strong> (检索 Agent + 总结 Agent + 引用 Agent)</li>
+              <li><span class="w">W4</span> Obsidian RAG <strong>v0.5 发布</strong> · 项目 1 收尾 (项目 2 AI Code Reader 11 月动工)</li>
+            </ul>
+          </div>
+          <div class="mc-track cg">
+            <span class="lbl">CG · 14h</span>
+            <ul class="weeks">
+              <li><span class="w">W1-4</span> <strong>L21-L22 收尾</strong> · 动画 (Key Frame / Mass-Spring) + 仿真 · 0.5h/天</span></li>
+            </ul>
+          </div>
+          <div class="mc-track algo">
+            <span class="lbl">Algo · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>121-126</strong> 字符串匹配 (KMP/Manacher)</li>
+              <li><span class="w">W2</span> <strong>127-132</strong> 字符串高频题</li>
+              <li><span class="w">W3</span> <strong>133-138</strong> 并查集</li>
+              <li><span class="w">W4</span> <strong>139-144</strong> 并查集高频</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-milestones">
+          <span class="m-lbl">milestones</span>
+          <div class="ms-line">Browser Agent v1.5 (Spring AI 多模态 · 视觉理解页面)</div>
+          <div class="ms-line">Obsidian RAG v0.5 (LangGraph 多 Agent), 副线项目 1 收尾</div>
+          <div class="ms-line">GAMES101 主体讲完</div>
+        </div>
+      </article>
+
+      <!-- Nov -->
+      <article class="month-card">
+        <div class="mc-head">
+          <div class="mc-num">11<em>·</em></div>
+          <div class="mc-meta">
+            <span class="h">116 h</span>
+            <span>11 月 · 多 Agent 协同</span>
+          </div>
+        </div>
+        <div class="mc-title">Browser Agent v2.0 多 Agent · AI Code Reader 启动</div>
+        <div class="mc-tracks">
+          <div class="mc-track java">
+            <span class="lbl">Java · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> 多 Agent 架构设计 (<strong>Planner 拆任务 / Executor 执行 / Verifier 验证</strong>)</li>
+              <li><span class="w">W2</span> <strong>Planner Agent</strong> · LLM 把复杂任务拆成子步骤树</li>
+              <li><span class="w">W3</span> <strong>Executor + Verifier Agent</strong> 协同 + 失败重新规划</li>
+              <li><span class="w">W4</span> Browser Agent <strong>v2.0 内部发布</strong> + 跑复杂业务流 demo</li>
+            </ul>
+          </div>
+          <div class="mc-track python">
+            <span class="lbl">Python · 32h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> AI Code Reader 架构: GitHub URL → clone → 解析 → AI 生成<strong>代码地图</strong></li>
+              <li><span class="w">W2</span> 代码解析 (<strong>AST / tree-sitter</strong>) + 模块依赖图</li>
+              <li><span class="w">W3</span> LLM 生成代码导览文档 + <strong>关键流程图 (mermaid)</strong></li>
+              <li><span class="w">W4</span> Next.js 前端展示 + Vercel 部署 + <strong>GitHub 公开 v0.1</strong></li>
+            </ul>
+          </div>
+          <div class="mc-track cg paused">
+            <span class="lbl">CG · 0h</span>
+            <ul class="weeks"><li><span class="w">—</span> 暂停 · 集中精力副线 v1.0</li></ul>
+          </div>
+          <div class="mc-track algo">
+            <span class="lbl">Algo · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>145-150</strong> DP 入门 (1D)</li>
+              <li><span class="w">W2</span> <strong>151-156</strong> DP 中等 (2D)</li>
+              <li><span class="w">W3</span> <strong>157-162</strong> DP 区间</li>
+              <li><span class="w">W4</span> <strong>163-168</strong> DP 子序列</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-milestones">
+          <span class="m-lbl">milestones</span>
+          <div class="ms-line">Browser Agent v2.0 (Planner + Executor + Verifier 多 Agent)</div>
+          <div class="ms-line">AI Code Reader v0.1 GitHub 公开</div>
+          <div class="ms-line">1 篇技术博客 (Browser Agent 多 Agent 架构演进)</div>
+        </div>
+      </article>
+
+      <!-- Dec -->
+      <article class="month-card">
+        <div class="mc-head">
+          <div class="mc-num">12<em>·</em></div>
+          <div class="mc-meta">
+            <span class="h">116 h</span>
+            <span>12 月 · 开源 + 收尾</span>
+          </div>
+        </div>
+        <div class="mc-title">Browser Agent 开源 · AI Code Reader v1.0 · 综合收尾</div>
+        <div class="mc-tracks">
+          <div class="mc-track java">
+            <span class="lbl">Java · 56h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> Browser Agent <strong>完整文档</strong> · 架构 / 接入指南 / 故障排查 / API reference</li>
+              <li><span class="w">W2</span> <strong>GitHub 开源准备</strong> (README 中英文 / Demo Video / 推广素材)</li>
+              <li><span class="w">W3</span> Spring AI <strong>多模型路由 + 成本控制</strong> (Browser Agent 调用次数多, 成本敏感)</li>
+              <li><span class="w">W4</span> <strong>GitHub 公开</strong> + 1 篇综合博客 + 12 个月学习年度沉淀</li>
+            </ul>
+          </div>
+          <div class="mc-track python">
+            <span class="lbl">Python · 32h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>LangSmith 接入</strong> (Trace / Eval / Dataset) — 给两个 Python 项目都加</li>
+              <li><span class="w">W2</span> AI Code Reader <strong>v0.5</strong> — 加流程图生成 + 用户反馈迭代</li>
+              <li><span class="w">W3</span> AI Code Reader <strong>中英双语 README</strong> + 用户教程 + 部署优化</li>
+              <li><span class="w">W4</span> AI Code Reader <strong>v1.0 发布</strong> + 推广 + 年度沉淀</li>
+            </ul>
+          </div>
+          <div class="mc-track cg paused">
+            <span class="lbl">CG · 0h</span>
+            <ul class="weeks"><li><span class="w">—</span> 暂停 · 主体已学完</li></ul>
+          </div>
+          <div class="mc-track algo">
+            <span class="lbl">Algo · 28h</span>
+            <ul class="weeks">
+              <li><span class="w">W1</span> <strong>169-174</strong> DP 进阶 (路径)</li>
+              <li><span class="w">W2</span> <strong>175-180</strong> DP 高难度</li>
+              <li><span class="w">W3</span> <strong>181-188</strong> 图论 (BFS/DFS/最短路)</li>
+              <li><span class="w">W4</span> <strong>189-197</strong> 图论高频 + <strong>197 集全部学完</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-milestones">
+          <span class="m-lbl">milestones</span>
+          <div class="ms-line">Browser Agent GitHub 开源 (Java 阵营首个完整实现) + 综合博客</div>
+          <div class="ms-line">AI Code Reader v1.0 完整 (LangSmith 评估 + 双语文档)</div>
+          <div class="ms-line">三作品 GitHub 完整呈现 · 左程云 197 集学完 · 8 块能力覆盖完</div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 06 — CONSTRAINTS
+     ═══════════════════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <div class="part-tag reveal">
+      <span class="num">06</span><span class="slash">/</span><span class="title">Hard Constraints</span>
+    </div>
+    <h2 class="section-title reveal">做<em>什么</em>, 不做<em>什么</em></h2>
+    <p class="section-lede reveal delay-1">
+      路径已经被反复跑偏过——这次写死。任何路径调整需要重新 query 这一节,
+      不要在新对话里默默漂移。
+    </p>
+
+    <div class="constraints reveal delay-2">
+      <div>
+        <h4>做的事 <em>· DO</em></h4>
+        <ul class="constraint-list do">
+          <li>主线用 Java/Spring AI · 顺路 + 公司主栈一致 + Browser Agent 公司能用</li>
+          <li>副线用 Python/LangChain · AI 主战场, 资料最厚, 招聘市场主流</li>
+          <li>副线两个作品 GitHub 开源 · 必须做出"拿得出手的项目"</li>
+          <li>Browser Agent GitHub 开源 · Java 阵营首发, 跟公司业务流自动化双落地</li>
+          <li>每月一个项目里程碑 · 不写"看完了 X 课"这种过程指标</li>
+          <li>学透 8 块 AI 能力 · 工具不重要, 能力是本质</li>
+        </ul>
+      </div>
+      <div>
+        <h4>不做的事 <em>· DON'T</em></h4>
+        <ul class="constraint-list dont">
+          <li>不学 PyTorch/TensorFlow · 不是算法岗, 不训练模型</li>
+          <li>不参与公司"训练模型"项目 · 跟方向冲突</li>
+          <li>不学吴恩达 ML/DL Specialization · 长课时间黑洞</li>
+          <li>不用 Vue 做副线 · 副线要 React/Next.js, 生态主流</li>
+          <li>不学 LangChain.js · Python 是主战场</li>
+          <li>不为"看完了 N 课"打勾 · 项目里程碑才是衡量标准</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="shell">
+    <div class="footer-row">
+      <div class="footer-col">
+        <h5>来源 · Source</h5>
+        <p>这份路线图由 <em>plan.json</em> 编译而来,
+        每月开始前重读, 每月结束后回顾。学习是岸,
+        日历同步是船, 项目是浪。</p>
+      </div>
+      <div class="footer-col">
+        <h5>路径 · Path</h5>
+        <ul>
+          <li><code>Wiki/Areas/学习路线图/</code></li>
+          <li><code>plan.json</code> · 数据源</li>
+          <li><code>checkin/2026-MM.md</code> · 月度打卡</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>项目 · Projects</h5>
+        <ul>
+          <li><em>AI Browser Agent</em> (主线)</li>
+          <li><em>Obsidian RAG</em> (副线 1)</li>
+          <li><em>AI Code Reader</em> (副线 2)</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>命令 · Commands</h5>
+        <ul>
+          <li><code>/study today</code></li>
+          <li><code>/study done [ai|cg|algo]</code></li>
+          <li><code>/study month</code></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>VERSION · VI · 2026.05.06 — 修订自 v5</span>
+      <span>张桃 / CassandraCat · all that effort, compiled</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Reveal-on-scroll
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('visible'));
+  }
+</script>
+
+</body>
+</html>
