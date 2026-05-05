@@ -71,7 +71,7 @@ article > h1,
 
 article h2 {
   font-size: 1.65rem !important;
-  margin-top: 2.6em !important;
+  margin-top: 2.4em !important;
   margin-bottom: 0.6em !important;
   letter-spacing: -0.012em;
   line-height: 1.25;
@@ -97,15 +97,16 @@ article {
 article p,
 article li {
   color: var(--darkgray);
-  line-height: 1.78;
+  line-height: 1.72;
 }
 article p {
   margin: 1.2em 0;
 }
 article > p:first-of-type {
-  font-size: 1.08rem;
+  font-size: 1.14rem;
   color: var(--dark);
-  line-height: 1.7;
+  line-height: 1.68;
+  letter-spacing: -0.005em;
 }
 article strong {
   color: var(--dark);
@@ -135,8 +136,28 @@ article a.internal {
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 article a.internal:hover {
-  background: color-mix(in srgb, var(--secondary) 7%, transparent) !important;
+  background: color-mix(in srgb, var(--secondary) 11%, transparent) !important;
   border-bottom-color: var(--secondary);
+}
+
+/* ─── Heading anchor '#' fade-in on hover ─── */
+article h1[id] > a[href^="#"],
+article h2[id] > a[href^="#"],
+article h3[id] > a[href^="#"],
+article h4[id] > a[href^="#"] {
+  color: var(--terracotta) !important;
+  font-size: 0.78em;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  transition: opacity 0.28s ease, color 0.2s ease, transform 0.28s ease;
+  transform: translateY(0) translateX(-3px);
+}
+article h1[id]:hover > a[href^="#"],
+article h2[id]:hover > a[href^="#"],
+article h3[id]:hover > a[href^="#"],
+article h4[id]:hover > a[href^="#"] {
+  color: var(--terracotta-deep) !important;
+  transform: translateY(0) translateX(0);
 }
 
 /* ─── Inline code ─── */
@@ -145,7 +166,7 @@ code {
   font-feature-settings: "ss01", "calt", "liga", "zero";
   font-size: 0.86em !important;
   color: var(--terracotta-deep) !important;
-  background: color-mix(in srgb, var(--secondary) 8%, var(--light)) !important;
+  background: color-mix(in srgb, var(--secondary) 13%, var(--light)) !important;
   padding: 1.5px 6px !important;
   border-radius: 5px !important;
   border: none !important;
@@ -153,7 +174,7 @@ code {
 }
 :root[saved-theme="dark"] code {
   color: var(--coral) !important;
-  background: color-mix(in srgb, var(--secondary) 12%, var(--light)) !important;
+  background: color-mix(in srgb, var(--secondary) 18%, var(--light)) !important;
 }
 
 /* ─── Code blocks ─── */
@@ -211,13 +232,13 @@ hr {
   border: none !important;
   height: 1px;
   background: var(--lightgray);
-  margin: 3em auto !important;
+  margin: 2.5em auto !important;
   width: 100%;
 }
 
 /* ═══════════════ HERO (index.md uses .hero in HTML) ═══════════════ */
 .hero {
-  margin: 1rem 0 3.5rem;
+  margin: 1.5rem 0 4rem;
   padding: 0;
 }
 .hero-eyebrow {
@@ -227,10 +248,19 @@ hr {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gray);
-  margin-bottom: 1.1em;
+  margin-bottom: 1.4em;
   display: flex;
   align-items: center;
   gap: 12px;
+}
+.hero-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--terracotta) 60%, transparent);
+  flex-shrink: 0;
 }
 .hero-eyebrow::after {
   content: "";
@@ -245,7 +275,7 @@ hr {
   letter-spacing: -0.028em !important;
   line-height: 1.05 !important;
   color: var(--dark);
-  margin: 0 0 0.4em !important;
+  margin: 0 0 0.5em !important;
 }
 .hero-tagline {
   font-family: var(--headerFont);
@@ -254,7 +284,7 @@ hr {
   color: var(--darkgray);
   letter-spacing: -0.01em;
   line-height: 1.4;
-  margin: 0 0 0.4em;
+  margin: 0 0 0.7em;
 }
 .hero-sub {
   font-size: 0.95rem;
@@ -262,6 +292,8 @@ hr {
   font-family: var(--codeFont);
   letter-spacing: 0.02em;
   margin: 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--lightgray);
 }
 
 @media (max-width: 800px) {
@@ -280,7 +312,7 @@ hr {
   background: var(--light);
   box-shadow: var(--shadow-card);
   border-radius: 12px;
-  padding: 18px 18px 20px;
+  padding: 24px 22px 26px;
   position: relative;
   overflow: hidden;
   transition: box-shadow 0.25s ease, transform 0.25s ease;
@@ -292,15 +324,16 @@ hr {
   height: 2px;
   background: var(--accent-bar, var(--secondary));
   opacity: 0.85;
-  transition: opacity 0.2s ease, height 0.2s ease;
+  transition: opacity 0.2s ease, height 0.2s ease, box-shadow 0.25s ease;
 }
 .topic-card:hover {
   box-shadow: var(--shadow-hover);
   transform: translateY(-2px);
 }
 .topic-card:hover::before {
-  height: 3px;
+  height: 4px;
   opacity: 1;
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent-bar, var(--secondary)) 50%, transparent);
 }
 .topic-card.t-ai { --accent-bar: var(--terracotta); }
 .topic-card.t-cg { --accent-bar: var(--amber); }
