@@ -61,6 +61,23 @@
     box-shadow:0 0 8px var(--workflow);
   }
   body[data-theme="light"] .theme-toggle .icon { background:var(--memory); box-shadow:0 0 8px var(--memory); }
+
+  /* 返回博客按钮 - 跟 theme-toggle 对称 (左上角) */
+  .back-to-blog {
+    position:fixed; top:24px; left:24px; z-index:100;
+    display:flex; align-items:center; gap:8px;
+    padding:8px 14px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    color:var(--text-soft);
+    font-family:var(--mono); font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    text-decoration:none;
+    transition:border-color 200ms ease, background 200ms ease, color 200ms ease;
+  }
+  .back-to-blog:hover { border-color:var(--border-bright); color:var(--text); }
+  .back-to-blog .arrow { display:inline-block; transition:transform 200ms ease }
+  .back-to-blog:hover .arrow { transform:translateX(-2px) }
   /* center all sections for consistent layout */
   .hero, .directions, .map-grid, .elements-wrap, .footer {
     max-width: 1664px;
@@ -325,6 +342,11 @@
 </style>
 </head>
 <body>
+
+<a class="back-to-blog" href="/Posts/ai/ai-business-map/" aria-label="返回博客文章">
+  <span class="arrow">←</span>
+  <span>返回博客</span>
+</a>
 
 <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
   <span class="icon"></span>
