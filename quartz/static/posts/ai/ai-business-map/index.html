@@ -858,86 +858,158 @@
     </div>
   </div>
 
-  <!-- 6 子系统 - 紧凑 progress bar -->
-  <div style="max-width:1100px; margin:32px auto 0; display:flex; flex-direction:column; gap:10px;">
-
-    <div style="display:grid; grid-template-columns: 200px 220px 1fr; gap:24px; align-items:center; padding:14px 18px; border:1px solid var(--border); border-left:3px solid #4dd6b6; border-radius:6px;">
-      <div style="font-size:14px; font-weight:500">LLM-Wiki schema</div>
-      <div>
-        <div style="display:flex; gap:3px; align-items:center">
-          <span style="flex:1; height:6px; background:#4dd6b6; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:#4dd6b6; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:rgba(255,255,255,0.08); border-radius:3px"></span>
-        </div>
-        <div style="font-size:11px; opacity:0.55; margin-top:5px; letter-spacing:0.04em">STAGE 2 / 3</div>
-      </div>
-      <div style="font-size:12.5px; opacity:0.85; line-height:1.5">frontmatter / index / 反哺 schema 自动检 + 修 — <span style="opacity:0.65">22 页补 38%→100%</span></div>
+  <!-- 5 步循环 horizontal flow visualization -->
+  <div style="max-width:1100px; margin:32px auto 0;">
+    <div style="display:flex; align-items:center; justify-content:center; gap:6px; font-size:11px; opacity:0.55; letter-spacing:0.08em; margin-bottom:8px">
+      <span style="opacity:0.4">5 步循环 →</span>
+      <span style="padding:4px 10px; border:1px solid var(--border); border-radius:12px">TRIGGER</span>
+      <span style="opacity:0.3">━</span>
+      <span style="padding:4px 10px; border:1px solid var(--border); border-radius:12px">DETECT</span>
+      <span style="opacity:0.3">━</span>
+      <span style="padding:4px 10px; border:1px solid var(--border); border-radius:12px">DECIDE</span>
+      <span style="opacity:0.3">━</span>
+      <span style="padding:4px 10px; border:1px solid var(--border); border-radius:12px">APPLY</span>
+      <span style="opacity:0.3">━</span>
+      <span style="padding:4px 10px; border:1px solid var(--border); border-radius:12px">LEARN</span>
+      <span style="opacity:0.3">↩</span>
     </div>
+    <div style="text-align:center; font-size:11px; opacity:0.4; margin-bottom:18px">↓ 每个子系统按 5 步具体实现 (点击展开看)</div>
+  </div>
 
-    <div style="display:grid; grid-template-columns: 200px 220px 1fr; gap:24px; align-items:center; padding:14px 18px; border:1px solid var(--border); border-left:3px solid #4dd6b6; border-radius:6px;">
-      <div style="font-size:14px; font-weight:500">Skill 引用 <span style="opacity:0.5; font-weight:400">(33 个)</span></div>
-      <div>
-        <div style="display:flex; gap:3px; align-items:center">
-          <span style="flex:1; height:6px; background:#4dd6b6; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:#4dd6b6; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:rgba(255,255,255,0.08); border-radius:3px"></span>
-        </div>
-        <div style="font-size:11px; opacity:0.55; margin-top:5px; letter-spacing:0.04em">STAGE 2 / 3</div>
-      </div>
-      <div style="font-size:12.5px; opacity:0.85; line-height:1.5">死链 / deprecated / cross-step 编号错位 — <span style="opacity:0.65">53 finding 过滤后 0 真问题</span></div>
-    </div>
+  <!-- 6 子系统 - 默认折叠, 点开看 5 步详情 -->
+  <style>
+    .evo-row { padding:14px 18px; border:1px solid var(--border); border-radius:6px; }
+    .evo-row[open] { padding-bottom:8px; }
+    .evo-row summary { list-style:none; cursor:pointer; display:grid; grid-template-columns: 200px 220px 1fr 20px; gap:24px; align-items:center; }
+    .evo-row summary::-webkit-details-marker { display:none; }
+    .evo-row summary::after { content:'▾'; opacity:0.35; transition:transform 0.2s; font-size:11px; }
+    .evo-row[open] summary::after { transform:rotate(180deg); }
+    .evo-name { font-size:14px; font-weight:500 }
+    .evo-name-sub { opacity:0.5; font-weight:400 }
+    .evo-bar-wrap { /* 中列 */ }
+    .evo-bar { display:flex; gap:3px; align-items:center }
+    .evo-bar > span { flex:1; height:6px; border-radius:3px }
+    .evo-stage-label { font-size:11px; opacity:0.55; margin-top:5px; letter-spacing:0.04em }
+    .evo-summary { font-size:12.5px; opacity:0.85; line-height:1.5 }
+    .evo-detail { margin-top:14px; padding:14px 0 6px 0; border-top:1px dashed var(--border); display:grid; grid-template-columns: repeat(5, 1fr); gap:14px; }
+    .evo-step { font-size:11.5px; line-height:1.55 }
+    .evo-step b { display:block; font-size:10px; letter-spacing:0.1em; opacity:0.5; font-weight:600; margin-bottom:4px }
+    .evo-step.ok b { color:#4dd6b6 }
+    .evo-step.partial b { color:#b594f0 }
+    .evo-step.blocked b { color:#6cb4ee; opacity:0.5 }
+    .evo-step span { opacity:0.85 }
+    .evo-step.blocked span { opacity:0.5 }
+  </style>
 
-    <div style="display:grid; grid-template-columns: 200px 220px 1fr; gap:24px; align-items:center; padding:14px 18px; border:1px solid var(--border); border-left:3px solid #4dd6b6; border-radius:6px;">
-      <div style="font-size:14px; font-weight:500">MCP 暴露 / 接入</div>
-      <div>
-        <div style="display:flex; gap:3px; align-items:center">
-          <span style="flex:1; height:6px; background:#4dd6b6; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:#4dd6b6; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:rgba(255,255,255,0.08); border-radius:3px"></span>
-        </div>
-        <div style="font-size:11px; opacity:0.55; margin-top:5px; letter-spacing:0.04em">STAGE 2 / 3</div>
-      </div>
-      <div style="font-size:12.5px; opacity:0.85; line-height:1.5">dist-src 同步 + 死工具 surface — <span style="opacity:0.65">zentao 12 工具 5 接入 4 高级</span></div>
-    </div>
+  <div style="max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:10px;">
 
-    <div style="display:grid; grid-template-columns: 200px 220px 1fr; gap:24px; align-items:center; padding:14px 18px; border:1px solid var(--border); border-left:3px solid #4dd6b6; border-radius:6px;">
-      <div style="font-size:14px; font-weight:500">Cross-stack <span style="opacity:0.5; font-weight:400">(skill→wiki)</span></div>
-      <div>
-        <div style="display:flex; gap:3px; align-items:center">
-          <span style="flex:1; height:6px; background:#4dd6b6; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:#4dd6b6; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:rgba(255,255,255,0.08); border-radius:3px"></span>
+    <details class="evo-row" style="border-left:3px solid #4dd6b6">
+      <summary>
+        <div class="evo-name">LLM-Wiki schema</div>
+        <div class="evo-bar-wrap">
+          <div class="evo-bar"><span style="background:#4dd6b6"></span><span style="background:#4dd6b6"></span><span style="background:rgba(255,255,255,0.08)"></span></div>
+          <div class="evo-stage-label">STAGE 2 / 3</div>
         </div>
-        <div style="font-size:11px; opacity:0.55; margin-top:5px; letter-spacing:0.04em">STAGE 2 / 3</div>
+        <div class="evo-summary">frontmatter / index / 反哺 schema 自动检 + 修 — <span style="opacity:0.65">22 页补 38%→100%</span></div>
+      </summary>
+      <div class="evo-detail">
+        <div class="evo-step ok"><b>TRIGGER</b><span>lint 月度 (≥30 天) · resume Step 6.5.7 (晨间) · ingest Step 8 · wrap-up Phase 5 · 月初 day1 起 baseline</span></div>
+        <div class="evo-step ok"><b>DETECT</b><span>3 脚本: wiki-fix-frontmatter (5 字段) · wiki-index-coverage (页外漂移) · wiki-feedback-trace (反哺 4 路径连通)</span></div>
+        <div class="evo-step ok"><b>DECIDE</b><span>单 LLM 严格 verify, 0 误报 (替代双 agent cross-verify)</span></div>
+        <div class="evo-step ok"><b>APPLY</b><span>frontmatter --apply 全自动补; index 半自动 (人决归属哪个 section)</span></div>
+        <div class="evo-step ok"><b>LEARN</b><span>0005 ADR 强制召回 (lint Step 0 必读 0004+0005); 实测后回写量化指标</span></div>
       </div>
-      <div style="font-size:12.5px; opacity:0.85; line-height:1.5">skill 引用 wiki 页是否真存在 — <span style="opacity:0.65">1 真死链已修</span></div>
-    </div>
+    </details>
 
-    <div style="display:grid; grid-template-columns: 200px 220px 1fr; gap:24px; align-items:center; padding:14px 18px; border:1px solid var(--border); border-left:3px solid #b594f0; border-radius:6px;">
-      <div style="font-size:14px; font-weight:500">Memory 一致性</div>
-      <div>
-        <div style="display:flex; gap:3px; align-items:center">
-          <span style="flex:1; height:6px; background:#b594f0; border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:linear-gradient(to right, #b594f0 50%, rgba(255,255,255,0.08) 50%); border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:rgba(255,255,255,0.08); border-radius:3px"></span>
+    <details class="evo-row" style="border-left:3px solid #4dd6b6">
+      <summary>
+        <div class="evo-name">Skill 引用 <span class="evo-name-sub">(33 个)</span></div>
+        <div class="evo-bar-wrap">
+          <div class="evo-bar"><span style="background:#4dd6b6"></span><span style="background:#4dd6b6"></span><span style="background:rgba(255,255,255,0.08)"></span></div>
+          <div class="evo-stage-label">STAGE 2 / 3</div>
         </div>
-        <div style="font-size:11px; opacity:0.55; margin-top:5px; letter-spacing:0.04em">STAGE 1.5 / 3</div>
+        <div class="evo-summary">死链 / deprecated / cross-step 编号错位 — <span style="opacity:0.65">53 finding 过滤后 0 真问题</span></div>
+      </summary>
+      <div class="evo-detail">
+        <div class="evo-step ok"><b>TRIGGER</b><span>跟 lint 同步, 月度跑 cc-stack-coverage.py --only=skill</span></div>
+        <div class="evo-step ok"><b>DETECT</b><span>cc-stack-coverage.py: 死链 (/X 引但 X 不存) · deprecated 引用 · cross-step (/B step 6 但 B 没) · orphan</span></div>
+        <div class="evo-step ok"><b>DECIDE</b><span>单 LLM verify; 加 IGNORE list (built-in 命令 / 模板占位符) 后 53→0 真问题</span></div>
+        <div class="evo-step ok"><b>APPLY</b><span>死链改 link/删; deprecated 替换; step 编号同步; 已修 study Step 3.7-3.8 / bug 加 close confirm</span></div>
+        <div class="evo-step ok"><b>LEARN</b><span>IGNORE list 累积; 元学习: 脚本 ~95% 误报 vs agent ~30% — 互补</span></div>
       </div>
-      <div style="font-size:12.5px; opacity:0.85; line-height:1.5">死链能扫, 语义矛盾要 LLM — <span style="opacity:0.65">半人工</span></div>
-    </div>
+    </details>
 
-    <div style="display:grid; grid-template-columns: 200px 220px 1fr; gap:24px; align-items:center; padding:14px 18px; border:1px solid var(--border); border-left:3px solid #6cb4ee; border-radius:6px; opacity:0.7">
-      <div style="font-size:14px; font-weight:500">Workflow 真实使用率</div>
-      <div>
-        <div style="display:flex; gap:3px; align-items:center">
-          <span style="flex:1; height:6px; background:rgba(255,255,255,0.08); border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:rgba(255,255,255,0.08); border-radius:3px"></span>
-          <span style="flex:1; height:6px; background:rgba(255,255,255,0.08); border-radius:3px"></span>
+    <details class="evo-row" style="border-left:3px solid #4dd6b6">
+      <summary>
+        <div class="evo-name">MCP 暴露 / 接入</div>
+        <div class="evo-bar-wrap">
+          <div class="evo-bar"><span style="background:#4dd6b6"></span><span style="background:#4dd6b6"></span><span style="background:rgba(255,255,255,0.08)"></span></div>
+          <div class="evo-stage-label">STAGE 2 / 3</div>
         </div>
-        <div style="font-size:11px; opacity:0.55; margin-top:5px; letter-spacing:0.04em">STAGE 0 / 3 · PLAN</div>
+        <div class="evo-summary">dist-src 同步 + 死工具 surface — <span style="opacity:0.65">zentao 12 工具 5 接入 4 高级</span></div>
+      </summary>
+      <div class="evo-detail">
+        <div class="evo-step ok"><b>TRIGGER</b><span>跟 lint 同步; 改 src 后 npm run verify 报 dist-stale</span></div>
+        <div class="evo-step ok"><b>DETECT</b><span>cc-stack-coverage.py --only=mcp: dist-src 同步 · skill 调的 mcp__X__Y 是否真暴露 · MCP 暴露但没用的 dead tool</span></div>
+        <div class="evo-step ok"><b>DECIDE</b><span>单 LLM verify; self-written 白名单只检 zentao</span></div>
+        <div class="evo-step ok"><b>APPLY</b><span>dist-stale npm run build (自动 stamp src mtime); 错引用改 tool 名; 死工具记 README 高级用法</span></div>
+        <div class="evo-step ok"><b>LEARN</b><span>zentao README 高级用法节累积 (4 INFO → 显式说明); 写 build-stamp.mjs / verify-build.mjs 兜底</span></div>
       </div>
-      <div style="font-size:12.5px; opacity:0.85; line-height:1.5">需 telemetry, 等 01 MVP — <span style="opacity:0.65">没数据 → detect 不了 → 演进不了</span></div>
-    </div>
+    </details>
+
+    <details class="evo-row" style="border-left:3px solid #4dd6b6">
+      <summary>
+        <div class="evo-name">Cross-stack <span class="evo-name-sub">(skill→wiki)</span></div>
+        <div class="evo-bar-wrap">
+          <div class="evo-bar"><span style="background:#4dd6b6"></span><span style="background:#4dd6b6"></span><span style="background:rgba(255,255,255,0.08)"></span></div>
+          <div class="evo-stage-label">STAGE 2 / 3</div>
+        </div>
+        <div class="evo-summary">skill 引用 wiki 页是否真存在 — <span style="opacity:0.65">1 真死链已修</span></div>
+      </summary>
+      <div class="evo-detail">
+        <div class="evo-step ok"><b>TRIGGER</b><span>跟 lint 同步</span></div>
+        <div class="evo-step ok"><b>DETECT</b><span>cc-stack-coverage.py --only=cross: skill 文档里 [[Topics/X]] [[Solutions/Y]] 引用的 wiki 页存不存在</span></div>
+        <div class="evo-step ok"><b>DECIDE</b><span>LLM verify; 模板占位符 (X/Y/&lt;x&gt;) 加 IGNORE 后只剩真问题</span></div>
+        <div class="evo-step ok"><b>APPLY</b><span>改 link 到正确页 / 建占位页 / 改成短引用让 obsidian 自动 resolve</span></div>
+        <div class="evo-step ok"><b>LEARN</b><span>这次修 promote.md → Personal-Workflow → 改指 [[0001 反哺章节]]</span></div>
+      </div>
+    </details>
+
+    <details class="evo-row" style="border-left:3px solid #b594f0">
+      <summary>
+        <div class="evo-name">Memory 一致性</div>
+        <div class="evo-bar-wrap">
+          <div class="evo-bar"><span style="background:#b594f0"></span><span style="background:linear-gradient(to right, #b594f0 50%, rgba(255,255,255,0.08) 50%)"></span><span style="background:rgba(255,255,255,0.08)"></span></div>
+          <div class="evo-stage-label">STAGE 1.5 / 3</div>
+        </div>
+        <div class="evo-summary">死链能扫, 语义矛盾要 LLM — <span style="opacity:0.65">半人工</span></div>
+      </summary>
+      <div class="evo-detail">
+        <div class="evo-step ok"><b>TRIGGER</b><span>跟 lint 同步</span></div>
+        <div class="evo-step ok"><b>DETECT</b><span>cc-stack-coverage.py --only=memory: 6 memory 文件引用的 ADR / wiki 页 / skill 是否还存在</span></div>
+        <div class="evo-step partial"><b>DECIDE</b><span>deterministic 部分 (死链) 自动通过; <b style="display:inline; font-weight:400; opacity:1">语义矛盾要 LLM 判断 + 用户决</b></span></div>
+        <div class="evo-step partial"><b>APPLY</b><span>死链自动; 语义矛盾人工修 (改 memory 删过期信息)</span></div>
+        <div class="evo-step ok"><b>LEARN</b><span>沿用其他子系统的 0005 ADR 召回机制</span></div>
+      </div>
+    </details>
+
+    <details class="evo-row" style="border-left:3px solid #6cb4ee; opacity:0.75">
+      <summary>
+        <div class="evo-name">Workflow 真实使用率</div>
+        <div class="evo-bar-wrap">
+          <div class="evo-bar"><span style="background:rgba(255,255,255,0.08)"></span><span style="background:rgba(255,255,255,0.08)"></span><span style="background:rgba(255,255,255,0.08)"></span></div>
+          <div class="evo-stage-label">STAGE 0 / 3 · PLAN</div>
+        </div>
+        <div class="evo-summary">需 telemetry, 等 01 MVP — <span style="opacity:0.65">没数据 → detect 不了 → 演进不了</span></div>
+      </summary>
+      <div class="evo-detail">
+        <div class="evo-step blocked"><b>TRIGGER</b><span>❌ 没 telemetry 触发不了</span></div>
+        <div class="evo-step blocked"><b>DETECT</b><span>❌ 看不见用户实际怎么跑哪条 flow / 哪步用户老跳 / 哪 skill 错率高</span></div>
+        <div class="evo-step blocked"><b>DECIDE</b><span>❌ N/A (没数据可决)</span></div>
+        <div class="evo-step blocked"><b>APPLY</b><span>❌ N/A</span></div>
+        <div class="evo-step blocked"><b>LEARN</b><span>❌ N/A · 解锁条件: 01 MVP (模型网关 + per-user/per-skill/per-flow 看板) 跑通</span></div>
+      </div>
+    </details>
 
   </div>
 
