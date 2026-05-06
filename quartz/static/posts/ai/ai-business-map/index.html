@@ -349,12 +349,13 @@
 <!-- ① 三方向 (描述按截图原文) -->
 <section class="directions">
   <div class="dir" data-dir="01">
-    <div class="dir-num">01 · INFRA</div>
+    <div class="dir-num">01 · INFRA <span class="flow-status" data-status="plan" style="margin-left:8px">PLAN · MVP 启动中</span></div>
     <div class="dir-name">AI 基建</div>
     <div class="dir-def">模型网关、用量统计、权限控制，让其他团队更低成本、更稳定地使用 AI。</div>
     <div class="dir-meta">
-      <b>包含 0 条业务 flow</b><br>
-      团队级基础设施层，跟个人 flow 不直接对应
+      <b>包含 1 条 PLAN flow</b> · 服务<u>一个团队</u>规模, 不做厂商网关替代<br>
+      MVP: 模型网关 + 用量统计 (找开源改, 候选 LiteLLM / one-api / Helicone / Langfuse)<br>
+      <div class="dir-meta-sec">后置: Skill / MCP / Plugin 管理后台 (内部仓库分发 + 版本控制)</div>
       <div class="dir-meta-sec">底层组件: 5 个 MCP server · LLM-Wiki schema · Superpowers 接入 · ~75 个 Skill</div>
     </div>
   </div>
