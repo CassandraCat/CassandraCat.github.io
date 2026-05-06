@@ -284,6 +284,26 @@
     content:'when · '; color:var(--text-faint);
   }
 
+
+  /* feedback section (02 → 03 桥梁) */
+  .feedback-section { margin-top:56px; padding-top:40px; border-top:1px dashed var(--border); max-width:1664px; margin-left:auto; margin-right:auto; }
+  .fb-intro {
+    font-family:var(--mono); font-size:13px; line-height:1.7;
+    color:var(--text-soft); margin-bottom:32px; max-width:1100px;
+  }
+  .fb-intro b { color:var(--text); }
+  .fb-intro code { font-size:11.5px; padding:1px 6px; background:color-mix(in srgb, var(--memory) 10%, transparent); color:var(--memory); border-radius:3px; }
+  .fb-intro .fb-stat { color:var(--text-mute); margin-left:6px; padding-left:10px; border-left:1px solid var(--border); }
+  .feedback-flow { margin-bottom:28px; }
+  .feedback-flow .flow-canvas { height:180px; }
+  .fb-why {
+    margin-left:8px;
+    font-family:var(--mono); font-size:10px; color:var(--text-mute);
+    letter-spacing:0.04em;
+  }
+  /* PLAN status: dashed lighter path */
+  .feedback-path-plan { opacity:0.35 !important; stroke-dasharray:3 9 !important; }
+
   /* elements */
   .elements-wrap { margin-top:48px; }
   .elements { display:grid; grid-template-columns:repeat(6, 1fr); gap:16px; }
@@ -696,6 +716,119 @@
 </aside>
 
 </div>
+
+
+<section class="feedback-section">
+  <div class="section-eyebrow">★ 反哺路径 · FEEDBACK LOOPS / 02 自用 → 03 团队提效 桥梁</div>
+  <p class="fb-intro">
+    8 条自用 flow 完成时自动判定是否值得沉淀. 命中 → wiki 标 <code>feedback_type</code> → <code>/promote</code> 推飞书. <b>"没自用过的没资格让别人用"</b> — 反哺让自用经验流向团队. <span class="fb-stat">3 条已 wired up / 1 条 PLAN</span>
+  </p>
+
+  <!-- 反哺 A: bug 修复 → 团队踩坑录 -->
+  <div class="flow feedback-flow" data-fb="fb-a" data-sig="systems">
+    <div class="flow-head">
+      <span class="flow-num">FB · A</span>
+      <span class="flow-title">bug 修复 → 团队踩坑录</span>
+      <span class="flow-status" data-status="self">SELF · wired up</span>
+      <span class="fb-why">/bug resolve Step 2.6 自动判定 6 信号; 命中→沉淀到 Solutions</span>
+    </div>
+    <div class="flow-canvas">
+      <svg class="flow-svg" viewBox="0 0 1280 180" preserveAspectRatio="none">
+        <path class="flow-path-bg" d="M 60 90 Q 209 60 357 90 T 655 90 T 952 90 T 1250 90"/>
+        <path class="flow-path"    d="M 60 90 Q 209 60 357 90 T 655 90 T 952 90 T 1250 90"/>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="60" cy="90" r="22"/><circle class="flow-node-dot" cx="60" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="357" cy="90" r="22"/><circle class="flow-node-dot" cx="357" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="655" cy="90" r="22"/><circle class="flow-node-dot" cx="655" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
+      </svg>
+      <div class="node-html" style="left:60px;top:30px"><div class="node-label">/bug resolve</div><div class="node-sub">Step 2.6 触发</div></div>
+      <div class="node-html" style="left:357px;top:30px"><div class="node-label">/ingest bug &lt;id&gt;</div><div class="node-sub">拆禅道 bug + 截图到 wiki</div></div>
+      <div class="node-html" style="left:655px;top:30px"><div class="node-label">Wiki/Solutions/&lt;slug&gt;</div><div class="node-sub">visibility=team + feedback_type=bug-solution</div></div>
+      <div class="node-html" style="left:952px;top:30px"><div class="node-label">/promote</div><div class="node-sub">lark-cli base +record-create</div></div>
+      <div class="node-html" style="left:1250px;top:30px"><div class="node-label">飞书解决方案库</div><div class="node-sub">Bitable · 同事按问题搜</div></div>
+    </div>
+  </div>
+
+  <!-- 反哺 C: MR review finding → 团队 review 准则 -->
+  <div class="flow feedback-flow" data-fb="fb-c" data-sig="tools">
+    <div class="flow-head">
+      <span class="flow-num">FB · C</span>
+      <span class="flow-title">MR review finding → 团队 review 准则</span>
+      <span class="flow-status" data-status="self">SELF · wired up</span>
+      <span class="fb-why">/mr review #6 自动判定 5 信号; 复发模式 / P0-P1 finding 命中→沉淀到 Patterns</span>
+    </div>
+    <div class="flow-canvas">
+      <svg class="flow-svg" viewBox="0 0 1280 180" preserveAspectRatio="none">
+        <path class="flow-path-bg" d="M 60 90 Q 209 60 357 90 T 655 90 T 952 90 T 1250 90"/>
+        <path class="flow-path"    d="M 60 90 Q 209 60 357 90 T 655 90 T 952 90 T 1250 90"/>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="60" cy="90" r="22"/><circle class="flow-node-dot" cx="60" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="357" cy="90" r="22"/><circle class="flow-node-dot" cx="357" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="655" cy="90" r="22"/><circle class="flow-node-dot" cx="655" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
+      </svg>
+      <div class="node-html" style="left:60px;top:30px"><div class="node-label">/mr review #6</div><div class="node-sub">review 完触发</div></div>
+      <div class="node-html" style="left:357px;top:30px"><div class="node-label">/ingest mr</div><div class="node-sub">拆 finding (现象/根因/推荐写法)</div></div>
+      <div class="node-html" style="left:655px;top:30px"><div class="node-label">Wiki/Topics/Patterns/</div><div class="node-sub">review-pattern · 含 code snippet</div></div>
+      <div class="node-html" style="left:952px;top:30px"><div class="node-label">/promote</div><div class="node-sub">[Review Pattern] 前缀</div></div>
+      <div class="node-html" style="left:1250px;top:30px"><div class="node-label">飞书解决方案库</div><div class="node-sub">Bitable · 团队 review checklist</div></div>
+    </div>
+  </div>
+
+  <!-- 反哺 D: 学习产出 → 团队学习库 -->
+  <div class="flow feedback-flow" data-fb="fb-d" data-sig="intent">
+    <div class="flow-head">
+      <span class="flow-num">FB · D</span>
+      <span class="flow-title">学习产出 → 团队学习库</span>
+      <span class="flow-status" data-status="self">SELF · wired up</span>
+      <span class="fb-why">/study done Step 7 自动判定 5 信号; 跑通 / 避坑 / 跨概念命中→沉淀</span>
+    </div>
+    <div class="flow-canvas">
+      <svg class="flow-svg" viewBox="0 0 1280 180" preserveAspectRatio="none">
+        <path class="flow-path-bg" d="M 60 90 Q 209 60 357 90 T 655 90 T 952 90 T 1250 90"/>
+        <path class="flow-path"    d="M 60 90 Q 209 60 357 90 T 655 90 T 952 90 T 1250 90"/>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="60" cy="90" r="22"/><circle class="flow-node-dot" cx="60" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="357" cy="90" r="22"/><circle class="flow-node-dot" cx="357" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="655" cy="90" r="22"/><circle class="flow-node-dot" cx="655" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
+      </svg>
+      <div class="node-html" style="left:60px;top:30px"><div class="node-label">/study done</div><div class="node-sub">Step 7 触发</div></div>
+      <div class="node-html" style="left:357px;top:30px"><div class="node-label">/ingest learning</div><div class="node-sub">拆 insight 到 Topics/Learning</div></div>
+      <div class="node-html" style="left:655px;top:30px"><div class="node-label">Wiki/Topics/Learning/</div><div class="node-sub">feedback_type=learning</div></div>
+      <div class="node-html" style="left:952px;top:30px"><div class="node-label">/promote</div><div class="node-sub">wiki dir 路径</div></div>
+      <div class="node-html" style="left:1250px;top:30px"><div class="node-label">飞书部门「技术方案」</div><div class="node-sub">wiki dir · 同事可订阅</div></div>
+    </div>
+  </div>
+
+  <!-- 反哺 B: IM @ 我 → 团队 FAQ (待实施) -->
+  <div class="flow feedback-flow" data-fb="fb-b" data-sig="memory">
+    <div class="flow-head">
+      <span class="flow-num">FB · B</span>
+      <span class="flow-title">IM @ 我 → 团队 FAQ (待实施)</span>
+      <span class="flow-status" data-status="plan">PLAN · 未做</span>
+      <span class="fb-why">需 lark-event 监听 @ → 你回答完自动建议 ingest FAQ; 工程量大, 后期做</span>
+    </div>
+    <div class="flow-canvas">
+      <svg class="flow-svg" viewBox="0 0 1280 180" preserveAspectRatio="none">
+        <path class="flow-path-bg feedback-path-plan" d="M 60 90 Q 209 60 357 90 T 655 90 T 952 90 T 1250 90"/>
+        <path class="flow-path feedback-path-plan"    d="M 60 90 Q 209 60 357 90 T 655 90 T 952 90 T 1250 90"/>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="60" cy="90" r="22"/><circle class="flow-node-dot" cx="60" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="357" cy="90" r="22"/><circle class="flow-node-dot" cx="357" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="655" cy="90" r="22"/><circle class="flow-node-dot" cx="655" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
+        <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
+      </svg>
+      <div class="node-html" style="left:60px;top:30px"><div class="node-label">lark-event 监听 @</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:357px;top:30px"><div class="node-label">自动建议 /ingest faq</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:655px;top:30px"><div class="node-label">Wiki/Topics/Patterns/</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:952px;top:30px"><div class="node-label">/promote</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:1250px;top:30px"><div class="node-label">飞书部门 FAQ 库</div><div class="node-sub">未做</div></div>
+    </div>
+  </div>
+
+</section>
 
 <section class="elements-wrap">
   <div class="elements">
