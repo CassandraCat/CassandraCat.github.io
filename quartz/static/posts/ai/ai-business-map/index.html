@@ -332,7 +332,7 @@
 </button>
 
 <header class="hero">
-  <div class="hero-eyebrow"><span class="dot"></span>AI BUSINESS MAP · V2 · 2026-05-05</div>
+  <div class="hero-eyebrow"><span class="dot"></span>AI BUSINESS MAP · V2 · 2026-05-06</div>
   <h1>三方向 × <em>8 条工作流</em> × 六要素</h1>
   <p class="hero-sub">
     顶部 <b>三方向</b> 是分类标签<span class="x">·</span>
@@ -829,6 +829,49 @@
     </div>
   </div>
 
+</section>
+
+<section class="feedback-section" style="margin-top:32px">
+  <div class="section-eyebrow">★ 自我演进机制 · SELF-HEALING / 文件 schema 自动审计 + 修复 (跟反哺机制对偶: 反哺向外推团队, 演进向内修自己)</div>
+  <p class="fb-intro">
+    工具体系建好不等于稳定 — 长期会漂移. 自审 + 自修机制按 5 步循环 (Trigger / Detect / Decide / Apply / Learn) 跑, 6 子系统按各自 detect 难度独立演进.
+    <span class="fb-stat">5/6 子系统 stage 2 ✓ · workflow 仍 stage 0 等 01 MVP telemetry · 详见 <a href="/posts/ai/ai-business-map/" style="color:inherit;text-decoration:underline">§漂移和成熟度三段</a></span>
+  </p>
+  <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:18px; max-width:1200px; margin-left:auto; margin-right:auto;">
+    <div style="border:1px solid var(--border); border-left:3px solid #4dd6b6; padding:14px 16px; border-radius:6px;">
+      <div style="font-size:13px; opacity:0.7; margin-bottom:4px">LLM-Wiki schema</div>
+      <div style="font-weight:600">Stage 2 ✓</div>
+      <div style="font-size:12px; opacity:0.7; margin-top:6px">时间 + 阈值 + 事件 三类触发, frontmatter / index 全自动检</div>
+    </div>
+    <div style="border:1px solid var(--border); border-left:3px solid #4dd6b6; padding:14px 16px; border-radius:6px;">
+      <div style="font-size:13px; opacity:0.7; margin-bottom:4px">Skill 引用 (~33 个)</div>
+      <div style="font-weight:600">Stage 2 ✓</div>
+      <div style="font-size:12px; opacity:0.7; margin-top:6px">cc-stack-coverage.py 扫死链 / deprecated / cross-step</div>
+    </div>
+    <div style="border:1px solid var(--border); border-left:3px solid #4dd6b6; padding:14px 16px; border-radius:6px;">
+      <div style="font-size:13px; opacity:0.7; margin-bottom:4px">MCP 暴露/接入</div>
+      <div style="font-weight:600">Stage 2 ✓</div>
+      <div style="font-size:12px; opacity:0.7; margin-top:6px">dist-src 同步 + 死工具 surface + 错引用</div>
+    </div>
+    <div style="border:1px solid var(--border); border-left:3px solid #4dd6b6; padding:14px 16px; border-radius:6px;">
+      <div style="font-size:13px; opacity:0.7; margin-bottom:4px">Cross-stack (skill→wiki)</div>
+      <div style="font-weight:600">Stage 2 ✓</div>
+      <div style="font-size:12px; opacity:0.7; margin-top:6px">skill 引用 wiki 页是否真存在</div>
+    </div>
+    <div style="border:1px solid var(--border); border-left:3px solid #b594f0; padding:14px 16px; border-radius:6px;">
+      <div style="font-size:13px; opacity:0.7; margin-bottom:4px">Memory 一致性</div>
+      <div style="font-weight:600">Stage 1.5</div>
+      <div style="font-size:12px; opacity:0.7; margin-top:6px">死链能扫, 语义矛盾要 LLM, 半人工</div>
+    </div>
+    <div style="border:1px solid var(--border); border-left:3px solid #6cb4ee; padding:14px 16px; border-radius:6px; opacity:0.7">
+      <div style="font-size:13px; opacity:0.7; margin-bottom:4px">Workflow 真实使用率</div>
+      <div style="font-weight:600">Stage 0 (PLAN)</div>
+      <div style="font-size:12px; opacity:0.7; margin-top:6px">需 telemetry, 等 01 MVP (模型网关 + 用量看板) 跑通</div>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:18px; font-size:13px; opacity:0.65; max-width:900px; margin-left:auto; margin-right:auto;">
+    <b>关键洞察</b>: 演进进度不取决于工具好坏, 取决于这一层有没有 telemetry. 文件层静态可扫所以快, workflow 层缺数据所以停在第一段 — 这正是 01 MVP 不可选的根本理由.
+  </p>
 </section>
 
 <section class="elements-wrap">
