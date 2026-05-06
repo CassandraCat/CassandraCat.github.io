@@ -837,38 +837,78 @@
     工具体系建好不等于稳定 — 长期会漂移. 自审 + 自修机制按 5 步循环 (Trigger / Detect / Decide / Apply / Learn) 跑, 6 子系统按各自 detect 难度独立演进.
     <span class="fb-stat">5/6 子系统 stage 2 ✓ · workflow 仍 stage 0 等 01 MVP telemetry · 详见 <a href="/posts/ai/ai-business-map/" style="color:inherit;text-decoration:underline">§漂移和成熟度三段</a></span>
   </p>
+
+  <div style="max-width:1200px; margin:14px auto 0; padding:12px 16px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:6px; font-size:12px; line-height:1.7;">
+    <div style="opacity:0.6; margin-bottom:6px"><b>实施载体</b> (这一节具体用的东西):</div>
+    <div><b>5 个脚本</b> (~/.claude/scripts/): <code>check-lint-freshness.sh</code> (时间+阈值+事件触发) · <code>wiki-fix-frontmatter.py</code> (frontmatter 自动补) · <code>wiki-index-coverage.py</code> (页外漂移) · <code>wiki-feedback-trace.py</code> (反哺 4 路径连通) · <code>cc-stack-coverage.py</code> (Skill/MCP/Memory/Cross-stack 一脚本扫)</div>
+    <div style="margin-top:4px"><b>6 个集成点</b>: <code>/lint</code> Step 0 强制召回 4 ADR · <code>/lint --check</code> 轻量 freshness · <code>/resume</code> Step 6.5.7 (晨间) · <code>/ingest</code> Step 8 (写完 wiki 末尾) · <code>/wrap-up</code> Phase 5 (收工时) · ADR 强制召回机制 (Topics/0004 + 0005 必读才能跑 audit)</div>
+    <div style="margin-top:4px"><b>3 个 ADR</b>: <a href="https://cassandracat.github.io/posts/ai/ai-business-map/" style="color:inherit;text-decoration:underline">[[Topics/0003]]</a> 会话 4 skill 边界 · [[Topics/0004]] 元学习 (避坑 6 条) · [[Topics/0005]] 5 步循环 + 跨子系统盘点 + 量化指标</div>
+  </div>
+
   <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:18px; max-width:1200px; margin-left:auto; margin-right:auto;">
+
     <div style="border:1px solid var(--border); border-left:3px solid #4dd6b6; padding:14px 16px; border-radius:6px;">
       <div style="font-size:13px; opacity:0.7; margin-bottom:4px">LLM-Wiki schema</div>
-      <div style="font-weight:600">Stage 2 ✓</div>
-      <div style="font-size:12px; opacity:0.7; margin-top:6px">时间 + 阈值 + 事件 三类触发, frontmatter / index 全自动检</div>
+      <div style="font-weight:600; margin-bottom:8px">Stage 2 ✓</div>
+      <div style="font-size:12px; line-height:1.7; opacity:0.85">
+        <div><b>检</b>: frontmatter 5 必填字段 (type/created/updated/visibility/tags) + index.md 漂移 + 反哺路径 schema</div>
+        <div style="margin-top:3px"><b>修</b>: 缺字段按目录推断自动补 (--apply); index 半自动 (人决归类)</div>
+        <div style="margin-top:3px"><b>成果</b>: 22 页 frontmatter 自动补 (38% 缺 → 100%); 5 页 index 漂移修; faq feedback_type schema 加</div>
+      </div>
     </div>
+
     <div style="border:1px solid var(--border); border-left:3px solid #4dd6b6; padding:14px 16px; border-radius:6px;">
       <div style="font-size:13px; opacity:0.7; margin-bottom:4px">Skill 引用 (~33 个)</div>
-      <div style="font-weight:600">Stage 2 ✓</div>
-      <div style="font-size:12px; opacity:0.7; margin-top:6px">cc-stack-coverage.py 扫死链 / deprecated / cross-step</div>
+      <div style="font-weight:600; margin-bottom:8px">Stage 2 ✓</div>
+      <div style="font-size:12px; line-height:1.7; opacity:0.85">
+        <div><b>检</b>: skill 互引死链 (/X 引用但 X.md 不存在) · deprecated 引用 (/share 等) · cross-step 编号错位 (说调用 /B step 6 但 B 没 step 6) · orphan skill</div>
+        <div style="margin-top:3px"><b>修</b>: 死链改 link 或删; deprecated 替换为新 skill; step 编号同步</div>
+        <div style="margin-top:3px"><b>成果</b>: 53 finding 经 IGNORE list 过滤 + 手工 verify, 0 真问题; 之前一波 audit 已改 study Step 3.7/3.8 + bug 加 close/confirm</div>
+      </div>
     </div>
+
     <div style="border:1px solid var(--border); border-left:3px solid #4dd6b6; padding:14px 16px; border-radius:6px;">
       <div style="font-size:13px; opacity:0.7; margin-bottom:4px">MCP 暴露/接入</div>
-      <div style="font-weight:600">Stage 2 ✓</div>
-      <div style="font-size:12px; opacity:0.7; margin-top:6px">dist-src 同步 + 死工具 surface + 错引用</div>
+      <div style="font-weight:600; margin-bottom:8px">Stage 2 ✓</div>
+      <div style="font-size:12px; line-height:1.7; opacity:0.85">
+        <div><b>检</b>: self-written MCP 的 dist/index.js 是否跟 src/ 同步 · skill 调的 mcp__X__Y 是否真暴露 · MCP 暴露但没 skill 用的死工具 surface</div>
+        <div style="margin-top:3px"><b>修</b>: dist-stale 跑 npm run build; 错引用改 tool 名; 死工具记 README 高级用法或接 skill</div>
+        <div style="margin-top:3px"><b>成果</b>: zentao 12 工具 (5 主接入 + 4 高级用法 README + 3 写动作); npm run verify 脚本检 dist-src 同步; build stamp 头注释</div>
+      </div>
     </div>
+
     <div style="border:1px solid var(--border); border-left:3px solid #4dd6b6; padding:14px 16px; border-radius:6px;">
       <div style="font-size:13px; opacity:0.7; margin-bottom:4px">Cross-stack (skill→wiki)</div>
-      <div style="font-weight:600">Stage 2 ✓</div>
-      <div style="font-size:12px; opacity:0.7; margin-top:6px">skill 引用 wiki 页是否真存在</div>
+      <div style="font-weight:600; margin-bottom:8px">Stage 2 ✓</div>
+      <div style="font-size:12px; line-height:1.7; opacity:0.85">
+        <div><b>检</b>: skill 文档里 [[Topics/X]] [[Solutions/Y]] [[Entities/Z]] 引用的 wiki 页是否真存在</div>
+        <div style="margin-top:3px"><b>修</b>: 改 link 到正确页 / 建占位页 / 模板占位符 (X/Y/&lt;x&gt;) 加 IGNORE</div>
+        <div style="margin-top:3px"><b>成果</b>: 1 真死链已修 (promote.md → Personal-Workflow → 改指 [[0001 反哺章节]])</div>
+      </div>
     </div>
+
     <div style="border:1px solid var(--border); border-left:3px solid #b594f0; padding:14px 16px; border-radius:6px;">
       <div style="font-size:13px; opacity:0.7; margin-bottom:4px">Memory 一致性</div>
-      <div style="font-weight:600">Stage 1.5</div>
-      <div style="font-size:12px; opacity:0.7; margin-top:6px">死链能扫, 语义矛盾要 LLM, 半人工</div>
+      <div style="font-weight:600; margin-bottom:8px">Stage 1.5</div>
+      <div style="font-size:12px; line-height:1.7; opacity:0.85">
+        <div><b>检</b>: 6 个 memory 文件引用的 ADR / wiki 页是否还存在 · skill 引用是否死链 · 6 memory 之间是否互相矛盾 (语义层)</div>
+        <div style="margin-top:3px"><b>修</b>: deterministic 部分 (死链) 自动; 语义矛盾要 LLM 判断 + 用户决, 半人工</div>
+        <div style="margin-top:3px"><b>成果</b>: 引用过期检查跑通; 语义矛盾这次没扫到 (6 memory 当前一致)</div>
+      </div>
     </div>
-    <div style="border:1px solid var(--border); border-left:3px solid #6cb4ee; padding:14px 16px; border-radius:6px; opacity:0.7">
+
+    <div style="border:1px solid var(--border); border-left:3px solid #6cb4ee; padding:14px 16px; border-radius:6px; opacity:0.75">
       <div style="font-size:13px; opacity:0.7; margin-bottom:4px">Workflow 真实使用率</div>
-      <div style="font-weight:600">Stage 0 (PLAN)</div>
-      <div style="font-size:12px; opacity:0.7; margin-top:6px">需 telemetry, 等 01 MVP (模型网关 + 用量看板) 跑通</div>
+      <div style="font-weight:600; margin-bottom:8px">Stage 0 (PLAN)</div>
+      <div style="font-size:12px; line-height:1.7; opacity:0.85">
+        <div><b>检 (要做)</b>: 哪条 flow 真在跑 · 哪步用户老跳过 · 哪 skill 错率高 · 跨 skill 接口契约破没</div>
+        <div style="margin-top:3px"><b>blocker</b>: 没 telemetry 看不见用户实际怎么跑 = detect 不了 = 演进不了</div>
+        <div style="margin-top:3px"><b>解锁条件</b>: 等 01 MVP (模型网关 + per-user/per-skill/per-flow 看板) 跑通, 才有数据 detect 卡点</div>
+      </div>
     </div>
+
   </div>
+
   <p style="text-align:center; margin-top:18px; font-size:13px; opacity:0.65; max-width:900px; margin-left:auto; margin-right:auto;">
     <b>关键洞察</b>: 演进进度不取决于工具好坏, 取决于这一层有没有 telemetry. 文件层静态可扫所以快, workflow 层缺数据所以停在第一段 — 这正是 01 MVP 不可选的根本理由.
   </p>
