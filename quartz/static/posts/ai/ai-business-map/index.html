@@ -250,10 +250,11 @@
     to   { opacity:1; transform:translateY(-50%) scale(1); }
   }
   .node-popover-name { font-family:var(--serif); font-size:19px; font-weight:500; color:var(--text); margin-bottom:5px; line-height:1.3; }
-  .node-popover-sub { font-family:var(--mono); font-size:11px; opacity:0.55; margin-bottom:14px; letter-spacing:0.04em; }
+  .node-popover-sub { font-family:var(--mono); font-size:11px; opacity:0.55; margin-bottom:14px; letter-spacing:0.04em; word-break:break-word; overflow-wrap:anywhere; }
+  .node-popover-name { word-break:break-word; overflow-wrap:anywhere; }
   .node-popover-section { margin-top:10px; }
   .node-popover-section b { display:block; font-family:var(--mono); font-size:10px; opacity:0.5; letter-spacing:0.12em; font-weight:600; margin-bottom:5px; text-transform:uppercase; }
-  .node-popover-section span { display:block; opacity:0.85; line-height:1.65; }
+  .node-popover-section span { display:block; opacity:0.85; line-height:1.65; word-break:break-word; overflow-wrap:anywhere; }
   .node-popover-empty { opacity:0.35; font-style:italic; font-size:11.5px; }
   .node-popover-close {
     position:absolute; top:10px; right:14px;
@@ -1241,15 +1242,38 @@
     nodeEl.classList.add('is-active');
   }
 
+  function toggleNode(node) {
+    if (!node) return;
+    if (activeNode === node) {
+      closePopover();
+    } else {
+      if (activeNode) activeNode.classList.remove('is-active');
+      openPopover(node);
+    }
+  }
+
   document.querySelectorAll('.node-html').forEach(node => {
     node.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (activeNode === node) {
-        closePopover();
-      } else {
-        if (activeNode) activeNode.classList.remove('is-active');
-        openPopover(node);
-      }
+      toggleNode(node);
+    });
+  });
+
+  // SVG dot click — 找同 cx 的 .node-html (排除 sp-rail vertical svg)
+  document.querySelectorAll('.flow-node-group').forEach(group => {
+    // 跳过 sp-rail 内的 dot (那些不对应 node-html, 对应 sp-label)
+    if (group.closest('.sp-rail-svg')) return;
+    group.style.cursor = 'pointer';
+    const dot = group.querySelector('.flow-node-dot');
+    if (!dot) return;
+    const cx = dot.getAttribute('cx');
+    group.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // 找同一 .flow 内 left=cx 的 .node-html
+      const flow = group.closest('.flow');
+      if (!flow) return;
+      const target = flow.querySelector(`.node-html[style*="left:${cx}px"]`);
+      toggleNode(target);
     });
   });
 
