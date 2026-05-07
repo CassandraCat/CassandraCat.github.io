@@ -222,9 +222,48 @@
   .sp-stem { stroke:var(--memory); stroke-width:1; stroke-dasharray:2 4; opacity:0.5; transition:opacity 200ms ease; }
   .flow:hover .sp-stem { opacity:0.95; }
 
-  .node-html { position:absolute; transform:translate(-50%, 0); text-align:center; pointer-events:none; z-index:2; }
-  .node-label { font-family:var(--mono); font-size:12.5px; color:var(--text); white-space:nowrap; font-weight:500; margin-bottom:4px; }
+  .node-html { position:absolute; transform:translate(-50%, 0); text-align:center; pointer-events:auto; cursor:pointer; z-index:2; transition:transform 150ms ease; }
+  .node-html:hover { transform:translate(-50%, -2px); }
+  .node-html:hover .node-label { color:var(--text); }
+  .node-html.is-active .node-label { color:var(--workflow); }
+  .node-label { font-family:var(--mono); font-size:12.5px; color:var(--text); white-space:nowrap; font-weight:500; margin-bottom:4px; transition:color 150ms ease; }
   .node-sub { font-family:var(--mono); font-size:10px; color:var(--text-mute); white-space:nowrap; letter-spacing:0.04em; line-height:1.4; }
+
+  /* Click popover */
+  .node-popover {
+    position:absolute;
+    width:340px;
+    background:var(--surface);
+    border:1px solid var(--border-bright);
+    border-radius:10px;
+    padding:18px 20px;
+    font-size:13px;
+    line-height:1.7;
+    box-shadow:0 12px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04);
+    z-index:200;
+    pointer-events:auto;
+    color:var(--text-soft);
+    animation:popover-in 180ms ease-out;
+  }
+  @keyframes popover-in {
+    from { opacity:0; transform:translateY(-50%) scale(0.96); }
+    to   { opacity:1; transform:translateY(-50%) scale(1); }
+  }
+  .node-popover-name { font-family:var(--serif); font-size:19px; font-weight:500; color:var(--text); margin-bottom:5px; line-height:1.3; }
+  .node-popover-sub { font-family:var(--mono); font-size:11px; opacity:0.55; margin-bottom:14px; letter-spacing:0.04em; }
+  .node-popover-section { margin-top:10px; }
+  .node-popover-section b { display:block; font-family:var(--mono); font-size:10px; opacity:0.5; letter-spacing:0.12em; font-weight:600; margin-bottom:5px; text-transform:uppercase; }
+  .node-popover-section span { display:block; opacity:0.85; line-height:1.65; }
+  .node-popover-empty { opacity:0.35; font-style:italic; font-size:11.5px; }
+  .node-popover-close {
+    position:absolute; top:10px; right:14px;
+    background:none; border:none; cursor:pointer;
+    color:var(--text-soft); opacity:0.4; font-size:18px; line-height:1;
+    width:24px; height:24px; padding:0;
+    transition:opacity 150ms ease;
+  }
+  .node-popover-close:hover { opacity:1; }
+  body[data-theme="light"] .node-popover { box-shadow:0 12px 32px rgba(0,0,0,0.18); }
 
   .node-sp { position:absolute; transform:translate(-50%, 0); display:flex; flex-direction:column; gap:2px; pointer-events:none; z-index:2; align-items:flex-start; }
   .sp-chip { font-family:var(--mono); font-size:9.5px; color:var(--memory); opacity:0.7; padding:1px 0 1px 8px; border-left:2px solid var(--memory); white-space:nowrap; letter-spacing:0.02em; line-height:1.55; transition:opacity 200ms ease; text-align:left; }
@@ -438,14 +477,14 @@
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1080" cy="90" r="22"/><circle class="flow-node-dot" cx="1080" cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
         </svg>
-        <div class="node-html" style="left:60px;top:30px"><div class="node-label">飞书任务</div><div class="node-sub">trigger</div></div>
-        <div class="node-html" style="left:230px;top:30px"><div class="node-label">/resume runtime</div><div class="node-sub">active bugs + open MRs</div></div>
-        <div class="node-html" style="left:400px;top:30px"><div class="node-label">/bug start</div><div class="node-sub">git_path 命中 + 创 branch</div></div>
-        <div class="node-html" style="left:570px;top:30px"><div class="node-label">改代码</div><div class="node-sub">在 worktree 隔离</div></div>
-        <div class="node-html" style="left:740px;top:30px"><div class="node-label">/commit</div><div class="node-sub">commitlint + AI 署名</div></div>
-        <div class="node-html" style="left:910px;top:30px"><div class="node-label">/bug resolve</div><div class="node-sub">push + MR + 禅道评论</div></div>
-        <div class="node-html" style="left:1080px;top:30px"><div class="node-label">MR review</div><div class="node-sub">gitlab MCP</div></div>
-        <div class="node-html" style="left:1250px;top:30px"><div class="node-label">MR merge</div><div class="node-sub">closed</div></div>
+        <div class="node-html" style="left:60px;top:30px" data-purpose="早晨飞书任务推送当天要处理的禅道 bug, 这是 trigger 起点 (从外部需求到 dev 工作的入口)"><div class="node-label">飞书任务</div><div class="node-sub">trigger</div></div>
+        <div class="node-html" style="left:230px;top:30px" data-purpose="起会话第一步, 拉今日 active bug + open MR 写到 Daily Note, 一眼看见今日 runtime, 不用手动 /bug list"><div class="node-label">/resume runtime</div><div class="node-sub">active bugs + open MRs</div></div>
+        <div class="node-html" style="left:400px;top:30px" data-purpose="选定一条 bug, 自动按 Project 页 frontmatter `git_path` 单字段找到对应 repo, 创 fix/<bug-id>-<slug> 分支, 起计时"><div class="node-label">/bug start</div><div class="node-sub">git_path 命中 + 创 branch</div></div>
+        <div class="node-html" style="left:570px;top:30px" data-purpose="在独立 git worktree 里改代码, 多 bug 并行不打架, 不污染主工作区"><div class="node-label">改代码</div><div class="node-sub">在 worktree 隔离</div></div>
+        <div class="node-html" style="left:740px;top:30px" data-purpose="commit 时 lefthook 强校 type/scope (commitlint), commit message 末尾自动加 Co-Authored-By: Claude <model> via CassandraCat"><div class="node-label">/commit</div><div class="node-sub">commitlint + AI 署名</div></div>
+        <div class="node-html" style="left:910px;top:30px" data-purpose="一键收尾: push branch + 创 GitLab MR + 给禅道 bug 加评论(含 MR 链接 + AI 署名) + 改 bug 状态 resolved + 工时回填飞书任务"><div class="node-label">/bug resolve</div><div class="node-sub">push + MR + 禅道评论</div></div>
+        <div class="node-html" style="left:1080px;top:30px" data-purpose="reviewer 走 gitlab MCP 实时拉 diff + 评论, AI 协助按 FSD 边界 / commit 规范审"><div class="node-label">MR review</div><div class="node-sub">gitlab MCP</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="MR merge 到主分支, GitLab 自动 close 关联 issue, 禅道 bug 状态同步, 闭环"><div class="node-label">MR merge</div><div class="node-sub">closed</div></div>
         <div class="node-sp"   style="left:400px;top:130px"><span class="sp-chip">brainstorming</span><span class="sp-chip">using-git-worktrees</span></div>
         <div class="node-sp"   style="left:570px;top:130px"><span class="sp-chip">systematic-debugging</span><span class="sp-chip">test-driven-development</span></div>
         <div class="node-sp"   style="left:740px;top:130px"><span class="sp-chip">verification-before-completion</span></div>
@@ -479,13 +518,13 @@
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1052" cy="90" r="22"/><circle class="flow-node-dot" cx="1052" cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
         </svg>
-        <div class="node-html" style="left:60px;top:30px"><div class="node-label">口语需求</div><div class="node-sub">"加一个 X"</div></div>
-        <div class="node-html" style="left:258px;top:30px"><div class="node-label">brainstorm + plan</div><div class="node-sub">挖清楚 / 列切片清单</div></div>
-        <div class="node-html" style="left:457px;top:30px"><div class="node-label">/new-feature</div><div class="node-sub">FSD 切片 + plop 生成</div></div>
-        <div class="node-html" style="left:655px;top:30px"><div class="node-label">写代码</div><div class="node-sub">/vue-component + /unit-test</div></div>
-        <div class="node-html" style="left:853px;top:30px"><div class="node-label">/commit</div><div class="node-sub">verify + 推进 prompt</div></div>
-        <div class="node-html" style="left:1052px;top:30px"><div class="node-label">/mr review</div><div class="node-sub">AI 审 diff</div></div>
-        <div class="node-html" style="left:1250px;top:30px"><div class="node-label">merge</div><div class="node-sub">→ 主分支</div></div>
+        <div class="node-html" style="left:60px;top:30px" data-purpose="同事/产品提一句模糊需求作为起点, 这是 dev 流程最常见的输入形态"><div class="node-label">口语需求</div><div class="node-sub">"加一个 X"</div></div>
+        <div class="node-html" style="left:258px;top:30px" data-purpose="用 superpowers:brainstorming 挖真实意图(不直接动手), 出 design + 切片清单, 用户 accept 后才进 plan 阶段"><div class="node-label">brainstorm + plan</div><div class="node-sub">挖清楚 / 列切片清单</div></div>
+        <div class="node-html" style="left:457px;top:30px" data-purpose="跑 hy-nexus 的 plop 模板按 FSD 七层(app/processes/pages/widgets/features/entities/shared)自动生成骨架文件"><div class="node-label">/new-feature</div><div class="node-sub">FSD 切片 + plop 生成</div></div>
+        <div class="node-html" style="left:655px;top:30px" data-purpose="用 /vue-component 模板生成组件 + /unit-test 模板写单测, 实际填业务逻辑"><div class="node-label">写代码</div><div class="node-sub">/vue-component + /unit-test</div></div>
+        <div class="node-html" style="left:853px;top:30px" data-purpose="commit 后 prompt: 是否要推进 (开 MR / 跑测试 / 写文档)"><div class="node-label">/commit</div><div class="node-sub">verify + 推进 prompt</div></div>
+        <div class="node-html" style="left:1052px;top:30px" data-purpose="AI 借 gitlab MCP 拉 diff, 按 FSD 边界 + commit 规范 + Vue/TS 风格出 review finding"><div class="node-label">/mr review</div><div class="node-sub">AI 审 diff</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="MR 合并到主分支, 功能上线"><div class="node-label">merge</div><div class="node-sub">→ 主分支</div></div>
         <div class="node-sp"   style="left:258px;top:130px"><span class="sp-chip">brainstorming</span><span class="sp-chip">writing-plans</span></div>
         <div class="node-sp"   style="left:457px;top:130px"><span class="sp-chip">dispatching-parallel</span><span class="sp-chip">test-driven-development</span></div>
         <div class="node-sp"   style="left:853px;top:130px"><span class="sp-chip">verification</span></div>
@@ -516,12 +555,12 @@
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1012" cy="90" r="22"/><circle class="flow-node-dot" cx="1012" cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
         </svg>
-        <div class="node-html" style="left:60px;top:30px"><div class="node-label">收 review</div><div class="node-sub">reviewer 评论</div></div>
-        <div class="node-html" style="left:298px;top:30px"><div class="node-label">decide</div><div class="node-sub">改 / 讨论 / push back</div></div>
-        <div class="node-html" style="left:536px;top:30px"><div class="node-label">─ ◆ ─</div><div class="node-sub">双向 (收/给)</div></div>
-        <div class="node-html" style="left:774px;top:30px"><div class="node-label">/mr review</div><div class="node-sub">审别人 diff</div></div>
-        <div class="node-html" style="left:1012px;top:30px"><div class="node-label">写评论</div><div class="node-sub">findings + 建议</div></div>
-        <div class="node-html" style="left:1250px;top:30px"><div class="node-label">闭环</div><div class="node-sub">discussion</div></div>
+        <div class="node-html" style="left:60px;top:30px" data-purpose="作者收到 reviewer 评论, 走 superpowers:receiving-code-review (不假装同意 / 不盲改, 技术理性回复)"><div class="node-label">收 review</div><div class="node-sub">reviewer 评论</div></div>
+        <div class="node-html" style="left:298px;top:30px" data-purpose="作者逐条决策: 接受改 / 讨论确认 / push back 解释为啥不改"><div class="node-label">decide</div><div class="node-sub">改 / 讨论 / push back</div></div>
+        <div class="node-html" style="left:536px;top:30px" data-purpose="中点标识: review 是双向的, 作者跟 reviewer 角色互换 (一个 dev 同时既是作者又是 reviewer)"><div class="node-label">─ ◆ ─</div><div class="node-sub">双向 (收/给)</div></div>
+        <div class="node-html" style="left:774px;top:30px" data-purpose="作为 reviewer 的反向流程: 审别人 MR 时走 superpowers:requesting-code-review (写规范 finding, 含具体行号 + 严重度 + 修法)"><div class="node-label">/mr review</div><div class="node-sub">审别人 diff</div></div>
+        <div class="node-html" style="left:1012px;top:30px" data-purpose="把 review 走的 finding 写成 GitLab 评论, 三段式: 现象 + 根因 + 推荐写法 + 链 code snippet"><div class="node-label">写评论</div><div class="node-sub">findings + 建议</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="review discussion 完成, 形成 finding pattern, 触发反哺路径 C (review pattern → 团队)"><div class="node-label">闭环</div><div class="node-sub">discussion</div></div>
         <div class="node-sp"   style="left:298px;top:130px"><span class="sp-chip">receiving-code-review</span></div>
         <div class="node-sp"   style="left:774px;top:130px"><span class="sp-chip">systematic-debugging</span></div>
         <div class="node-sp"   style="left:1012px;top:130px"><span class="sp-chip">requesting-code-review</span></div>
@@ -556,12 +595,12 @@
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1012" cy="90" r="22"/><circle class="flow-node-dot" cx="1012" cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
         </svg>
-        <div class="node-html" style="left:60px;top:30px"><div class="node-label">Source</div><div class="node-sub">对话 / 会议 / MR / URL</div></div>
-        <div class="node-html" style="left:298px;top:30px"><div class="node-label">/ingest</div><div class="node-sub">拆解到 5-15 wiki 页</div></div>
-        <div class="node-html" style="left:536px;top:30px"><div class="node-label">≥3 同主题积累</div><div class="node-sub">触发蒸馏</div></div>
-        <div class="node-html" style="left:774px;top:30px"><div class="node-label">/distill → Topic</div><div class="node-sub">蒸馏成 Pattern / ADR</div></div>
-        <div class="node-html" style="left:1012px;top:30px"><div class="node-label">visibility=team</div><div class="node-sub">flag 触发广播</div></div>
-        <div class="node-html" style="left:1250px;top:30px"><div class="node-label">/promote</div><div class="node-sub">→ 飞书部门库</div></div>
+        <div class="node-html" style="left:60px;top:30px" data-purpose="输入源 — 任何会产生认知的事件 (跟 LLM 对话 / 会议纪要 / MR diff / 网页 URL / 内部文档)"><div class="node-label">Source</div><div class="node-sub">对话 / 会议 / MR / URL</div></div>
+        <div class="node-html" style="left:298px;top:30px" data-purpose="LLM 把一条 source 拆到多个 wiki 页 (Karpathy LLM-Wiki 模式核心写入操作), 一次 ingest 触发 5-15 页更新; 写 log + 更新 index"><div class="node-label">/ingest</div><div class="node-sub">拆解到 5-15 wiki 页</div></div>
+        <div class="node-html" style="left:536px;top:30px" data-purpose="同主题 ingest 累积到 3+ 条触发 /distill 提议, 凑够 critical mass 才有蒸馏价值"><div class="node-label">≥3 同主题积累</div><div class="node-sub">触发蒸馏</div></div>
+        <div class="node-html" style="left:774px;top:30px" data-purpose="把 N 条相似 ingest 抽共性写成更高阶的 Topic / Pattern / ADR 页, 并给原 ingest log 加 backlink"><div class="node-label">/distill → Topic</div><div class="node-sub">蒸馏成 Pattern / ADR</div></div>
+        <div class="node-html" style="left:1012px;top:30px" data-purpose="frontmatter 改成 team 或 public, 触发反哺 — 个人知识 → 团队"><div class="node-label">visibility=team</div><div class="node-sub">flag 触发广播</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="推飞书部门 wiki 「技术方案」dir 或解决方案库 Bitable, 走 lark-cli docs/base, 飞书做镜像不做 single source"><div class="node-label">/promote</div><div class="node-sub">→ 飞书部门库</div></div>
         <div class="node-sp"   style="left:298px;top:130px"><span class="sp-chip">writing-plans</span><span class="sp-chip">dispatching-parallel</span></div>
         <div class="node-sp"   style="left:1250px;top:130px"><span class="sp-chip">verification</span></div>
       </div>
@@ -590,12 +629,12 @@
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1012" cy="90" r="22"/><circle class="flow-node-dot" cx="1012" cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
         </svg>
-        <div class="node-html" style="left:60px;top:30px"><div class="node-label">创意</div><div class="node-sub">想写的话题</div></div>
-        <div class="node-html" style="left:298px;top:30px"><div class="node-label">写草稿</div><div class="node-sub">Wiki/Posts/Drafts/</div></div>
-        <div class="node-html" style="left:536px;top:30px"><div class="node-label">visibility=public</div><div class="node-sub">flag 触发发布</div></div>
-        <div class="node-html" style="left:774px;top:30px"><div class="node-label">/publish</div><div class="node-sub">推到 quartz repo</div></div>
-        <div class="node-html" style="left:1012px;top:30px"><div class="node-label">GitHub Pages CI</div><div class="node-sub">jekyll/quartz build</div></div>
-        <div class="node-html" style="left:1250px;top:30px"><div class="node-label">已上线</div><div class="node-sub">cassandracat.github.io</div></div>
+        <div class="node-html" style="left:60px;top:30px" data-purpose="想写的灵感, 通常来自 distill 后的某个 Topic 觉得值得展开成长文 (Wiki 笔记是原料, blog post 是 narrative 综合产出)"><div class="node-label">创意</div><div class="node-sub">想写的话题</div></div>
+        <div class="node-html" style="left:298px;top:30px" data-purpose="在 vault 的 Posts/Drafts/ 写 markdown, 用 wikilink 引 wiki 笔记当 sources"><div class="node-label">写草稿</div><div class="node-sub">Wiki/Posts/Drafts/</div></div>
+        <div class="node-html" style="left:536px;top:30px" data-purpose="frontmatter 改 public + slug 字段填好, 触发 publish"><div class="node-label">visibility=public</div><div class="node-sub">flag 触发发布</div></div>
+        <div class="node-html" style="left:774px;top:30px" data-purpose="skill 自动: Drafts/ → Published/ + frontmatter round-trip + push 到 quartz blog repo"><div class="node-label">/publish</div><div class="node-sub">推到 quartz repo</div></div>
+        <div class="node-html" style="left:1012px;top:30px" data-purpose="GitHub Actions 自动 build, quartz 把 markdown 转 HTML + 处理 wikilink + 加导航"><div class="node-label">GitHub Pages CI</div><div class="node-sub">jekyll/quartz build</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="文章公开发布到博客, 同事/外部读者能看到"><div class="node-label">已上线</div><div class="node-sub">cassandracat.github.io</div></div>
         <div class="node-sp"   style="left:298px;top:130px"><span class="sp-chip">brainstorming</span><span class="sp-chip">writing-plans</span></div>
         <div class="node-sp"   style="left:774px;top:130px"><span class="sp-chip">verification</span></div>
         <div class="node-sp"   style="left:1012px;top:130px"><span class="sp-chip">systematic-debugging</span></div>
@@ -622,11 +661,11 @@
           <g class="flow-node-group"><circle class="flow-node-glow" cx="953" cy="90" r="22"/><circle class="flow-node-dot" cx="953" cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
         </svg>
-        <div class="node-html" style="left:60px;top:30px"><div class="node-label">/resume</div><div class="node-sub">CLAUDE.md + 飞书 + runtime</div></div>
-        <div class="node-html" style="left:358px;top:30px"><div class="node-label">工作过程</div><div class="node-sub">编码 / 调试 / 沉淀</div></div>
-        <div class="node-html" style="left:655px;top:30px"><div class="node-label">/preserve</div><div class="node-sub">technique → CLAUDE.md</div></div>
-        <div class="node-html" style="left:953px;top:30px"><div class="node-label">/wrap-up</div><div class="node-sub">verify · ingest · 明日待办</div></div>
-        <div class="node-html" style="left:1250px;top:30px"><div class="node-label">/compact</div><div class="node-sub">压缩上下文</div></div>
+        <div class="node-html" style="left:60px;top:30px" data-purpose="起会话第一句: 读项目 CLAUDE.md + 拉飞书任务 + 拉今日 runtime (active bug/MR) + 写 Daily Note 今日计划"><div class="node-label">/resume</div><div class="node-sub">CLAUDE.md + 飞书 + runtime</div></div>
+        <div class="node-html" style="left:358px;top:30px" data-purpose="会话主体 — 写代码 / debug / 跟 LLM 对话学新东西 / 沉淀洞察"><div class="node-label">工作过程</div><div class="node-sub">编码 / 调试 / 沉淀</div></div>
+        <div class="node-html" style="left:655px;top:30px" data-purpose="抽 session 学到的 'technique' (非显然 fact) 入对应项目的 CLAUDE.md, 给后续会话当 context"><div class="node-label">/preserve</div><div class="node-sub">technique → CLAUDE.md</div></div>
+        <div class="node-html" style="left:953px;top:30px" data-purpose="会话收工链: note → compress → preserve → 明日 todo, 一段工作彻底完时跑"><div class="node-label">/wrap-up</div><div class="node-sub">verify · ingest · 明日待办</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="CC built-in 命令, 压缩当前对话上下文 (用户在 wrap-up 末尾手动调)"><div class="node-label">/compact</div><div class="node-sub">压缩上下文</div></div>
         <div class="node-sp"   style="left:953px;top:130px"><span class="sp-chip">verification-before-completion</span></div>
       </div>
     </div>
@@ -651,12 +690,12 @@
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1012"  cy="90" r="22"/><circle class="flow-node-dot" cx="1012"  cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
         </svg>
-        <div class="node-html" style="left:60px;top:30px"><div class="node-label">飞书排期表</div><div class="node-sub">任务 trigger</div></div>
-        <div class="node-html" style="left:298px;top:30px"><div class="node-label">/task-start</div><div class="node-sub">worktree 计时</div></div>
-        <div class="node-html" style="left:536px;top:30px"><div class="node-label">工作</div><div class="node-sub">pause / resume / block</div></div>
-        <div class="node-html" style="left:774px;top:30px"><div class="node-label">/task-end</div><div class="node-sub">耗时 + 成本</div></div>
-        <div class="node-html" style="left:1012px;top:30px"><div class="node-label">/workhour-sync</div><div class="node-sub">同步工时表</div></div>
-        <div class="node-html" style="left:1250px;top:30px"><div class="node-label">工时统计表</div><div class="node-sub">月度对账</div></div>
+        <div class="node-html" style="left:60px;top:30px" data-purpose="飞书排期表是任务 trigger 源, 每周排期写好谁做啥, 进入 dev 主流程"><div class="node-label">飞书排期表</div><div class="node-sub">任务 trigger</div></div>
+        <div class="node-html" style="left:298px;top:30px" data-purpose="起任务, 关联当前 worktree, 开计时器 (跟 /bug start 内部调用同一逻辑)"><div class="node-label">/task-start</div><div class="node-sub">worktree 计时</div></div>
+        <div class="node-html" style="left:536px;top:30px" data-purpose="工作中可状态切换: pause (主动停) / resume (回来继续) / block (被外部依赖卡)"><div class="node-label">工作</div><div class="node-sub">pause / resume / block</div></div>
+        <div class="node-html" style="left:774px;top:30px" data-purpose="任务完, 算总耗时 + token 成本, 标飞书任务 done"><div class="node-label">/task-end</div><div class="node-sub">耗时 + 成本</div></div>
+        <div class="node-html" style="left:1012px;top:30px" data-purpose="把任务工时回填到慧远项目统计表 (公司管理对账要的)"><div class="node-label">/workhour-sync</div><div class="node-sub">同步工时表</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="每月 finance 拉这表算工时, 现在自动同步免手填"><div class="node-label">工时统计表</div><div class="node-sub">月度对账</div></div>
       </div>
     </div>
 
@@ -680,11 +719,11 @@
           <g class="flow-node-group"><circle class="flow-node-glow" cx="953" cy="90" r="22"/><circle class="flow-node-dot" cx="953" cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
         </svg>
-        <div class="node-html" style="left:60px;top:30px"><div class="node-label">/study</div><div class="node-sub">三线: AI · CG · Algo</div></div>
-        <div class="node-html" style="left:358px;top:30px"><div class="node-label">今日清单</div><div class="node-sub">每线 1 题</div></div>
-        <div class="node-html" style="left:655px;top:30px"><div class="node-label">完成打卡</div><div class="node-sub">进度更新</div></div>
-        <div class="node-html" style="left:953px;top:30px"><div class="node-label">/ingest 学到的</div><div class="node-sub">非琐碎才录</div></div>
-        <div class="node-html" style="left:1250px;top:30px"><div class="node-label">Wiki/Topics/Learning/</div><div class="node-sub">知识沉淀</div></div>
+        <div class="node-html" style="left:60px;top:30px" data-purpose="三线学习路线图: AI 工程 + Computer Graphics + 算法, 每线独立计划"><div class="node-label">/study</div><div class="node-sub">三线: AI · CG · Algo</div></div>
+        <div class="node-html" style="left:358px;top:30px" data-purpose="每天 /study today 看到三线各自当天 1 个学习任务"><div class="node-label">今日清单</div><div class="node-sub">每线 1 题</div></div>
+        <div class="node-html" style="left:655px;top:30px" data-purpose="跑完任务调 /study done <track>, 进度表更新, 触发 Step 3.7 反哺判定"><div class="node-label">完成打卡</div><div class="node-sub">进度更新</div></div>
+        <div class="node-html" style="left:953px;top:30px" data-purpose="学到非显然的就 /ingest 拆到 wiki, 琐碎的不录 (避免 wiki 噪音)"><div class="node-label">/ingest 学到的</div><div class="node-sub">非琐碎才录</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="学习沉淀到 vault, 既给自己复盘 (反哺自己) 又给团队 (路径 D 反哺 → 部门「技术方案」)"><div class="node-label">Wiki/Topics/Learning/</div><div class="node-sub">知识沉淀</div></div>
         <div class="node-sp"   style="left:953px;top:130px"><span class="sp-chip">writing-plans</span></div>
       </div>
     </div>
@@ -765,11 +804,11 @@
         <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
         <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
       </svg>
-      <div class="node-html" style="left:60px;top:30px"><div class="node-label">/bug resolve</div><div class="node-sub">Step 2.6 触发</div></div>
-      <div class="node-html" style="left:357px;top:30px"><div class="node-label">/ingest bug &lt;id&gt;</div><div class="node-sub">拆禅道 bug + 截图到 wiki</div></div>
-      <div class="node-html" style="left:655px;top:30px"><div class="node-label">Wiki/Solutions/&lt;slug&gt;</div><div class="node-sub">visibility=team + feedback_type=bug-solution</div></div>
-      <div class="node-html" style="left:952px;top:30px"><div class="node-label">/promote</div><div class="node-sub">lark-cli base +record-create</div></div>
-      <div class="node-html" style="left:1250px;top:30px"><div class="node-label">飞书解决方案库</div><div class="node-sub">Bitable · 同事按问题搜</div></div>
+      <div class="node-html" style="left:60px;top:30px" data-purpose="bug 修完末尾触发反哺判定 (6 信号: 复现率 / 影响面 / 通用性 / 时间成本 / 概念深度 / 类似问题)"><div class="node-label">/bug resolve</div><div class="node-sub">Step 2.6 触发</div></div>
+      <div class="node-html" style="left:357px;top:30px" data-purpose="调 zentao_get_bug_with_images 拉 bug 详情 + 自动下载截图, 拆成 Wiki/Solutions/<slug>.md"><div class="node-label">/ingest bug &lt;id&gt;</div><div class="node-sub">拆禅道 bug + 截图到 wiki</div></div>
+      <div class="node-html" style="left:655px;top:30px" data-purpose="新建 Solution 页, frontmatter 标反哺类型 + 必填 domain/stack/project (Bitable 路由用)"><div class="node-label">Wiki/Solutions/&lt;slug&gt;</div><div class="node-sub">visibility=team + feedback_type=bug-solution</div></div>
+      <div class="node-html" style="left:952px;top:30px" data-purpose="走 lark-cli base 给飞书 Bitable 解决方案库加一条记录, 标题加自动前缀"><div class="node-label">/promote</div><div class="node-sub">lark-cli base +record-create</div></div>
+      <div class="node-html" style="left:1250px;top:30px" data-purpose="同事遇到类似 bug 时按关键字搜到这条解, 团队踩坑只踩一次"><div class="node-label">飞书解决方案库</div><div class="node-sub">Bitable · 同事按问题搜</div></div>
     </div>
   </div>
 
@@ -791,11 +830,11 @@
         <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
         <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
       </svg>
-      <div class="node-html" style="left:60px;top:30px"><div class="node-label">/mr review #6</div><div class="node-sub">review 完触发</div></div>
-      <div class="node-html" style="left:357px;top:30px"><div class="node-label">/ingest mr</div><div class="node-sub">拆 finding (现象/根因/推荐写法)</div></div>
-      <div class="node-html" style="left:655px;top:30px"><div class="node-label">Wiki/Topics/Patterns/</div><div class="node-sub">review-pattern · 含 code snippet</div></div>
-      <div class="node-html" style="left:952px;top:30px"><div class="node-label">/promote</div><div class="node-sub">[Review Pattern] 前缀</div></div>
-      <div class="node-html" style="left:1250px;top:30px"><div class="node-label">飞书解决方案库</div><div class="node-sub">Bitable · 团队 review checklist</div></div>
+      <div class="node-html" style="left:60px;top:30px" data-purpose="mr.md Step #6 — AI 审完触发反哺判定 (5 信号: 是不是常见错 / 跨人复发 / 概念深度 / 修法通用 / 文档化价值)"><div class="node-label">/mr review #6</div><div class="node-sub">review 完触发</div></div>
+      <div class="node-html" style="left:357px;top:30px" data-purpose="把 review finding 拆成三段式, 含 code snippet, 写 Wiki/Topics/Patterns/<slug>.md"><div class="node-label">/ingest mr</div><div class="node-sub">拆 finding (现象/根因/推荐写法)</div></div>
+      <div class="node-html" style="left:655px;top:30px" data-purpose="Patterns 页, 标 review-pattern, 必含错误代码 + 正确代码两段对比"><div class="node-label">Wiki/Topics/Patterns/</div><div class="node-sub">review-pattern · 含 code snippet</div></div>
+      <div class="node-html" style="left:952px;top:30px" data-purpose="推飞书 Bitable, 标题加 [Review Pattern] 前缀, 跟 bug-solution 区分"><div class="node-label">/promote</div><div class="node-sub">[Review Pattern] 前缀</div></div>
+      <div class="node-html" style="left:1250px;top:30px" data-purpose="同事提交 MR 前可对照搜, 自己先 self-review, 减少 reviewer 重复指出"><div class="node-label">飞书解决方案库</div><div class="node-sub">Bitable · 团队 review checklist</div></div>
     </div>
   </div>
 
@@ -817,11 +856,11 @@
         <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
         <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
       </svg>
-      <div class="node-html" style="left:60px;top:30px"><div class="node-label">/study done</div><div class="node-sub">Step 7 触发</div></div>
-      <div class="node-html" style="left:357px;top:30px"><div class="node-label">/ingest learning</div><div class="node-sub">拆 insight 到 Topics/Learning</div></div>
-      <div class="node-html" style="left:655px;top:30px"><div class="node-label">Wiki/Topics/Learning/</div><div class="node-sub">feedback_type=learning</div></div>
-      <div class="node-html" style="left:952px;top:30px"><div class="node-label">/promote</div><div class="node-sub">wiki dir 路径</div></div>
-      <div class="node-html" style="left:1250px;top:30px"><div class="node-label">飞书部门「技术方案」</div><div class="node-sub">wiki dir · 同事可订阅</div></div>
+      <div class="node-html" style="left:60px;top:30px" data-purpose="完成时触发反哺判定 (5 信号: 跑通 / 避坑 / 跨概念 / 关键词 / 代码产出)"><div class="node-label">/study done</div><div class="node-sub">Step 7 触发</div></div>
+      <div class="node-html" style="left:357px;top:30px" data-purpose="学习 distill 的 5 信号命中 ≥1 高就触发, 把学到的拆到 Wiki/Topics/Learning"><div class="node-label">/ingest learning</div><div class="node-sub">拆 insight 到 Topics/Learning</div></div>
+      <div class="node-html" style="left:655px;top:30px" data-purpose="Learning 页 frontmatter 标 learning, visibility=team"><div class="node-label">Wiki/Topics/Learning/</div><div class="node-sub">feedback_type=learning</div></div>
+      <div class="node-html" style="left:952px;top:30px" data-purpose="推飞书部门 wiki 「技术方案」目录, 走 lark-cli docs +create + 移目录"><div class="node-label">/promote</div><div class="node-sub">wiki dir 路径</div></div>
+      <div class="node-html" style="left:1250px;top:30px" data-purpose="同事订阅看新学习产出, 横向了解组里其他人在学什么 / 学到什么"><div class="node-label">飞书部门「技术方案」</div><div class="node-sub">wiki dir · 同事可订阅</div></div>
     </div>
   </div>
 
@@ -843,11 +882,11 @@
         <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
         <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
       </svg>
-      <div class="node-html" style="left:60px;top:30px"><div class="node-label">lark-event 监听 @</div><div class="node-sub">未做</div></div>
-      <div class="node-html" style="left:357px;top:30px"><div class="node-label">自动建议 /ingest faq</div><div class="node-sub">未做</div></div>
-      <div class="node-html" style="left:655px;top:30px"><div class="node-label">Wiki/Topics/Patterns/</div><div class="node-sub">未做</div></div>
-      <div class="node-html" style="left:952px;top:30px"><div class="node-label">/promote</div><div class="node-sub">未做</div></div>
-      <div class="node-html" style="left:1250px;top:30px"><div class="node-label">飞书部门 FAQ 库</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:60px;top:30px" data-purpose="未做 — 需 lark-event WebSocket 长连接监听 IM @ 我的事件, 这是反哺路径 B 的 trigger 源 (PLAN 状态)"><div class="node-label">lark-event 监听 @</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:357px;top:30px" data-purpose="未做 — @ 我后我回答完, 系统自动判断这条问答有没复用价值, 提议 ingest"><div class="node-label">自动建议 /ingest faq</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:655px;top:30px" data-purpose="未做 — 占位, 上线后会写到这里"><div class="node-label">Wiki/Topics/Patterns/</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:952px;top:30px" data-purpose="未做 — 占位, 上线后推飞书部门 FAQ 库"><div class="node-label">/promote</div><div class="node-sub">未做</div></div>
+      <div class="node-html" style="left:1250px;top:30px" data-purpose="未做 — 飞书部门「新人指南」/ 一个 Bitable FAQ 表, 同事查常见问题"><div class="node-label">飞书部门 FAQ 库</div><div class="node-sub">未做</div></div>
     </div>
   </div>
 
@@ -1131,6 +1170,97 @@
       item.classList.add('is-active');
     });
     item.addEventListener('mouseleave', () => { clearDim(); item.classList.remove('is-active'); });
+  });
+
+  // ===== Click popover for node-html =====
+  const popover = document.createElement('div');
+  popover.className = 'node-popover';
+  popover.style.display = 'none';
+  document.body.appendChild(popover);
+  let activeNode = null;
+
+  function closePopover() {
+    popover.style.display = 'none';
+    if (activeNode) activeNode.classList.remove('is-active');
+    activeNode = null;
+  }
+
+  function openPopover(nodeEl) {
+    const label = nodeEl.querySelector('.node-label')?.textContent.trim() || '节点';
+    const sub = nodeEl.querySelector('.node-sub')?.textContent.trim() || '';
+    const purpose = nodeEl.dataset.purpose || '';
+    const action = nodeEl.dataset.action || '';
+    const skill = nodeEl.dataset.skill || '';
+
+    const escapeHtml = (s) => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    let body = '';
+    if (purpose) body += `<div class="node-popover-section"><b>作用</b><span>${escapeHtml(purpose)}</span></div>`;
+    if (action) body += `<div class="node-popover-section"><b>具体做什么</b><span>${escapeHtml(action)}</span></div>`;
+    if (skill) body += `<div class="node-popover-section"><b>关联 SKILL</b><span>${escapeHtml(skill)}</span></div>`;
+    if (!body) body = `<div class="node-popover-section"><span class="node-popover-empty">详情待补 (data-purpose 未设置)</span></div>`;
+
+    popover.innerHTML = `
+      <button class="node-popover-close" aria-label="关闭">×</button>
+      <div class="node-popover-name">${escapeHtml(label)}</div>
+      ${sub ? `<div class="node-popover-sub">${escapeHtml(sub)}</div>` : ''}
+      ${body}
+    `;
+    popover.querySelector('.node-popover-close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      closePopover();
+    });
+
+    // 定位 - 节点右侧居中, 超出则放左侧, 上下边缘也调
+    popover.style.display = 'block';
+    popover.style.visibility = 'hidden';  // 先 measure
+    const rect = nodeEl.getBoundingClientRect();
+    const popRect = popover.getBoundingClientRect();
+    const margin = 12;
+    let top = rect.top + window.scrollY + rect.height / 2;
+    let left = rect.right + window.scrollX + margin;
+
+    // 右边超出 → 放左边
+    if (rect.right + margin + popRect.width > window.innerWidth) {
+      left = rect.left + window.scrollX - margin - popRect.width;
+    }
+    // 上下边界 (popover 中线居中节点, 但避免顶部超出)
+    const popHalfHeight = popRect.height / 2;
+    if (rect.top - popHalfHeight < 8) {
+      top = rect.top + window.scrollY + popHalfHeight + 8;
+    }
+    if (rect.top + popHalfHeight > window.innerHeight - 8) {
+      top = rect.top + window.scrollY - popHalfHeight - 8 + rect.height;
+    }
+    popover.style.top = `${top}px`;
+    popover.style.left = `${left}px`;
+    popover.style.transform = 'translateY(-50%)';
+    popover.style.visibility = 'visible';
+
+    activeNode = nodeEl;
+    nodeEl.classList.add('is-active');
+  }
+
+  document.querySelectorAll('.node-html').forEach(node => {
+    node.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (activeNode === node) {
+        closePopover();
+      } else {
+        if (activeNode) activeNode.classList.remove('is-active');
+        openPopover(node);
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!activeNode) return;
+    if (popover.contains(e.target) || activeNode.contains(e.target)) return;
+    closePopover();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && activeNode) closePopover();
   });
 </script>
 
