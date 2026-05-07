@@ -1080,6 +1080,136 @@
   </p>
 </section>
 
+<section class="feedback-section" style="margin-top:32px">
+  <div class="section-eyebrow">★ ROADMAP · 智能化演进 5 层级 / 跟自我演进对偶: 演进 = 现状; ROADMAP = 未来要往哪去 (Hermes / Claude Code Skills 启发)</div>
+  <p class="fb-intro">
+    自我演进做的是 <b>文件 schema 一致性</b> (L1, 静态可扫易实现). 真正的"AI 越用越懂"还要 4 层: skill 自优化 · workflow 自适应 · tools/systems 自愈 · 团队 collective learning. 全部依赖 <b>执行 telemetry</b>.
+    <span class="fb-stat">1/5 已实施 ✓ · 4/5 PLAN · 共同瓶颈: <a href="#" style="color:inherit;text-decoration:underline">01 MVP 看板上线</a></span>
+  </p>
+
+  <!-- Stats row -->
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:18px; max-width:880px; margin:24px auto 0;">
+    <div style="text-align:center; padding:14px 10px; border:1px solid var(--border); border-radius:8px;">
+      <div style="font-size:32px; font-weight:300; line-height:1; letter-spacing:-0.02em">5</div>
+      <div style="font-size:11px; opacity:0.55; margin-top:6px; letter-spacing:0.08em">智能化层级</div>
+    </div>
+    <div style="text-align:center; padding:14px 10px; border:1px solid var(--border); border-radius:8px;">
+      <div style="font-size:32px; font-weight:300; line-height:1; letter-spacing:-0.02em">1<span style="font-size:18px; opacity:0.5">/5</span></div>
+      <div style="font-size:11px; opacity:0.55; margin-top:6px; letter-spacing:0.08em">已实施 (L1)</div>
+    </div>
+    <div style="text-align:center; padding:14px 10px; border:1px solid var(--border); border-radius:8px;">
+      <div style="font-size:32px; font-weight:300; line-height:1; letter-spacing:-0.02em">4</div>
+      <div style="font-size:11px; opacity:0.55; margin-top:6px; letter-spacing:0.08em">PLAN 待做</div>
+    </div>
+    <div style="text-align:center; padding:14px 10px; border:1px solid var(--border); border-radius:8px;">
+      <div style="font-size:32px; font-weight:300; line-height:1; letter-spacing:-0.02em">1</div>
+      <div style="font-size:11px; opacity:0.55; margin-top:6px; letter-spacing:0.08em">共同 BLOCKER</div>
+    </div>
+  </div>
+
+  <!-- 5 level rows - details 渐进披露 -->
+  <style>
+    .roadmap-row { padding:14px 18px; border:1px solid var(--border); border-radius:6px; }
+    .roadmap-row[open] { padding-bottom:8px; }
+    .roadmap-row summary { list-style:none; cursor:pointer; display:grid; grid-template-columns: 56px 240px 130px 1fr 20px; gap:18px; align-items:center; }
+    .roadmap-row summary::-webkit-details-marker { display:none; }
+    .roadmap-row summary::after { content:'▾'; opacity:0.35; transition:transform 0.2s; font-size:11px; }
+    .roadmap-row[open] summary::after { transform:rotate(180deg); }
+    .roadmap-num { font-family:var(--mono); font-size:13px; font-weight:600; opacity:0.75; letter-spacing:0.08em; }
+    .roadmap-name { font-size:14px; font-weight:500; }
+    .roadmap-status { font-family:var(--mono); font-size:11px; padding:3px 10px; border-radius:12px; border:1px solid currentColor; text-align:center; letter-spacing:0.04em; }
+    .roadmap-status[data-s="done"] { color:#4dd6b6; }
+    .roadmap-status[data-s="plan-now"] { color:#b594f0; }
+    .roadmap-status[data-s="plan"] { color:#6cb4ee; }
+    .roadmap-status[data-s="far"] { color:#f0b884; }
+    .roadmap-status[data-s="farther"] { color:#888; }
+    .roadmap-tagline { font-size:12.5px; opacity:0.85; line-height:1.5 }
+    .roadmap-detail { margin-top:14px; padding:14px 0 6px 0; border-top:1px dashed var(--border); display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .roadmap-step { font-size:11.5px; line-height:1.6 }
+    .roadmap-step b { display:block; font-size:10px; letter-spacing:0.1em; opacity:0.5; font-weight:600; margin-bottom:4px }
+    .roadmap-step span { opacity:0.85; word-break:break-word; overflow-wrap:anywhere; }
+    .roadmap-elem { display:inline-block; font-family:var(--mono); font-size:9.5px; padding:1px 7px; margin-right:5px; margin-bottom:3px; border:1px solid currentColor; border-radius:10px; opacity:0.7; }
+  </style>
+
+  <div style="max-width:1100px; margin:32px auto 0; display:flex; flex-direction:column; gap:10px;">
+
+    <details class="roadmap-row" style="border-left:3px solid #4dd6b6">
+      <summary>
+        <div class="roadmap-num">L1</div>
+        <div class="roadmap-name">Schema / 文件一致性</div>
+        <div class="roadmap-status" data-s="done">✓ STAGE 2</div>
+        <div class="roadmap-tagline">vault frontmatter / index / 反哺 schema / 引用链 — <span style="opacity:0.65">5 脚本扫, 已 wired</span></div>
+      </summary>
+      <div class="roadmap-detail">
+        <div class="roadmap-step"><b>演进对象</b><span>vault 文件 / index.md / wikilink 引用 / 反哺路径 schema / cross-stack 引用</span></div>
+        <div class="roadmap-step"><b>机制</b><span>5 脚本: wiki-fix-frontmatter / wiki-fix-related-format / wiki-index-coverage / wiki-feedback-trace / cc-stack-coverage / wiki-detect-html-leak. 时间+阈值+事件三类触发. 强制 ADR 召回.</span></div>
+        <div class="roadmap-step"><b>关联六要素</b><span><span class="roadmap-elem">memory</span><span class="roadmap-elem">state</span> 文件层是 memory/state 的物理基础, 一致性出问题就漂移</span></div>
+      </div>
+    </details>
+
+    <details class="roadmap-row" style="border-left:3px solid #b594f0">
+      <summary>
+        <div class="roadmap-num">L2</div>
+        <div class="roadmap-name">Skill 智能演进</div>
+        <div class="roadmap-status" data-s="plan-now">★ PLAN</div>
+        <div class="roadmap-tagline">~75 skill 自身的提示词 / 步骤 / tool 调用逻辑 — <span style="opacity:0.65">写完就死, 不会自己改</span></div>
+      </summary>
+      <div class="roadmap-detail">
+        <div class="roadmap-step"><b>演进对象</b><span>每个 skill 的 description / Step 序列 / 工具调用顺序 / fallback 策略</span></div>
+        <div class="roadmap-step"><b>机制 (Hermes / Claude Skills 启发)</b><span><b style="display:inline">Post-Mortem</b>: 任务完后 AI 自动分析"为啥成 / 败" → <b style="display:inline">Self-Optimization</b>: 读自己 skill + 失败 log 自动改提示词 / 调步骤 → <b style="display:inline">知识共享</b>: 通用 pattern 贡献回 superpowers</span></div>
+        <div class="roadmap-step"><b>关联六要素</b><span><span class="roadmap-elem">intent</span><span class="roadmap-elem">workflow</span><span class="roadmap-elem">memory</span> 改 intent 识别 / 改步骤 / 沉淀技巧</span></div>
+      </div>
+    </details>
+
+    <details class="roadmap-row" style="border-left:3px solid #b594f0">
+      <summary>
+        <div class="roadmap-num">L3</div>
+        <div class="roadmap-name">Workflow 自适应</div>
+        <div class="roadmap-status" data-s="plan-now">★ PLAN</div>
+        <div class="roadmap-tagline">8 业务 flow + 4 反哺 path 真实跑通率 / 卡点 — <span style="opacity:0.65">现在所有 flow 都是死的链路</span></div>
+      </summary>
+      <div class="roadmap-detail">
+        <div class="roadmap-step"><b>演进对象</b><span>flow 路径 / 节点顺序 / 卡点处理 / 跨 skill 接口契约</span></div>
+        <div class="roadmap-step"><b>机制</b><span>路径学习 (跑多了的 flow 加快, 死步骤 surface 删) · 卡点自动 retry / 跳过 · 跨 skill 接口漂移 detect (例 /B 改了 step 编号, /A 引用还在自动报)</span></div>
+        <div class="roadmap-step"><b>关联六要素</b><span><span class="roadmap-elem">workflow</span><span class="roadmap-elem">state</span> flow 编排自适应 + 状态续跑</span></div>
+      </div>
+    </details>
+
+    <details class="roadmap-row" style="border-left:3px solid #f0b884">
+      <summary>
+        <div class="roadmap-num">L4</div>
+        <div class="roadmap-name">Tools / Systems 自愈</div>
+        <div class="roadmap-status" data-s="far">远期</div>
+        <div class="roadmap-tagline">MCP 调用 / 模型路由 / 外部 API 变化 — <span style="opacity:0.65">现在都写死</span></div>
+      </summary>
+      <div class="roadmap-detail">
+        <div class="roadmap-step"><b>演进对象</b><span>MCP tool 调用 (zentao/gitlab/lark) / LLM 模型选择 / 外部 API schema</span></div>
+        <div class="roadmap-step"><b>机制</b><span>模型路由优化 (按任务类型选 Opus/Sonnet/Haiku, 看 token cost vs 任务复杂度) · API drift adapt (zentao 升级 API 自动迁移) · 异常自愈 (tool fail 自动 retry / 替代 / 降级)</span></div>
+        <div class="roadmap-step"><b>关联六要素</b><span><span class="roadmap-elem">tools</span><span class="roadmap-elem">systems</span> 工具调用 + 外部系统两层都自愈</span></div>
+      </div>
+    </details>
+
+    <details class="roadmap-row" style="border-left:3px solid #888; opacity:0.85">
+      <summary>
+        <div class="roadmap-num">L5</div>
+        <div class="roadmap-name">团队层智能化</div>
+        <div class="roadmap-status" data-s="farther">更远期</div>
+        <div class="roadmap-tagline">反哺判定 / 推广策略 / 跨人 collective learning — <span style="opacity:0.65">现在反哺是规则触发</span></div>
+      </summary>
+      <div class="roadmap-detail">
+        <div class="roadmap-step"><b>演进对象</b><span>反哺 6 信号 trigger / 推广节奏 / 跨人共识形成</span></div>
+        <div class="roadmap-step"><b>机制</b><span>从规则 trigger → 学习用户决策模式 (用户每次 "跳过" 就降权) · 推广策略学习 (谁在用 / 谁卡 / 为什么 → 调整推法) · 跨人 collective learning (一人发现的 pattern 自动 surface 给其他人)</span></div>
+        <div class="roadmap-step"><b>关联六要素</b><span><span class="roadmap-elem">intent</span><span class="roadmap-elem">memory</span><span class="roadmap-elem">systems</span> 学习用户意图 + 团队级 memory + 推团队系统</span></div>
+      </div>
+    </details>
+
+  </div>
+
+  <p style="text-align:center; margin-top:28px; font-size:13px; opacity:0.6; max-width:980px; margin-left:auto; margin-right:auto; line-height:1.7">
+    <b style="opacity:0.85">关键洞察</b> &nbsp;·&nbsp; L1 我们做了, 因为静态可扫. L2-L5 全卡 telemetry — <b>没数据 = 看不见 = 改不动</b>. 整套智能化演进的瓶颈不是工程难度, 是 <b>01 MVP 早一天上线 = 早一天有 telemetry = 早一天能动 L2</b>. 这是 01 不是可选项的根本理由 (跟反哺机制对偶: 反哺把产出推团队 / ROADMAP 把工具体系拉向 AI 越用越懂).
+  </p>
+</section>
+
 <section class="elements-wrap">
   <div class="elements">
     <div class="elem" data-elem="intent"><div class="elem-en">INTENT · 01</div><div class="elem-cn">意图识别</div><div class="elem-purpose">人话 → 可执行的指令路径</div></div>
