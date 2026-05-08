@@ -455,10 +455,10 @@
     <div>
       <div style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; opacity:.55; text-transform:uppercase; margin-bottom:8px">早晨 · OPEN</div>
       <div style="font-family:var(--serif-zh); font-size:1.4vw; font-weight:700; margin-bottom:6px"><code>/resume</code> <span style="opacity:.5; font-weight:400; font-family:var(--serif-zh)">起手</span></div>
-      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.78; line-height:1.7">
-        读 CLAUDE.md + session log + Daily Note<br>
-        拉禅道 active bug + GitLab open MR (runtime)<br>
-        拉飞书任务排期 (今日要做的)
+      <div style="font-family:var(--serif-zh); font-size:max(13px,1vw); opacity:.92; line-height:1.55; font-weight:500; margin-bottom:8px">打开电脑第一句, 大脑就 ready.</div>
+      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.72; line-height:1.7">
+        替你拉齐三处实时数据 (禅道 active bug · GitLab open MR · 飞书任务排期) + 读两份历史 (CLAUDE.md · 上次 session log · 今日 Daily Note 顺延 todo).<br>
+        不用切窗口, 不用问 "我上次到哪", 不用 recap 自己 — <b>一句话, 全有了</b>.
       </div>
     </div>
 
@@ -467,10 +467,10 @@
     <div>
       <div style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; opacity:.55; text-transform:uppercase; margin-bottom:8px">中间 · BRANCH</div>
       <div style="font-family:var(--serif-zh); font-size:1.4vw; font-weight:700; margin-bottom:6px">按今日类型分流</div>
-      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.78; line-height:1.7">
-        bug · 新功能 · 重构/优化 · 学习/文档/chore<br>
-        走对应 flow (1-N 条, 见下方速查)<br>
-        切事 <code>/task-pause</code> · <code>/task-block</code> · <code>/task-resume</code>
+      <div style="font-family:var(--serif-zh); font-size:max(13px,1vw); opacity:.92; line-height:1.55; font-weight:500; margin-bottom:8px">看完 /resume 输出, 今天主线已经清楚.</div>
+      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.72; line-height:1.7">
+        修 bug / 搞新功能 / 重构优化 / 学习文档 — 4 类各走各的 flow (下方速查).<br>
+        中途插事 / 等同事 / 切别的项目? <code>/task-pause</code> · <code>/task-block</code> · <code>/task-resume</code> 兜底, <b>不丢上下文</b>.
       </div>
     </div>
 
@@ -479,10 +479,10 @@
     <div>
       <div style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; opacity:.55; text-transform:uppercase; margin-bottom:8px">段落 · CLOSE</div>
       <div style="font-family:var(--serif-zh); font-size:1.4vw; font-weight:700; margin-bottom:6px"><code>/wrap-up</code> <span style="opacity:.5; font-weight:400; font-family:var(--serif-zh)">收工</span></div>
-      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.78; line-height:1.7">
-        <code>/note</code> 扫对话 ingest 候选<br>
-        <code>/compress</code> + <code>/preserve</code> 沉到 CLAUDE.md<br>
-        顺延 todo + 明日待办
+      <div style="font-family:var(--serif-zh); font-size:max(13px,1vw); opacity:.92; line-height:1.55; font-weight:500; margin-bottom:8px">一段工作完, 一句话沉淀.</div>
+      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.72; line-height:1.7">
+        扫今天对话挑值得入库的 (<code>/note</code> → Wiki / 飞书) · 压会话日志不丢 context (<code>/compress</code>) · 把学到的写进 CLAUDE.md (<code>/preserve</code>, 下次 /resume 自动读到) · 未完 todo 顺延明天.<br>
+        第二天起手不用 "recap 自己昨天干啥" — <b>记忆是 skill 接住的</b>.
       </div>
     </div>
 
@@ -493,18 +493,20 @@
 
     <div style="padding:14px 16px; border:1px solid var(--border); border-radius:6px">
       <div style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; opacity:.55; text-transform:uppercase; margin-bottom:6px">分流 · BUG <span style="opacity:.7">· 不计工时</span></div>
-      <div style="font-family:var(--serif-zh); font-weight:600; font-size:max(13px,1.05vw); margin-bottom:8px">修 bug · per-bug 节奏</div>
+      <div style="font-family:var(--serif-zh); font-weight:600; font-size:max(13px,1.05vw); margin-bottom:6px">修 bug · per-bug 节奏</div>
+      <div style="font-family:var(--sans-zh); font-size:max(11px,.85vw); opacity:.7; line-height:1.55; margin-bottom:10px">周一同事一口气甩 5 条禅道 bug 那种 — 禅道侧立刻 resolve 让产品看到进度, MR 攒一波统一提.</div>
       <div style="font-family:var(--mono); font-size:max(10px,.8vw); opacity:.82; line-height:1.7">
         <code>/bug start</code> →<br>
         <code>/commit</code> → <code>/bug resolve</code> <span style="opacity:.5">↩</span><br>
-        (per-bug 循环 N 次)<br>
+        <span style="opacity:.55">(per-bug 循环 N 次)</span><br>
         → <code>/mr create --bug &lt;ids&gt;</code>
       </div>
     </div>
 
     <div style="padding:14px 16px; border:1px solid var(--border); border-radius:6px">
       <div style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; opacity:.55; text-transform:uppercase; margin-bottom:6px">分流 · FEAT <span style="opacity:.7">· 计工时</span></div>
-      <div style="font-family:var(--serif-zh); font-weight:600; font-size:max(13px,1.05vw); margin-bottom:8px">新功能</div>
+      <div style="font-family:var(--serif-zh); font-weight:600; font-size:max(13px,1.05vw); margin-bottom:6px">新功能</div>
+      <div style="font-family:var(--sans-zh); font-size:max(11px,.85vw); opacity:.7; line-height:1.55; margin-bottom:10px">brainstorm 出来 → 进了排期 → 写代码. 跟 bug 不同, 这是项目工作量, 必须计工时.</div>
       <div style="font-family:var(--mono); font-size:max(10px,.8vw); opacity:.82; line-height:1.7">
         <code>/task-start</code> →<br>
         改 → <code>/commit</code> →<br>
@@ -515,18 +517,20 @@
 
     <div style="padding:14px 16px; border:1px solid var(--border); border-radius:6px">
       <div style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; opacity:.55; text-transform:uppercase; margin-bottom:6px">分流 · OPT <span style="opacity:.7">· 计工时</span></div>
-      <div style="font-family:var(--serif-zh); font-weight:600; font-size:max(13px,1.05vw); margin-bottom:8px">重构 / 优化</div>
+      <div style="font-family:var(--serif-zh); font-weight:600; font-size:max(13px,1.05vw); margin-bottom:6px">重构 / 优化</div>
+      <div style="font-family:var(--sans-zh); font-size:max(11px,.85vw); opacity:.7; line-height:1.55; margin-bottom:10px">首屏从 1.8s 想打到 1.2s, bundle 想砍 50KB — 这种<b>带数字目标</b>的活. MR 模板会逼你写基准数据 (before / after).</div>
       <div style="font-family:var(--mono); font-size:max(10px,.8vw); opacity:.82; line-height:1.7">
         <code>/task-start</code> →<br>
         改 → <code>/commit</code> →<br>
         <code>/mr create --optimization</code><br>
-        (含基准数据) → <code>/task-end</code>
+        <span style="opacity:.55">(含基准数据)</span> → <code>/task-end</code>
       </div>
     </div>
 
     <div style="padding:14px 16px; border:1px solid var(--border); border-radius:6px">
       <div style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; opacity:.55; text-transform:uppercase; margin-bottom:6px">分流 · CHORE <span style="opacity:.7">· 轻量</span></div>
-      <div style="font-family:var(--serif-zh); font-weight:600; font-size:max(13px,1.05vw); margin-bottom:8px">学习 / 文档 / chore</div>
+      <div style="font-family:var(--serif-zh); font-weight:600; font-size:max(13px,1.05vw); margin-bottom:6px">学习 / 文档 / chore</div>
+      <div style="font-family:var(--sans-zh); font-size:max(11px,.85vw); opacity:.7; line-height:1.55; margin-bottom:10px">升 vite / 改 CI / 跑 demo / 写文档 — 不影响产品行为的杂活. 学习类可计工时, 杂活随意.</div>
       <div style="font-family:var(--mono); font-size:max(10px,.8vw); opacity:.82; line-height:1.7">
         (可选 <code>/task-start</code>) →<br>
         改 → <code>/commit</code> →<br>
