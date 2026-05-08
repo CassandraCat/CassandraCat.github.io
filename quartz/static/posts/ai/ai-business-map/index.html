@@ -449,77 +449,73 @@
     <span class="fb-stat">最关键 2 条命令: <code>/resume</code> + <code>/wrap-up</code></span>
   </p>
 
-  <!-- 时间轴 SVG · 横贯三段 -->
-  <div style="max-width:1280px; margin:24px auto 0; position:relative; padding:32px 30px 0">
-    <svg viewBox="0 0 1280 50" preserveAspectRatio="none" style="width:calc(100% - 60px); height:50px; display:block; position:absolute; top:30px; left:30px; pointer-events:none; z-index:1">
-      <defs>
-        <linearGradient id="daily-grad" x1="0%" x2="100%">
-          <stop offset="0%" stop-color="#f0b884"/>
-          <stop offset="50%" stop-color="#b594f0"/>
-          <stop offset="100%" stop-color="#6cb4ee"/>
-        </linearGradient>
-      </defs>
-      <line x1="40" y1="25" x2="1240" y2="25" stroke="url(#daily-grad)" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.55"/>
-      <circle cx="40"   cy="25" r="14" fill="#f0b884" fill-opacity="0.14" stroke="#f0b884" stroke-width="1.5"/>
-      <circle cx="40"   cy="25" r="5"  fill="#f0b884"/>
-      <circle cx="640"  cy="25" r="14" fill="#b594f0" fill-opacity="0.14" stroke="#b594f0" stroke-width="1.5"/>
-      <circle cx="640"  cy="25" r="5"  fill="#b594f0"/>
-      <circle cx="1240" cy="25" r="14" fill="#6cb4ee" fill-opacity="0.14" stroke="#6cb4ee" stroke-width="1.5"/>
-      <circle cx="1240" cy="25" r="5"  fill="#6cb4ee"/>
-    </svg>
+  <!-- 主流 mini-flow · 一条 dashed flowing path + 3 节点 (跟 8 条 flow 视觉一致) -->
+  <div style="max-width:1280px; margin:28px auto 16px; padding:0 30px">
+    <div style="position:relative; width:100%; height:140px">
+      <svg viewBox="0 0 1280 140" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none">
+        <defs>
+          <linearGradient id="daily-grad-line" x1="0%" x2="100%">
+            <stop offset="0%" stop-color="#f0b884" stop-opacity="0.9"/>
+            <stop offset="50%" stop-color="#b594f0" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#6cb4ee" stop-opacity="0.9"/>
+          </linearGradient>
+        </defs>
+        <!-- bg path (dim, 不流动) -->
+        <path d="M 200 95 Q 420 60, 640 95 T 1080 95"
+              stroke="rgba(127,127,127,0.16)" stroke-width="1.5" stroke-dasharray="6 5" fill="none"/>
+        <!-- active path (gradient + flowing dash) -->
+        <path d="M 200 95 Q 420 60, 640 95 T 1080 95"
+              stroke="url(#daily-grad-line)" stroke-width="2" stroke-dasharray="6 5" fill="none">
+          <animate attributeName="stroke-dashoffset" from="0" to="-22" dur="2.4s" repeatCount="indefinite"/>
+        </path>
+        <!-- 3 节点 dot (glow + 实心) -->
+        <circle cx="200"  cy="95" r="22" fill="#f0b884" fill-opacity="0.16"/>
+        <circle cx="200"  cy="95" r="7"  fill="#f0b884"/>
+        <circle cx="640"  cy="95" r="22" fill="#b594f0" fill-opacity="0.16"/>
+        <circle cx="640"  cy="95" r="7"  fill="#b594f0"/>
+        <circle cx="1080" cy="95" r="22" fill="#6cb4ee" fill-opacity="0.16"/>
+        <circle cx="1080" cy="95" r="7"  fill="#6cb4ee"/>
+      </svg>
+
+      <!-- 节点 label · 在 dot 上方 (类似 8 条 flow 的 .node-html) -->
+      <div style="position:absolute; left:calc(200 / 1280 * 100%); top:14px; transform:translateX(-50%); text-align:center; min-width:200px">
+        <div style="font-family:var(--mono); font-size:10px; color:#f0b884; letter-spacing:.22em; text-transform:uppercase; font-weight:600; margin-bottom:6px">早晨 · OPEN</div>
+        <div style="font-family:var(--mono); font-size:13px; font-weight:500; white-space:nowrap; margin-bottom:3px"><code style="color:#f0b884; background:none; padding:0">/resume</code> 起手</div>
+        <div style="font-family:var(--mono); font-size:10.5px; opacity:.55; letter-spacing:.04em">大脑加载 · 拉 runtime</div>
+      </div>
+
+      <div style="position:absolute; left:50%; top:14px; transform:translateX(-50%); text-align:center; min-width:220px">
+        <div style="font-family:var(--mono); font-size:10px; color:#b594f0; letter-spacing:.22em; text-transform:uppercase; font-weight:600; margin-bottom:6px">中间 · BRANCH</div>
+        <div style="font-family:var(--mono); font-size:13px; font-weight:500; white-space:nowrap; margin-bottom:3px">分流 · 走 1-N 条 flow</div>
+        <div style="font-family:var(--mono); font-size:10.5px; opacity:.55; letter-spacing:.04em">按今日类型 (下方 4 类速查)</div>
+      </div>
+
+      <div style="position:absolute; left:calc(1080 / 1280 * 100%); top:14px; transform:translateX(-50%); text-align:center; min-width:200px">
+        <div style="font-family:var(--mono); font-size:10px; color:#6cb4ee; letter-spacing:.22em; text-transform:uppercase; font-weight:600; margin-bottom:6px">段落 · CLOSE</div>
+        <div style="font-family:var(--mono); font-size:13px; font-weight:500; white-space:nowrap; margin-bottom:3px"><code style="color:#6cb4ee; background:none; padding:0">/wrap-up</code> 收工</div>
+        <div style="font-family:var(--mono); font-size:10.5px; opacity:.55; letter-spacing:.04em">沉淀对话 · 顺延明日</div>
+      </div>
+    </div>
   </div>
 
-  <!-- 3 段卡片 (起手 → 分流 → 收工) — 颜色编码: 晨橙 / 分流紫 / 暮蓝 -->
-  <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns: repeat(3, 1fr); gap:2vw; align-items:start; padding:0 30px 24px; position:relative; z-index:2">
+  <!-- 节点详情 · 在 mini-flow 之下, 跟 dot 上下对应 -->
+  <div style="max-width:1280px; margin:0 auto 20px; display:grid; grid-template-columns: repeat(3, 1fr); gap:2vw; padding:0 30px">
 
-    <!-- OPEN · 晨橙 -->
-    <div style="padding:18px 18px 18px 20px; border-left:2px solid #f0b884; background:rgba(240,184,132,0.04); border-radius:0 6px 6px 0">
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#f0b884" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
-          <path d="M12 2v3"/><path d="m4.93 4.93 2.12 2.12"/><path d="M2 13h3"/><path d="M19 13h3"/><path d="m17.07 7.05 2.12-2.12"/><path d="M3 18h18"/><path d="M8 18a4 4 0 0 1 8 0"/>
-        </svg>
-        <span style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:#f0b884; text-transform:uppercase; font-weight:600">早晨 · OPEN</span>
-      </div>
-      <div style="font-family:var(--serif-zh); font-size:1.4vw; font-weight:700; margin-bottom:6px"><code style="color:#f0b884">/resume</code> <span style="opacity:.5; font-weight:400; font-family:var(--serif-zh)">起手</span></div>
-      <div style="font-family:var(--serif-zh); font-size:max(13px,1vw); opacity:.92; line-height:1.55; font-weight:500; margin-bottom:8px">打开电脑第一句, 大脑就 ready.</div>
-      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.72; line-height:1.7">
-        替你拉齐三处实时数据 (禅道 active bug · GitLab open MR · 飞书任务排期) + 读两份历史 (CLAUDE.md · 上次 session log · 今日 Daily Note 顺延 todo).<br>
-        不用切窗口, 不用问 "我上次到哪", 不用 recap 自己 — <b>一句话, 全有了</b>.
+    <div style="text-align:center">
+      <div style="font-family:var(--sans-zh); font-size:max(12px,.9vw); opacity:.78; line-height:1.75; max-width:320px; margin:0 auto">
+        打开电脑第一句, <b style="color:#f0b884">大脑就 ready</b>. 替你拉齐三处实时数据 (禅道 active bug · GitLab open MR · 飞书任务排期) + 读两份历史 (CLAUDE.md · 上次 session log · 今日 Daily Note 顺延 todo). 不切窗口, 不 recap 自己 — <b>一句话全有了</b>.
       </div>
     </div>
 
-    <!-- BRANCH · 分流紫 -->
-    <div style="padding:18px 18px 18px 20px; border-left:2px solid #b594f0; background:rgba(181,148,240,0.04); border-radius:0 6px 6px 0">
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#b594f0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
-          <line x1="6" y1="3" x2="6" y2="15"/>
-          <circle cx="18" cy="6" r="3"/>
-          <circle cx="6" cy="18" r="3"/>
-          <path d="M18 9a9 9 0 0 1-9 9"/>
-        </svg>
-        <span style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:#b594f0; text-transform:uppercase; font-weight:600">中间 · BRANCH</span>
-      </div>
-      <div style="font-family:var(--serif-zh); font-size:1.4vw; font-weight:700; margin-bottom:6px">按今日类型分流</div>
-      <div style="font-family:var(--serif-zh); font-size:max(13px,1vw); opacity:.92; line-height:1.55; font-weight:500; margin-bottom:8px">看完 /resume 输出, 今天主线已经清楚.</div>
-      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.72; line-height:1.7">
-        修 bug / 搞新功能 / 重构优化 / 学习文档 — 4 类各走各的 flow (下方速查).<br>
-        中途插事 / 等同事 / 切别的项目? <code>/task-pause</code> · <code>/task-block</code> · <code>/task-resume</code> 兜底, <b>不丢上下文</b>.
+    <div style="text-align:center">
+      <div style="font-family:var(--sans-zh); font-size:max(12px,.9vw); opacity:.78; line-height:1.75; max-width:320px; margin:0 auto">
+        看完 /resume 输出, <b style="color:#b594f0">今天主线已经清楚</b>. 修 bug / 搞新功能 / 重构优化 / 学习文档 — 4 类各走各的 flow. 中途插事 / 等同事 / 切别的项目? <code>/task-pause</code> · <code>/task-block</code> · <code>/task-resume</code> 兜底, <b>不丢上下文</b>.
       </div>
     </div>
 
-    <!-- CLOSE · 暮蓝 -->
-    <div style="padding:18px 18px 18px 20px; border-left:2px solid #6cb4ee; background:rgba(108,180,238,0.04); border-radius:0 6px 6px 0">
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#6cb4ee" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
-          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-        </svg>
-        <span style="font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:#6cb4ee; text-transform:uppercase; font-weight:600">段落 · CLOSE</span>
-      </div>
-      <div style="font-family:var(--serif-zh); font-size:1.4vw; font-weight:700; margin-bottom:6px"><code style="color:#6cb4ee">/wrap-up</code> <span style="opacity:.5; font-weight:400; font-family:var(--serif-zh)">收工</span></div>
-      <div style="font-family:var(--serif-zh); font-size:max(13px,1vw); opacity:.92; line-height:1.55; font-weight:500; margin-bottom:8px">一段工作完, 一句话沉淀.</div>
-      <div style="font-family:var(--sans-zh); font-size:max(12px,.92vw); opacity:.72; line-height:1.7">
-        扫今天对话挑值得入库的 (<code>/note</code> → Wiki / 飞书) · 压会话日志不丢 context (<code>/compress</code>) · 把学到的写进 CLAUDE.md (<code>/preserve</code>, 下次 /resume 自动读到) · 未完 todo 顺延明天.<br>
-        第二天起手不用 "recap 自己昨天干啥" — <b>记忆是 skill 接住的</b>.
+    <div style="text-align:center">
+      <div style="font-family:var(--sans-zh); font-size:max(12px,.9vw); opacity:.78; line-height:1.75; max-width:320px; margin:0 auto">
+        一段工作完, <b style="color:#6cb4ee">一句话沉淀</b>. 扫对话 ingest (<code>/note</code> → Wiki / 飞书) · 压会话日志 (<code>/compress</code>) · 学到的写 CLAUDE.md (<code>/preserve</code>, 下次 /resume 自动读到) · 未完 todo 顺延明天. 第二天起手不用 recap.
       </div>
     </div>
 
