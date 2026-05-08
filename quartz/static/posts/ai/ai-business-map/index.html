@@ -394,7 +394,7 @@
 </button>
 
 <header class="hero">
-  <div class="hero-eyebrow"><span class="dot"></span>AI BUSINESS MAP · V2 · 2026-05-06</div>
+  <div class="hero-eyebrow"><span class="dot"></span>AI BUSINESS MAP · V2 · 2026-05-08</div>
   <h1>三方向 × <em>8 条工作流</em> × 六要素</h1>
   <p class="hero-sub">
     顶部 <b>三方向</b> 是分类标签<span class="x">·</span>
@@ -452,7 +452,7 @@
     <div class="group-label"><b>③ 团队 AI 提效</b><span class="count">· 3 条 · 业务 + 进入日常开发</span></div>
 
     <!-- ❶ bug 修复闭环 -->
-    <div class="flow" data-flow="bug-fix" data-sig="systems" data-elements="intent workflow tools state memory systems">
+    <div class="flow" data-flow="bug-fix" data-sig="memory" data-elements="intent workflow tools memory systems">
       <div class="flow-head">
         <span class="flow-num">FLOW · 01</span>
         <span class="flow-title">bug 修复闭环</span>
@@ -468,6 +468,7 @@
           <line class="sp-stem" x1="570"  y1="98" x2="570"  y2="128"/>
           <line class="sp-stem" x1="740"  y1="98" x2="740"  y2="128"/>
           <line class="sp-stem" x1="910"  y1="98" x2="910"  y2="128"/>
+          <line class="sp-stem" x1="1080" y1="98" x2="1080" y2="128"/>
           <line class="sp-stem" x1="1250" y1="98" x2="1250" y2="128"/>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="60"   cy="90" r="22"/><circle class="flow-node-dot" cx="60"   cy="90" r="7"/></g>
           <g class="flow-node-group"><circle class="flow-node-glow" cx="230"  cy="90" r="22"/><circle class="flow-node-dot" cx="230"  cy="90" r="7"/></g>
@@ -480,16 +481,17 @@
         </svg>
         <div class="node-html" style="left:60px;top:30px" data-purpose="早晨飞书任务推送当天要处理的禅道 bug, 这是 trigger 起点 (从外部需求到 dev 工作的入口)"><div class="node-label">飞书任务</div><div class="node-sub">trigger</div></div>
         <div class="node-html" style="left:230px;top:30px" data-purpose="起会话第一步, 拉今日 active bug + open MR 写到 Daily Note, 一眼看见今日 runtime, 不用手动 /bug list"><div class="node-label">/resume runtime</div><div class="node-sub">active bugs + open MRs</div></div>
-        <div class="node-html" style="left:400px;top:30px" data-purpose="选定一条 bug, 自动按 Project 页 frontmatter `git_path` 单字段找到对应 repo, 创 fix/<bug-id>-<slug> 分支, 起计时"><div class="node-label">/bug start</div><div class="node-sub">git_path 命中 + 创 branch</div></div>
+        <div class="node-html" style="left:400px;top:30px" data-purpose="选定一条 bug, 自动按 Project 页 frontmatter `git_path` 单字段找到对应 repo. v5 默认在当前工作 branch 修 (适合小 bug / UI 走查 / 批量同主题, 80% 场景); `--new-branch` 才创独立 fix/<id>-<slug> (大 bug 跨度长). 不调 /task-start (bug 不计工时)"><div class="node-label">/bug start</div><div class="node-sub">git_path 命中 · 当前 branch 默认</div></div>
         <div class="node-html" style="left:570px;top:30px" data-purpose="在独立 git worktree 里改代码, 多 bug 并行不打架, 不污染主工作区"><div class="node-label">改代码</div><div class="node-sub">在 worktree 隔离</div></div>
         <div class="node-html" style="left:740px;top:30px" data-purpose="commit 时 lefthook 强校 type/scope (commitlint), commit message 末尾自动加 Co-Authored-By: Claude <model> via CassandraCat"><div class="node-label">/commit</div><div class="node-sub">commitlint + AI 署名</div></div>
-        <div class="node-html" style="left:910px;top:30px" data-purpose="一键收尾: push branch + 创 GitLab MR + 给禅道 bug 加评论(含 MR 链接 + AI 署名) + 改 bug 状态 resolved + 工时回填飞书任务"><div class="node-label">/bug resolve</div><div class="node-sub">push + MR + 禅道评论</div></div>
-        <div class="node-html" style="left:1080px;top:30px" data-purpose="reviewer 走 gitlab MCP 实时拉 diff + 评论, AI 协助按 FSD 边界 / commit 规范审"><div class="node-label">MR review</div><div class="node-sub">gitlab MCP</div></div>
-        <div class="node-html" style="left:1250px;top:30px" data-purpose="MR merge 到主分支, GitLab 自动 close 关联 issue, 禅道 bug 状态同步, 闭环"><div class="node-label">MR merge</div><div class="node-sub">closed</div></div>
+        <div class="node-html" style="left:910px;top:30px" data-purpose="v5.1 只做禅道侧 — commit 已存在前提下给禅道加 6 段评论 (摘要 / commit sha / 改动 / 根因 / Test plan / 影响范围 — 跟 /mr create description 同骨架; Test plan 用 ☐ checkbox 给测试看) + 改 resolve 状态 (fixed) + 反哺判定. **不 push 不 MR** — 走独立的 /mr create. 不调 /task-end (bug 不计工时)"><div class="node-label">/bug resolve</div><div class="node-sub">禅道 6 段评论 · 不 push 不 MR</div></div>
+        <div class="node-html" style="left:1080px;top:30px" data-purpose="v5.1 新加 — 用户改完一波 bug 后手动调 /mr create --bug &lt;id1&gt; &lt;id2&gt; ... 攒批提 MR. 4 mode 共享 (bug / feature / optimization / chore), 每 mode 差异段不同 (根因 / 设计决策 / 优化取舍 / 简短). target branch 用户 confirm 不静默. push 当前 branch + 创 1 个 MR 多 Closes # + 反向给每个禅道 bug 补一条 'MR !X 已提' 评论 (闭环). description 6 段式跟禅道评论同骨架"><div class="node-label">/mr create</div><div class="node-sub">batch 提 MR · target 用户决定 · 反向补禅道</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="reviewer 走 gitlab MCP 实时拉 diff + AI 协助按 FSD 边界 / commit 规范出 finding (verification) + reviewer 在 GitLab UI 给 review 评论 (含 Test plan checkbox 可勾). approve 后 merge 到主分支, GitLab 自动 close 关联 issue, 禅道 bug 状态同步, 闭环"><div class="node-label">MR review · merge</div><div class="node-sub">同事审 + merge 闭环</div></div>
         <div class="node-sp"   style="left:400px;top:130px"><span class="sp-chip">brainstorming</span><span class="sp-chip">using-git-worktrees</span></div>
         <div class="node-sp"   style="left:570px;top:130px"><span class="sp-chip">systematic-debugging</span><span class="sp-chip">test-driven-development</span></div>
         <div class="node-sp"   style="left:740px;top:130px"><span class="sp-chip">verification-before-completion</span></div>
-        <div class="node-sp"   style="left:910px;top:130px"><span class="sp-chip">verification</span><span class="sp-chip">requesting-code-review</span></div>
+        <div class="node-sp"   style="left:910px;top:130px"><span class="sp-chip">verification</span></div>
+        <div class="node-sp"   style="left:1080px;top:130px"><span class="sp-chip">requesting-code-review</span></div>
         <div class="node-sp"   style="left:1250px;top:130px"><span class="sp-chip">finishing-a-dev-branch</span></div>
       </div>
     </div>
@@ -793,7 +795,7 @@
       <span class="flow-num">FB · A</span>
       <span class="flow-title">bug 修复 → 团队踩坑录</span>
       <span class="flow-status" data-status="self">SELF · wired up</span>
-      <span class="fb-why">/bug resolve Step 2.6 自动判定 6 信号; 命中→沉淀到 Solutions</span>
+      <span class="fb-why">/bug resolve Step 2.3 自动判定 6 信号; 命中→沉淀到 Solutions</span>
     </div>
     <div class="flow-canvas">
       <svg class="flow-svg" viewBox="0 0 1280 180" preserveAspectRatio="none">
@@ -805,7 +807,7 @@
         <g class="flow-node-group"><circle class="flow-node-glow" cx="952" cy="90" r="22"/><circle class="flow-node-dot" cx="952" cy="90" r="7"/></g>
         <g class="flow-node-group"><circle class="flow-node-glow" cx="1250" cy="90" r="22"/><circle class="flow-node-dot" cx="1250" cy="90" r="7"/></g>
       </svg>
-      <div class="node-html" style="left:60px;top:30px" data-purpose="bug 修完末尾触发反哺判定 (6 信号: 复现率 / 影响面 / 通用性 / 时间成本 / 概念深度 / 类似问题)"><div class="node-label">/bug resolve</div><div class="node-sub">Step 2.6 触发</div></div>
+      <div class="node-html" style="left:60px;top:30px" data-purpose="bug 修完末尾触发反哺判定 (6 信号: 复现率 / 影响面 / 通用性 / 时间成本 / 概念深度 / 类似问题)"><div class="node-label">/bug resolve</div><div class="node-sub">Step 2.3 触发</div></div>
       <div class="node-html" style="left:357px;top:30px" data-purpose="调 zentao_get_bug_with_images 拉 bug 详情 + 自动下载截图, 拆成 Wiki/Solutions/<slug>.md"><div class="node-label">/ingest bug &lt;id&gt;</div><div class="node-sub">拆禅道 bug + 截图到 wiki</div></div>
       <div class="node-html" style="left:655px;top:30px" data-purpose="新建 Solution 页, frontmatter 标反哺类型 + 必填 domain/stack/project (Bitable 路由用)"><div class="node-label">Wiki/Solutions/&lt;slug&gt;</div><div class="node-sub">visibility=team + feedback_type=bug-solution</div></div>
       <div class="node-html" style="left:952px;top:30px" data-purpose="走 lark-cli base 给飞书 Bitable 解决方案库加一条记录, 标题加自动前缀"><div class="node-label">/promote</div><div class="node-sub">lark-cli base +record-create</div></div>
@@ -1222,7 +1224,7 @@
 </section>
 
 <footer class="footer">
-  <span>AI BUSINESS MAP · V2 · 2026-05-06</span>
+  <span>AI BUSINESS MAP · V2 · 2026-05-08</span>
   <span style="opacity:0.7">演进进度: 5/6 子系统 stage 2 ✓ · workflow 等 0002 MVP telemetry</span>
   <span>Karpathy LLM-Wiki × Superpowers</span>
 </footer>

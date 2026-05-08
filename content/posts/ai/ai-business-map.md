@@ -1,7 +1,7 @@
 ---
 title: "我的 AI 业务地图：三方向 × 8 条工作流 × 六要素"
 date: 2026-05-02
-lastmod: 2026-05-06
+lastmod: 2026-05-08
 tags:
   - ai
   - career
