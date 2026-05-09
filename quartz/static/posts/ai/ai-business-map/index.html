@@ -539,7 +539,8 @@
         <code>/bug start</code> →<br>
         <code>/commit</code> → <code>/bug resolve</code> <span style="opacity:.5">↩</span><br>
         <span style="opacity:.55">(per-bug 循环 N 次)</span><br>
-        → <code>/mr create --bug &lt;ids&gt;</code>
+        → <code>/ship-to-test</code> · QA<br>
+        → <code>/ship-to-release</code>
       </div>
     </div>
 
@@ -556,7 +557,8 @@
       <div style="font-family:var(--mono); font-size:max(10px,.8vw); opacity:.82; line-height:1.7">
         <code>/task-start</code> →<br>
         改 → <code>/commit</code> →<br>
-        <code>/mr create --feature</code> →<br>
+        <code>/ship-to-test</code> · QA →<br>
+        <code>/ship-to-release</code> →<br>
         <code>/task-end</code>
       </div>
     </div>
@@ -575,8 +577,9 @@
       <div style="font-family:var(--mono); font-size:max(10px,.8vw); opacity:.82; line-height:1.7">
         <code>/task-start</code> →<br>
         改 → <code>/commit</code> →<br>
-        <code>/mr create --optimization</code><br>
-        <span style="opacity:.55">(含基准数据)</span> → <code>/task-end</code>
+        <code>/ship-to-test</code> · QA<br>
+        <span style="opacity:.55">(含基准数据)</span> →<br>
+        <code>/ship-to-release</code> → <code>/task-end</code>
       </div>
     </div>
 
@@ -595,7 +598,8 @@
       <div style="font-family:var(--sans-zh); font-size:max(11px,.85vw); opacity:.7; line-height:1.55; margin-bottom:10px">升 vite / 改 CI / 跑 demo / 写文档 — <b>不进项目效能系统</b>. 学习走 <code>/study</code> (个人路线打卡, 不算项目交付).</div>
       <div style="font-family:var(--mono); font-size:max(10px,.8vw); opacity:.82; line-height:1.7">
         改 → <code>/commit</code> →<br>
-        <code>/mr create --chore</code><br>
+        <code>/ship-to-test</code> · QA →<br>
+        <code>/ship-to-release</code><br>
         <span style="opacity:.55">学习: <code>/study</code> 打卡 (单独流)</span>
       </div>
     </div>
@@ -650,9 +654,9 @@
         <div class="node-html" style="left:400px;top:30px" data-purpose="选定一条 bug, 自动按 Project 页 frontmatter `git_path` 单字段找到对应 repo. v5 默认在当前工作 branch 修 (适合小 bug / UI 走查 / 批量同主题, 80% 场景); `--new-branch` 才创独立 fix/<id>-<slug> (大 bug 跨度长). 不调 /task-start (bug 不计工时)"><div class="node-label">/bug start</div><div class="node-sub">git_path 命中 · 当前 branch 默认</div></div>
         <div class="node-html" style="left:570px;top:30px" data-purpose="在独立 git worktree 里改代码, 多 bug 并行不打架, 不污染主工作区"><div class="node-label">改代码</div><div class="node-sub">在 worktree 隔离</div></div>
         <div class="node-html" style="left:740px;top:30px" data-purpose="commit 时 lefthook 强校 type/scope (commitlint), commit message 末尾自动加 Co-Authored-By: Claude <model> via CassandraCat"><div class="node-label">/commit</div><div class="node-sub">commitlint + AI 署名</div></div>
-        <div class="node-html" style="left:910px;top:30px" data-purpose="v5.1 只做禅道侧 — commit 已存在前提下给禅道加 6 段评论 (摘要 / commit sha / 改动 / 根因 / Test plan / 影响范围 — 跟 /mr create description 同骨架; Test plan 用 ☐ checkbox 给测试看) + 改 resolve 状态 (fixed) + 反哺判定. **不 push 不 MR** — 走独立的 /mr create. 不调 /task-end (bug 不计工时)"><div class="node-label">/bug resolve</div><div class="node-sub">禅道 6 段 · 不 push</div></div>
-        <div class="node-html" style="left:1080px;top:30px" data-purpose="v5.1 新加 — 用户改完一波 bug 后手动调 /mr create --bug &lt;id1&gt; &lt;id2&gt; ... 攒批提 MR. 4 mode 共享 (bug / feature / optimization / chore), 每 mode 差异段不同 (根因 / 设计决策 / 优化取舍 / 简短). target branch 用户 confirm 不静默. push 当前 branch + 创 1 个 MR 多 Closes # + 反向给每个禅道 bug 补一条 'MR !X 已提' 评论 (闭环). description 6 段式跟禅道评论同骨架"><div class="node-label">/mr create</div><div class="node-sub">batch · target 用户定</div></div>
-        <div class="node-html" style="left:1250px;top:30px" data-purpose="reviewer 走 gitlab MCP 实时拉 diff + AI 协助按 FSD 边界 / commit 规范出 finding (verification) + reviewer 在 GitLab UI 给 review 评论 (含 Test plan checkbox 可勾). approve 后 merge 到主分支, GitLab 自动 close 关联 issue, 禅道 bug 状态同步, 闭环"><div class="node-label">MR review · merge</div><div class="node-sub">review + merge</div></div>
+        <div class="node-html" style="left:910px;top:30px" data-purpose="v5.3 只做禅道侧 — commit 已存在前提下给禅道加 6 段评论 (摘要 / commit sha / 改动 / 根因 / Test plan / 影响范围; Test plan 用 ☐ checkbox 给测试看) + 改 resolve 状态 (fixed) + 反哺判定. **不 push 不 MR** — 代码侧走 /ship-to-test 给 QA. 不调 /task-end (bug 不计工时)"><div class="node-label">/bug resolve</div><div class="node-sub">禅道 6 段 · 不 push</div></div>
+        <div class="node-html" style="left:1080px;top:30px" data-purpose="v5.3 GitLab Flow 变体 — bug resolve 完调 /ship-to-test 本地 merge 当前 fix branch 到 test + push, 给 QA 测. **不走 GitLab MR** (公司 dev 不在 GitLab 提 MR). 含 size-based review nudge (改动 ≥ 4 文件 / 50 行提示先 Slack review) + test 分支 freshness 检测 (≥ 30 commits 提示 leader reset)"><div class="node-label">/ship-to-test</div><div class="node-sub">本地 merge → test · 给 QA</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="v5.3 — QA 测过后调 /ship-to-release 本地 merge fix branch 到 release 累积发版池. release manager 每版本期把 release 提 MR 到 main (★ 唯一 GitLab MR 的地方), description 含本版本所有 feature/bug 列表 + 各 Closes #. main merge 后 release manager reset test/release 到 main 开新周期"><div class="node-label">/ship-to-release · release MR</div><div class="node-sub">QA 通过 → release 累积 → main</div></div>
         <div class="node-sp"   style="left:400px;top:130px"><span class="sp-chip">brainstorming</span><span class="sp-chip">using-git-worktrees</span></div>
         <div class="node-sp"   style="left:570px;top:130px"><span class="sp-chip">systematic-debugging</span><span class="sp-chip">test-driven-development</span></div>
         <div class="node-sp"   style="left:740px;top:130px"><span class="sp-chip">verification-before-completion</span></div>
@@ -693,8 +697,8 @@
         <div class="node-html" style="left:457px;top:30px" data-purpose="跑 hy-nexus 的 plop 模板按 FSD 七层(app/processes/pages/widgets/features/entities/shared)自动生成骨架文件"><div class="node-label">/new-feature</div><div class="node-sub">FSD 切片 + plop 生成</div></div>
         <div class="node-html" style="left:655px;top:30px" data-purpose="用 /vue-component 模板生成组件 + /unit-test 模板写单测, 实际填业务逻辑"><div class="node-label">写代码</div><div class="node-sub">/vue-component + /unit-test</div></div>
         <div class="node-html" style="left:853px;top:30px" data-purpose="commit 后 prompt: 是否要推进 (开 MR / 跑测试 / 写文档)"><div class="node-label">/commit</div><div class="node-sub">verify + 推进 prompt</div></div>
-        <div class="node-html" style="left:1052px;top:30px" data-purpose="v5.1 — feature 改完跑 /mr create --feature <slug> 提 MR. 4 mode 之一 (跟 /bug 共享 /mr create 公共子命令). description 6 段式, **差异段 = 设计决策** (为啥选这条路 / 否决方案 / 跟现有架构集成). target branch 用户 confirm 不静默. push + 创 MR + 关联 feature spec link"><div class="node-label">/mr create</div><div class="node-sub">feature mode · 设计决策段</div></div>
-        <div class="node-html" style="left:1250px;top:30px" data-purpose="reviewer 走 gitlab MCP 实时拉 diff + AI 协助按 FSD 边界 / commit 规范 / Vue 风格出 finding (verification) + reviewer 在 GitLab UI 给 review 评论 (含 Test plan checkbox 可勾). approve 后 merge 到主分支, 功能上线"><div class="node-label">MR review · merge</div><div class="node-sub">review + merge</div></div>
+        <div class="node-html" style="left:1052px;top:30px" data-purpose="v5.3 GitLab Flow 变体 — feature 改完调 /ship-to-test 本地 merge 当前 feat branch 到 test + push, 给 QA 测. **不走 GitLab MR**. 含 size review nudge + test freshness 检测"><div class="node-label">/ship-to-test</div><div class="node-sub">本地 merge → test · 给 QA</div></div>
+        <div class="node-html" style="left:1250px;top:30px" data-purpose="v5.3 — QA 测过 → /ship-to-release 累积发版池 → release manager 提 release → main MR (★ 唯一 GitLab MR), 含本版本所有 feature 列表. main merge → 上线 → reset test/release 到 main"><div class="node-label">/ship-to-release · release MR</div><div class="node-sub">QA 通过 → release → main</div></div>
         <div class="node-sp"   style="left:258px;top:130px"><span class="sp-chip">brainstorming</span><span class="sp-chip">writing-plans</span></div>
         <div class="node-sp"   style="left:457px;top:130px"><span class="sp-chip">dispatching-parallel</span><span class="sp-chip">test-driven-development</span></div>
         <div class="node-sp"   style="left:853px;top:130px"><span class="sp-chip">verification</span></div>
