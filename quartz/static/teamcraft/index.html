@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>teamcraft · v0.1 · 团队 AI 工作流</title>
+<meta name="description" content="22 skill 跨工具打磨的团队 AI 工作流体系。跟 superpowers 形成对偶 — 个人变强 vs 团队变协调。">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a10; --bg-2:#0e0f17; --surface:#13141d; --surface-2:#1a1c28;
+    --border:#262838; --border-bright:#3a3d52;
+    --text:#f3efe5; --text-soft:#cdc8b8; --text-mute:#8b8898; --text-faint:#525167;
+    --intent:#ff8e5a; --workflow:#4dd6b6; --tools:#ff6f8a;
+    --state:#6cb4ee; --memory:#b594f0; --systems:#f5c462;
+    --dot-bg:rgba(82,81,103,0.13);
+    --hl-workflow:rgba(77,214,182,0.18);
+    --serif:'Fraunces','Songti SC','STSong',serif;
+    --sans:'Geist','PingFang SC','Microsoft YaHei',sans-serif;
+    --mono:'JetBrains Mono','SF Mono','Menlo',monospace;
+  }
+  body[data-theme="light"] {
+    --bg:#faf8f1; --bg-2:#ffffff; --surface:#f3f0e6; --surface-2:#e9e5d6;
+    --border:#d4d0bf; --border-bright:#a8a294;
+    --text:#1a1a1a; --text-soft:#3d3d3d; --text-mute:#6b6b6b; --text-faint:#a09a8a;
+    --intent:#c95a25; --workflow:#1f8a6e; --tools:#b53450;
+    --state:#2370a8; --memory:#6845b0; --systems:#9a7300;
+    --dot-bg:rgba(0,0,0,0.06);
+    --hl-workflow:rgba(31,138,110,0.18);
+  }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html,body { background:var(--bg); color:var(--text); font-family:var(--sans); font-weight:400; line-height:1.6; }
+  body {
+    background-image: radial-gradient(circle at 1px 1px, var(--dot-bg) 1px, transparent 0);
+    background-size:32px 32px;
+    padding:56px 72px 96px;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  code { font-family:var(--mono); font-size:0.92em; padding:1px 5px; background:color-mix(in srgb, var(--surface-2) 60%, transparent); border-radius:3px; }
+
+  /* top-right theme toggle */
+  .theme-toggle {
+    position:fixed; top:24px; right:24px; z-index:100;
+    display:flex; align-items:center; gap:8px;
+    padding:8px 14px;
+    background:var(--surface); border:1px solid var(--border);
+    color:var(--text-soft);
+    font-family:var(--mono); font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    cursor:pointer;
+    transition:border-color 200ms ease, background 200ms ease, color 200ms ease;
+  }
+  .theme-toggle:hover { border-color:var(--border-bright); color:var(--text); }
+  .theme-toggle .icon {
+    display:inline-block; width:10px; height:10px; border-radius:50%;
+    background:var(--workflow); box-shadow:0 0 8px var(--workflow);
+  }
+  body[data-theme="light"] .theme-toggle .icon { background:var(--memory); box-shadow:0 0 8px var(--memory); }
+
+  /* top-left back to blog */
+  .back-to-blog {
+    position:fixed; top:24px; left:24px; z-index:100;
+    display:flex; align-items:center; gap:8px;
+    padding:8px 14px;
+    background:var(--surface); border:1px solid var(--border);
+    color:var(--text-soft);
+    font-family:var(--mono); font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    text-decoration:none;
+    transition:border-color 200ms ease, background 200ms ease, color 200ms ease;
+  }
+  .back-to-blog:hover { border-color:var(--border-bright); color:var(--text); }
+  .back-to-blog .arrow { display:inline-block; transition:transform 200ms ease }
+  .back-to-blog:hover .arrow { transform:translateX(-2px) }
+
+  .container { max-width:1200px; margin:0 auto; }
+
+  /* hero */
+  .hero { margin-bottom:56px; }
+  .hero-eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-mute); margin-bottom:18px; }
+  .hero-eyebrow .dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--workflow); box-shadow:0 0 14px var(--workflow); margin-right:12px; vertical-align:middle; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+  .hero h1 { font-family:var(--serif); font-size:52px; font-weight:500; line-height:1.15; letter-spacing:-0.015em; margin-bottom:18px; max-width:900px; }
+  .hero h1 em { font-style:italic; color:var(--workflow); background:linear-gradient(180deg, transparent 60%, var(--hl-workflow) 60%); }
+  .hero-sub { font-family:var(--mono); font-size:13px; line-height:1.9; color:var(--text-soft); max-width:880px; }
+  .hero-sub b { color:var(--text); font-weight:500; }
+  .hero-sub .x { color:var(--text-faint); margin:0 6px; }
+  .hero-quote {
+    margin-top:24px; padding:14px 20px;
+    border-left:2px solid var(--workflow);
+    background:color-mix(in srgb, var(--workflow) 6%, transparent);
+    font-family:var(--serif); font-style:italic;
+    font-size:15px; color:var(--text-soft);
+  }
+
+  /* section eyebrow */
+  .section-eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-faint); margin:64px 0 24px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before { content:''; flex:0 0 24px; border-top:1px dashed var(--border); }
+  .section-eyebrow.major { color:var(--workflow); font-size:12px; }
+  .section-eyebrow.major::before { border-top-color:var(--workflow); opacity:0.6; }
+
+  /* legend */
+  .legend { display:flex; gap:20px; flex-wrap:wrap; margin-bottom:24px; font-family:var(--mono); font-size:11px; color:var(--text-soft); align-items:center; }
+  .legend-item { display:flex; align-items:center; gap:8px; }
+
+  /* status chip — used in legend + cards */
+  .skill-status {
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:9.5px;
+    padding:2px 8px; letter-spacing:0.08em;
+    border-radius:999px;
+    margin-right:6px; margin-bottom:6px;
+    white-space:nowrap;
+  }
+  .skill-status::before {
+    content:''; width:6px; height:6px; border-radius:50%;
+    background:currentColor; box-shadow:0 0 6px currentColor;
+  }
+  .skill-status[data-status="stable-multi"] { color:var(--workflow); border:1px solid color-mix(in srgb, var(--workflow) 55%, transparent); background:color-mix(in srgb, var(--workflow) 8%, transparent); }
+  .skill-status[data-status="stable-cc"] { color:var(--systems); border:1px solid color-mix(in srgb, var(--systems) 55%, transparent); background:color-mix(in srgb, var(--systems) 8%, transparent); }
+  .skill-status[data-status="business-internal"] { color:var(--intent); border:1px solid color-mix(in srgb, var(--intent) 55%, transparent); background:color-mix(in srgb, var(--intent) 8%, transparent); }
+  .skill-status[data-status="requires"] { color:var(--state); border:1px solid color-mix(in srgb, var(--state) 55%, transparent); background:color-mix(in srgb, var(--state) 8%, transparent); }
+
+  /* host capability matrix */
+  .host-matrix {
+    display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr;
+    background:var(--surface); border:1px solid var(--border);
+    margin-bottom:24px;
+  }
+  .host-matrix > div { padding:13px 18px; border-bottom:1px solid var(--border); font-size:12.5px; color:var(--text-soft); }
+  .host-matrix > div:nth-last-child(-n+4) { border-bottom:none; }
+  .host-matrix .header { font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text); background:var(--surface-2); font-weight:500; }
+  .host-matrix .ok { color:var(--workflow); }
+  .host-matrix .partial { color:var(--systems); }
+  .host-matrix .no { color:var(--text-faint); }
+
+  /* skill card grid */
+  .tier-grid {
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;
+    margin-bottom:8px;
+  }
+  .tier-grid.cols-3 { grid-template-columns:repeat(3, 1fr); }
+  .tier-grid.cols-2 { grid-template-columns:repeat(2, 1fr); max-width:580px; }
+
+  .skill-card {
+    background:var(--surface); border:1px solid var(--border);
+    padding:18px 20px 16px;
+    display:flex; flex-direction:column;
+    transition:border-color 200ms ease, background 200ms ease, transform 200ms ease;
+  }
+  .skill-card:hover { background:var(--surface-2); border-color:var(--border-bright); transform:translateY(-1px); }
+  .skill-card[data-tier="1"] { border-left:2px solid var(--workflow); }
+  .skill-card[data-tier="2"] { border-left:2px solid var(--state); }
+  .skill-card[data-tier="3"] { border-left:2px solid var(--intent); }
+
+  .skill-name {
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    color:var(--text); margin-bottom:10px; letter-spacing:-0.005em;
+  }
+  .skill-statuses { display:flex; flex-wrap:wrap; margin-bottom:10px; }
+  .skill-desc { font-size:12px; color:var(--text-soft); line-height:1.6; margin-bottom:14px; flex:1; }
+
+  .skill-meta {
+    font-family:var(--mono); font-size:10px;
+    color:var(--text-mute);
+    padding-top:10px;
+    border-top:1px dashed var(--border);
+    line-height:1.65;
+  }
+  .skill-meta b { color:var(--text-soft); font-weight:500; }
+  .skill-adapters { display:flex; gap:5px; margin-top:8px; flex-wrap:wrap; }
+  .adapter-chip {
+    font-family:var(--mono); font-size:9.5px;
+    padding:2px 7px;
+    border:1px solid var(--border);
+    border-radius:3px;
+    color:var(--text-faint);
+    letter-spacing:0.02em;
+  }
+  .adapter-chip[data-state="ok"] { color:var(--workflow); border-color:color-mix(in srgb, var(--workflow) 45%, transparent); background:color-mix(in srgb, var(--workflow) 8%, transparent); }
+  .adapter-chip[data-state="partial"] { color:var(--systems); border-color:color-mix(in srgb, var(--systems) 45%, transparent); }
+  .adapter-chip[data-state="no"] { opacity:0.4; }
+
+  /* sub-group label within tier 3 */
+  .sub-group {
+    font-family:var(--mono); font-size:10px;
+    letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--text-faint);
+    margin:28px 0 14px; padding:6px 0 6px 14px;
+    border-left:2px solid var(--border-bright);
+  }
+  .sub-group .count { color:var(--text-mute); margin-left:6px; }
+
+  /* tier 4 not included list */
+  .tier-4-list {
+    background:var(--surface); border:1px solid var(--border);
+    padding:8px 28px;
+    margin-bottom:12px;
+  }
+  .tier-4-row {
+    display:grid; grid-template-columns:280px 1fr; gap:24px;
+    padding:14px 0;
+    border-bottom:1px dashed var(--border);
+    font-size:12.5px; color:var(--text-soft); line-height:1.6;
+  }
+  .tier-4-row:last-child { border-bottom:none; }
+  .tier-4-skill {
+    font-family:var(--mono); color:var(--text-faint);
+    font-size:11.5px;
+    word-break:keep-all;
+  }
+
+  /* footer */
+  .footer {
+    padding-top:48px;
+    border-top:1px dashed var(--border);
+    margin-top:72px;
+    font-family:var(--mono); font-size:11.5px;
+    color:var(--text-mute); line-height:1.85;
+  }
+  .footer-block { margin-bottom:16px; }
+  .footer-row { display:flex; align-items:baseline; gap:10px; }
+  .footer-row .arrow { color:var(--workflow); flex-shrink:0; }
+  .footer a { color:var(--workflow); text-decoration:none; border-bottom:1px dashed color-mix(in srgb, var(--workflow) 50%, transparent); transition:color 150ms ease, border-color 150ms ease; }
+  .footer a:hover { color:var(--text); border-bottom-color:currentColor; }
+  .footer-tagline {
+    font-family:var(--serif); font-style:italic;
+    font-size:14px; color:var(--text-soft);
+    margin-top:24px;
+  }
+
+  /* responsive */
+  @media (max-width: 1100px) {
+    body { padding:48px 32px 80px; }
+    .tier-grid { grid-template-columns:repeat(2, 1fr); }
+    .tier-grid.cols-3, .tier-grid.cols-2 { grid-template-columns:repeat(2, 1fr); max-width:none; }
+    .host-matrix { grid-template-columns:1.4fr 1fr 1fr 1fr; }
+    .hero h1 { font-size:40px; }
+  }
+  @media (max-width: 680px) {
+    body { padding:80px 20px 64px; }
+    .tier-grid, .tier-grid.cols-3, .tier-grid.cols-2 { grid-template-columns:1fr; }
+    .host-matrix { display:block; }
+    .host-matrix > div { border-bottom:1px solid var(--border); }
+    .tier-4-row { grid-template-columns:1fr; gap:6px; }
+    .hero h1 { font-size:32px; }
+    .theme-toggle, .back-to-blog { top:12px; }
+    .theme-toggle { right:12px; padding:6px 10px; }
+    .back-to-blog { left:12px; padding:6px 10px; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<a class="back-to-blog" href="/">
+  <span class="arrow">←</span>
+  <span>CassandraCat</span>
+</a>
+
+<button class="theme-toggle" onclick="document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark'">
+  <span class="icon"></span>
+  <span>Theme</span>
+</button>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow"><span class="dot"></span>TEAMCRAFT · v0.1 · 2026-05-28</div>
+    <h1>团队 AI 工作流 — <em>跨工具打磨的手艺</em>，不是单点工具堆。</h1>
+    <p class="hero-sub">
+      跟 <b>superpowers</b> 形成对偶：<b>superpowers</b> 是「<b>一个人怎么变强</b>」<span class="x">×</span><b>teamcraft</b> 是「<b>一群人怎么变协调</b>」。
+      <br><br>
+      Core 规范单源维护 — <b>工具无关 source</b> 抽到 <code>skills/&lt;skill&gt;/source.md</code>，每个 host (Claude Code · Cursor · Codex) 一份薄壳 adapter 派生。改规范改单源，adapter 自动跟随。
+    </p>
+    <div class="hero-quote">
+      "craft" 不是 "force" — 不装备武器，<b>打磨一套手艺让大家共同用顺</b>。
+    </div>
+  </section>
+
+  <!-- LEGEND -->
+  <div class="section-eyebrow">Status Legend</div>
+  <div class="legend">
+    <span class="legend-item"><span class="skill-status" data-status="stable-multi">stable-multi</span><span>source + 多 host adapter 都做了</span></span>
+    <span class="legend-item"><span class="skill-status" data-status="stable-cc">stable-cc</span><span>CC 完整，跨 host 计划中</span></span>
+    <span class="legend-item"><span class="skill-status" data-status="business-internal">business-internal</span><span>慧远业务私有</span></span>
+    <span class="legend-item"><span class="skill-status" data-status="requires">requires-X</span><span>需特定环境</span></span>
+  </div>
+
+  <!-- HOST CAPABILITY MATRIX -->
+  <div class="section-eyebrow">3 Host 能力差异 — 决定哪些 skill 能跨工具推</div>
+  <div class="host-matrix">
+    <div class="header">能力</div>
+    <div class="header">Claude Code</div>
+    <div class="header">Cursor</div>
+    <div class="header">Codex (Copilot)</div>
+
+    <div>文本生成 (commit message 等)</div>
+    <div class="ok">✅</div>
+    <div class="ok">✅</div>
+    <div class="ok">✅</div>
+
+    <div>MCP 集成 (zentao / gitlab / lark)</div>
+    <div class="ok">✅</div>
+    <div class="ok">✅</div>
+    <div class="no">❌ 走 Copilot 自己的 tool API</div>
+
+    <div>Slash command / Rules</div>
+    <div class="ok">✅ slash</div>
+    <div class="ok">✅ rules (<code>.mdc</code>)</div>
+    <div class="partial">⚠️ instructions 仓库级</div>
+
+    <div>Agent 自动化</div>
+    <div class="ok">✅</div>
+    <div class="ok">✅</div>
+    <div class="partial">⚠️ chat-only</div>
+  </div>
+
+  <!-- TIER 1 -->
+  <div class="section-eyebrow major">❶ Tier 1 · 跨工具通用 — 团队直接受益 (4)</div>
+  <div class="tier-grid">
+    <div class="skill-card" data-tier="1">
+      <div class="skill-name">/commit</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="stable-multi">stable-multi v0</span></div>
+      <div class="skill-desc">commit message 规范 + AI 署名。type/scope + 中文 description，HEREDOC 提交防转义。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: 零 (零 MCP)
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="ok">Cursor ✅</span>
+          <span class="adapter-chip" data-state="partial">Codex ⚠️</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-card" data-tier="1">
+      <div class="skill-name">/bug</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="stable-cc">stable-cc</span></div>
+      <div class="skill-desc">禅道 bug 闭环 list/start/resolve。6 段评论模板（摘要 / commit / 改动 / 根因 / Test plan / 影响范围）。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: Zentao MCP + GitLab MCP
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="no">Cursor</span>
+          <span class="adapter-chip" data-state="partial">Codex ⚠️</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-card" data-tier="1">
+      <div class="skill-name">/mr</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="stable-cc">stable-cc</span></div>
+      <div class="skill-desc">GitLab MR list / review / status。AI review 5 类 finding（🔴 阻塞 / 🟡 建议 / 🟢 nice / ✅ 做得好）。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: GitLab MCP
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="no">Cursor</span>
+          <span class="adapter-chip" data-state="partial">Codex ⚠️</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-card" data-tier="1">
+      <div class="skill-name">/ship-to &lt;target&gt;</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="stable-cc">stable-cc v5.4</span></div>
+      <div class="skill-desc">本地 merge 到目标分支（test / release / 自定义）。合并前必拉最新。GitLab Flow 变体，不走 GitLab MR。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: git workflow = GitLab Flow 变体
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="no">Cursor</span>
+          <span class="adapter-chip" data-state="no">Codex</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 2 -->
+  <div class="section-eyebrow major">❷ Tier 2 · Wiki 体系 — 需 Obsidian + lark-cli 前置 (4)</div>
+  <div class="tier-grid">
+    <div class="skill-card" data-tier="2">
+      <div class="skill-name">/ingest</div>
+      <div class="skill-statuses">
+        <span class="skill-status" data-status="stable-cc">stable-cc</span>
+        <span class="skill-status" data-status="requires">requires-obsidian</span>
+      </div>
+      <div class="skill-desc">source → 5-15 Wiki 页拆解 + log entry。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: Obsidian + Wiki schema
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="partial">Cursor ⚠️</span>
+          <span class="adapter-chip" data-state="no">Codex</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-card" data-tier="2">
+      <div class="skill-name">/distill</div>
+      <div class="skill-statuses">
+        <span class="skill-status" data-status="stable-cc">stable-cc</span>
+        <span class="skill-status" data-status="requires">requires-obsidian</span>
+      </div>
+      <div class="skill-desc">多 ingest 蒸馏 Topic / Pattern（≥3 同模式触发）。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: + 累积 ingest 历史
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="partial">Cursor ⚠️</span>
+          <span class="adapter-chip" data-state="no">Codex</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-card" data-tier="2">
+      <div class="skill-name">/promote</div>
+      <div class="skill-statuses">
+        <span class="skill-status" data-status="stable-cc">stable-cc</span>
+        <span class="skill-status" data-status="requires">requires-lark-cli</span>
+      </div>
+      <div class="skill-desc">Wiki visibility=team/public → 飞书部门库 / Bitable。按 feedback_type 路由。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: lark-cli + 飞书 access
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="partial">Cursor ⚠️</span>
+          <span class="adapter-chip" data-state="no">Codex</span>
+        </div>
+      </div>
+    </div>
+    <div class="skill-card" data-tier="2">
+      <div class="skill-name">/query</div>
+      <div class="skill-statuses">
+        <span class="skill-status" data-status="stable-cc">stable-cc</span>
+        <span class="skill-status" data-status="requires">requires-obsidian</span>
+      </div>
+      <div class="skill-desc">Wiki + MCP 混合查询，替代旧 /sparks /cross /trace。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: Obsidian + 累积 Wiki
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="partial">Cursor ⚠️</span>
+          <span class="adapter-chip" data-state="no">Codex</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 3 -->
+  <div class="section-eyebrow major">❸ Tier 3 · 业务内部 — 慧远研发部内 (14)</div>
+
+  <div class="sub-group">飞书任务 lifecycle <span class="count">(6)</span></div>
+  <div class="tier-grid cols-3">
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-start</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">开始飞书任务的计时追踪。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-end</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">结束当前 worktree 任务 + 耗时 / 成本报告。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-pause</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">暂停当前 worktree 正在进行的任务。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-resume</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">恢复当前 worktree 已暂停的任务。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-block</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">标阻塞 + 同步飞书。让 leader 一眼看到谁卡住。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-cancel</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">取消当前 worktree 任务（不计入统计）。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+  </div>
+
+  <div class="sub-group">任务查询 / 管理 <span class="count">(4)</span></div>
+  <div class="tier-grid">
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-list</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">列项目所有进行中 / 暂停（团队全员）。leader 用频率高。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-dashboard</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">打开 AI 效能看板可视化。强关联 ai-infra-local Phase 2 telemetry。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 看板配置</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-summary</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">按周 / 月汇总团队效能数据。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/task-lifecycle</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">task-* 6 命令生命周期速查表（start/pause/resume/block/end/cancel）。</div>
+      <div class="skill-meta"><b>Deps</b>: lark-cli + 飞书任务系统</div>
+    </div>
+  </div>
+
+  <div class="sub-group">工时 <span class="count">(2)</span></div>
+  <div class="tier-grid cols-2">
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/workhour-sync</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">工时数据同步到慧远项目统计表。</div>
+      <div class="skill-meta"><b>Deps</b>: 慧远项目统计表（飞书 Bitable）</div>
+    </div>
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/workhour-report</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">指定月份的研发中心工时交叉表。leader 月度跑。</div>
+      <div class="skill-meta"><b>Deps</b>: 慧远项目统计表（飞书 Bitable）</div>
+    </div>
+  </div>
+
+  <div class="sub-group">项目迭代 <span class="count">(1)</span></div>
+  <div class="tier-grid cols-2">
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/split-tasks</div>
+      <div class="skill-statuses"><span class="skill-status" data-status="business-internal">business-internal</span></div>
+      <div class="skill-desc">月度版本迭代任务批量拆分（FE / BE + BE→FE 依赖排期）。月度跑。</div>
+      <div class="skill-meta"><b>Deps</b>: 慧远产品需求表 + 排期总表</div>
+    </div>
+  </div>
+
+  <div class="sub-group">报告 <span class="count">(1)</span></div>
+  <div class="tier-grid cols-2">
+    <div class="skill-card" data-tier="3">
+      <div class="skill-name">/weekly-report</div>
+      <div class="skill-statuses">
+        <span class="skill-status" data-status="stable-cc">stable-cc</span>
+        <span class="skill-status" data-status="requires">requires-obsidian</span>
+      </div>
+      <div class="skill-desc">ISO 周周报草稿 → Obsidian (个人输出，可改团队版输出到飞书周报模板)。</div>
+      <div class="skill-meta">
+        <b>Deps</b>: Obsidian (个人); lark-doc MCP (团队版未来)
+        <div class="skill-adapters">
+          <span class="adapter-chip" data-state="ok">CC ✅</span>
+          <span class="adapter-chip" data-state="partial">Cursor ⚠️</span>
+          <span class="adapter-chip" data-state="no">Codex</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIER 4 NOT INCLUDED -->
+  <div class="section-eyebrow">Tier 4 · 不入 teamcraft — 留 <code>~/.claude/commands/</code> 个人用 (14)</div>
+  <div class="tier-4-list">
+    <div class="tier-4-row">
+      <span class="tier-4-skill">resume · wrap-up · compress · preserve · note</span>
+      <span>个人 daily 工作流强耦合 — 起会话 / 收尾 / 压缩对话 / 记 CLAUDE.md 等运行时动作</span>
+    </div>
+    <div class="tier-4-row">
+      <span class="tier-4-skill">sparks · cross · trace</span>
+      <span>Wiki 私人探索（已被 /query 替代）— 查灵感 / 跨页关联 / 主题演变</span>
+    </div>
+    <div class="tier-4-row">
+      <span class="tier-4-skill">study</span>
+      <span>三线学习路线打卡（AI / CG / Algo）— 个人成长路径，跟同事无关</span>
+    </div>
+    <div class="tier-4-row">
+      <span class="tier-4-skill">publish</span>
+      <span>推送 Wiki/Posts/Drafts → cassandracat.github.io 个人博客</span>
+    </div>
+    <div class="tier-4-row">
+      <span class="tier-4-skill">todo · todo-done</span>
+      <span>Daily Note 个人 todo 同步</span>
+    </div>
+    <div class="tier-4-row">
+      <span class="tier-4-skill">lint</span>
+      <span>Wiki 健康检查（孤儿 / 矛盾 / 过时）— 私人维护动作</span>
+    </div>
+    <div class="tier-4-row">
+      <span class="tier-4-skill">share</span>
+      <span>DEPRECATED — 已替代为 /promote</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-block">
+      <div class="footer-row"><span class="arrow">↗</span><span><b>v0.1</b> · 2026-05-28 · 22 skill 骨架建立，<code>/commit</code> 完整 v0，21 个 status 占位</span></div>
+      <div class="footer-row"><span class="arrow">↗</span><span>v0.2 (计划)：<code>/bug</code> 跨工具 v0（Cursor + Codex 降级版），启动条件 = 种子用户 <code>/commit</code> 跑顺 ≥ 2 周 + ai-infra-local Phase 2 telemetry 接入</span></div>
+      <div class="footer-row"><span class="arrow">↗</span><span>v1.0 (计划)：Tier 1 四个 skill 跨工具全做完，GitLab 公开 push 第一波推广</span></div>
+    </div>
+    <div class="footer-block">
+      <div class="footer-row"><span class="arrow">→</span><span>想看作者完整 AI 体系（含 14 个 Tier 4 个人 skill + 三方向 + 6 要素 + 14 superpowers + 4 反哺 FB flow）：<a href="/posts/ai/ai-business-map">业务地图</a></span></div>
+      <div class="footer-row"><span class="arrow">→</span><span>体系参考的个人 AI 工作流框架：<a href="https://github.com/anthropics/skills">anthropics/skills (superpowers)</a></span></div>
+    </div>
+    <div class="footer-tagline">"craft" — 打磨的手艺，不是装备的武器。</div>
+  </div>
+
+</div>
+</body>
+</html>
